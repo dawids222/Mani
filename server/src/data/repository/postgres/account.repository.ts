@@ -15,10 +15,10 @@ export class AccountRepository implements IAccountRepository {
                 ELSE t.value
             END), 0) AS balance,
             a.income, a.update_day AS "updateDay"
-            from accounts a LEFT JOIN transactions t
+            FROM accounts a LEFT JOIN transactions t
             ON (t.account_id = a.id OR t.account_target_id = a.id)
             WHERE a.user_id = ${userId}
-            GROUP BY a.id;`
-        ).then(x => x.rows);
+            GROUP BY a.id;
+        `).then(x => x.rows);
     }
 }
