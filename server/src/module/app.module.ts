@@ -13,7 +13,7 @@ import { UserModule } from './user.module';
   controllers: [AppController],
   providers: [
     AppService,
-    JwtTokenStrategy
+    JwtTokenStrategy,
   ],
 })
 export class AppModule { }
