@@ -22,17 +22,23 @@ export class UserRepository implements IUserRepository {
 
     public register(data: Register): Promise<User> {
         const hash = this.hasher.hash(data.password);
-        return postgres.query(`
-            INSERT INTO users 
-            VALUES (default, '${data.email}', '${hash}', ${UserType.USER});
-        `).then(() => this.getUserByEmail(data.email));
+        return postgres
+            .query(`
+                INSERT INTO users 
+                VALUES (default, $1, $2, $3)
+                RETURNING id, email, type;
+            `, [data.email, hash, UserType.USER])
+            .catch(x => null)
+            .then((x) => x ? x.rows[0] : null);
     }
 
     private getUserByEmail(email: string): Promise<User> {
-        return postgres.query(`
-        SELECT id, email, password, type
-            FROM users 
-            WHERE email = '${email}';
-        `).then(x => x.rowCount > 0 ? x.rows[0] : null);
+        return postgres
+            .query(`
+                SELECT id, email, password, type
+                FROM users 
+                WHERE email = $1;
+            `, [email])
+            .then(x => x.rowCount > 0 ? x.rows[0] : null);
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from "@nestjs/common";
+import { Body, ConflictException, Controller, Inject, Post, UnauthorizedException } from "@nestjs/common";
 import { Login } from "src/business/entity/user/login.entity";
 import { Register } from "src/business/entity/user/register.entity";
 import { IUserRepository } from "src/data/repository/contract/user.repository";
@@ -16,14 +16,15 @@ export class UserController {
     @Post('login')
     async login(@Body() body: Login) {
         const user = await this.userRepository.login(body);
-        if (!user) { return 401; }
+        if (!user) { throw new UnauthorizedException() }
         const token = this.tokenGenerator.generate(user);
         return { token }
     }
 
     @Post('register')
     async register(@Body() body: Register) {
-        const user = this.userRepository.register(body);
+        const user = await this.userRepository.register(body);
+        if (!user) { throw new ConflictException(); }
         return user;
     }
 }
