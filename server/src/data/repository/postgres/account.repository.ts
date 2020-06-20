@@ -1,9 +1,7 @@
-import { Injectable } from "@nestjs/common";
 import { Account } from "src/business/entity/account/account.entity";
 import { postgres } from "src/data/context/postgres.context";
 import { IAccountRepository } from "../contract/account.repository";
 
-@Injectable()
 export class AccountRepository implements IAccountRepository {
 
     public getAccountsByUserId(userId: number): Promise<Account[]> {

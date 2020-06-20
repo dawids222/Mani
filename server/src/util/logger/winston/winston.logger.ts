@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
 import * as winston from 'winston';
 import { ILogger } from "../contract/logger";
 
-@Injectable()
 export class WinstonLogger implements ILogger {
 
     private readonly logger = winston.createLogger({
