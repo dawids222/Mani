@@ -7,6 +7,13 @@ export class WinstonLogger implements ILogger {
         format: winston.format.combine(
             winston.format.timestamp({ format: 'DD-MM-YYYY HH:mm:ss' }),
             winston.format.json(),
+            winston.format.printf((info) => {
+                return JSON.stringify({
+                    timestamp: info.timestamp,
+                    level: info.level,
+                    message: info.message
+                })
+            }),
         ),
         transports: [
             new winston.transports.File({ filename: 'logs.log' }),
