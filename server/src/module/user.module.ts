@@ -4,6 +4,7 @@ import { UserController } from "src/controller/user.controller";
 import { UserRepository } from "src/data/repository/postgres/user.repository";
 import { Bcrypt } from "src/security/hasher/bcrypt/bcrypt";
 import { JwtTokenGenerator } from "src/security/token/passport/jwt.token.generator";
+import { LoginValidator } from "src/validation/validator/login.validator";
 import { BaseModule } from "./base.module";
 
 @Module({
@@ -23,6 +24,9 @@ import { BaseModule } from "./base.module";
     }, {
         provide: 'ITokenGenerator',
         useClass: JwtTokenGenerator,
+    }, {
+        provide: 'ILoginValidator',
+        useClass: LoginValidator,
     }],
 })
 export class UserModule { }
