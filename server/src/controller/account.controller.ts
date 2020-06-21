@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put, Request, UseGuards } from "@nestjs/common";
+import { Body, ConflictException, Controller, Delete, Get, HttpCode, Inject, Param, Post, Put, Request, UseGuards } from "@nestjs/common";
 import { Account } from "src/business/entity/account/account.entity";
 import { UserPayload } from "src/business/entity/user/user.payload.entity";
 import { IAccountRepository } from "src/data/repository/contract/account.repository";
@@ -14,26 +14,36 @@ export class AccountController {
     ) { }
 
     @Get()
-    getAccounts(@Request() request) {
+    async getAccounts(@Request() request) {
         const user: UserPayload = request.user;
         return this.accountRepository.getByUserId(user.id);
     }
 
     @Post()
-    createAccount(@Request() request, @Body() account: Account) {
+    async createAccount(@Request() request, @Body() account: Account) {
         const user: UserPayload = request.user;
         return this.accountRepository.create(account, user.id);
     }
 
     @Put()
-    editAccount(@Request() request, @Body() account: Account) {
+    async editAccount(@Request() request, @Body() account: Account) {
         const user: UserPayload = request.user;
+        const haveRaltion = await this.haveRelation(user.id, account.id);
+        if (!haveRaltion) { throw new ConflictException(); }
         return this.accountRepository.edit(account);
     }
 
+    @HttpCode(204)
     @Delete(':id')
-    deleteAccount(@Request() request, @Param('id') id: number) {
+    async deleteAccount(@Request() request, @Param('id') accountId: number) {
         const user: UserPayload = request.user;
-        return this.accountRepository.delete(id);
+        const haveRaltion = await this.haveRelation(user.id, accountId);
+        if (!haveRaltion) { throw new ConflictException(); }
+        this.accountRepository.delete(accountId);
+    }
+
+    private async haveRelation(userId: number, accountId: number): Promise<boolean> {
+        const accounts = await this.accountRepository.getByUserId(userId);
+        return accounts.some(account => account.id === accountId);
     }
 }
