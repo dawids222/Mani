@@ -10,7 +10,7 @@ import { IUserRepository } from "../contract/user.repository";
 export class UserRepository implements IUserRepository {
     constructor(@Inject('IHasher') private readonly hasher: IHasher) { }
 
-    public login(data: Login): Promise<User> {
+    public async login(data: Login): Promise<User> {
         return this
             .getUserByEmail(data.email)
             .then(user => {
@@ -20,7 +20,7 @@ export class UserRepository implements IUserRepository {
             });
     }
 
-    public register(data: Register): Promise<User> {
+    public async register(data: Register): Promise<User> {
         const hash = this.hasher.hash(data.password);
         return postgres
             .query(`
@@ -32,7 +32,7 @@ export class UserRepository implements IUserRepository {
             .then((x) => x ? x.rows[0] : null);
     }
 
-    private getUserByEmail(email: string): Promise<User> {
+    private async getUserByEmail(email: string): Promise<User> {
         return postgres
             .query(`
                 SELECT id, email, password, type
