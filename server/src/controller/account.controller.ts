@@ -35,8 +35,8 @@ export class AccountController {
         const validationResult = this.idAccountValidator.validate(account);
         if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user: UserPayload = request.user;
-        const haveRaltion = await this.haveRelation(user.id, account.id);
-        if (!haveRaltion) { throw new ConflictException(); }
+        const haveRalation = await this.haveRelation(user.id, account.id);
+        if (!haveRalation) { throw new ConflictException(); }
         return this.accountRepository.edit(account);
     }
 
@@ -51,6 +51,6 @@ export class AccountController {
 
     private async haveRelation(userId: number, accountId: number): Promise<boolean> {
         const accounts = await this.accountRepository.getByUserId(userId);
-        return accounts.some(account => account.id === accountId);
+        return accounts.some(account => account.id == accountId);
     }
 }

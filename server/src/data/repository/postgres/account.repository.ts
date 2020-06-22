@@ -8,9 +8,9 @@ export class AccountRepository implements IAccountRepository {
         return postgres
             .query(`
                 INSERT INTO accounts
-                VALUES (default, $1, $2, $3, $4)
-                RETURNING id, name, income, update_day AS "updateDay";
-            `, [account.name, account.income, account.updateDay, userId])
+                VALUES (default, $1, $2, $3)
+                RETURNING id, name, description;
+            `, [account.name, account.description, userId])
             .then(x => {
                 const result = x.rows[0];
                 result.balance = 0;
@@ -22,10 +22,9 @@ export class AccountRepository implements IAccountRepository {
         await postgres.query(`
             UPDATE accounts SET 
             name = $1, 
-            income = $2, 
-            update_day = $3
-            WHERE id = $4;
-        `, [account.name, account.income, account.updateDay, account.id]);
+            description = $2
+            WHERE id = $3;
+        `, [account.name, account.description, account.id]);
         return await this.getByAccountId(account.id);
     }
 
@@ -68,7 +67,7 @@ export class AccountRepository implements IAccountRepository {
                     THEN -t.value
                     ELSE t.value
                 END), 0) AS balance,
-                a.income, a.update_day AS "updateDay"
+                a.description
                 FROM accounts a LEFT JOIN transactions t
                 ON (t.account_id = a.id OR t.account_target_id = a.id)
                 WHERE a.${property} = $1

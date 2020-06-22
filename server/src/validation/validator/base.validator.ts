@@ -20,7 +20,7 @@ export abstract class BaseValidator<T> implements IValidator<T> {
     protected abstract handleValidation(data: T): void;
 
     protected email(prop: string): boolean {
-        return this.test(prop, x => this.validator.isEmail(x), 'has to be a correct email address');
+        return this.test(prop, x => this.validator.isEmail(String(x)), 'has to be a correct email address');
     }
 
     protected exists(prop: string): boolean {
@@ -36,11 +36,11 @@ export abstract class BaseValidator<T> implements IValidator<T> {
     }
 
     protected number(prop: string): boolean {
-        return this.test(prop, x => this.validator.isNumeric(x), 'has to be a number');
+        return this.test(prop, x => this.validator.isNumeric(String(x)), 'has to be a number');
     }
 
     protected notEmpty(prop: string): boolean {
-        return this.test(prop, x => !this.validator.isEmpty(x), 'can not be empty');
+        return this.test(prop, x => !this.validator.isEmpty(String(x)), 'can not be empty');
     }
 
     protected greaterOrEqual(prop: string, threshold: number): boolean {
@@ -86,7 +86,7 @@ export abstract class BaseValidator<T> implements IValidator<T> {
     }
 
     protected test(prop: string, res: (value: string) => boolean, error: string): boolean {
-        const value = String(this.data[prop]);
+        const value = this.data[prop];
         const isValid = res(value);
         if (!isValid && error) { this.errors.push(`${prop} -> ${error}`) }
         return isValid;
