@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { UserController } from "src/controller/user.controller";
+import { SettingRepository } from "src/data/repository/postgres/setting.repository";
 import { UserRepository } from "src/data/repository/postgres/user.repository";
 import { Bcrypt } from "src/security/hasher/bcrypt/bcrypt";
 import { JwtTokenGenerator } from "src/security/token/passport/jwt.token.generator";
@@ -31,6 +32,9 @@ import { BaseModule } from "./base.module";
     }, {
         provide: 'IRegisterValidator',
         useClass: RegisterValidator,
+    }, {
+        provide: 'ISettingRepository',
+        useClass: SettingRepository,
     }],
 })
 export class UserModule { }
