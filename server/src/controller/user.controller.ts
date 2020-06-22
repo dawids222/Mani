@@ -12,6 +12,7 @@ export class UserController {
         @Inject('IUserRepository') private readonly userRepository: IUserRepository,
         @Inject('ITokenGenerator') private readonly tokenGenerator: ITokenGenerator,
         @Inject('ILoginValidator') private readonly loginValidator: IValidator<Login>,
+        @Inject('IRegisterValidator') private readonly registerValidator: IValidator<Register>,
         @Inject('ILogger') private readonly logger: ILogger,
     ) { }
 
@@ -27,6 +28,8 @@ export class UserController {
 
     @Post('register')
     async register(@Body() body: Register) {
+        const validationResult = this.registerValidator.validate(body);
+        if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user = await this.userRepository.register(body);
         if (!user) { throw new ConflictException(); }
         return user;

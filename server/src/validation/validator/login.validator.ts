@@ -10,10 +10,7 @@ export class LoginValidator extends BaseValidator<Login> {
             this.email(email);
         }
         if (this.existsAndNotNull(password)) {
-            this.minLength(password, 4);
-            this.maxLength(password, 20);
-            this.noWhitespaces(password);
-            this.noPasswordRestrictedCharacters(password);
+            this.password(password);
         }
     }
 }

@@ -82,7 +82,19 @@ export abstract class BaseValidator<T> implements IValidator<T> {
                 }
             }
             return true;
-        }, `can not contains any of those symbols ${this.passwordRestrictedCharacters}`);
+        }, `can not contain any of those symbols ${this.passwordRestrictedCharacters}`);
+    }
+
+    protected password(prop: string) {
+        this.minLength(prop, 4);
+        this.maxLength(prop, 20);
+        this.noWhitespaces(prop);
+        this.noPasswordRestrictedCharacters(prop);
+    }
+
+    protected match(prop: string, parent: string) {
+        const value = this.data[parent];
+        return this.test(prop, x => x === value, `does not match ${parent}`);
     }
 
     protected test(prop: string, res: (value: string) => boolean, error: string): boolean {
