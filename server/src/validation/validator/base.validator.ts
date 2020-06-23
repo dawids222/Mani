@@ -97,6 +97,10 @@ export abstract class BaseValidator<T> implements IValidator<T> {
         return this.test(prop, x => x === value, `does not match ${parent}`);
     }
 
+    protected colorHex(prop: string): boolean {
+        return this.test(prop, x => /^#[0-9A-F]{6}$/i.test(String(x)), 'is not valid hex color');
+    }
+
     protected test(prop: string, res: (value: string) => boolean, error: string): boolean {
         const value = this.data[prop];
         const isValid = res(value);

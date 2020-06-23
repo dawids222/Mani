@@ -3,6 +3,7 @@ import { AppController } from '../controller/app.controller';
 import { JwtTokenStrategy } from '../security/token/passport/jwt.token.strategy';
 import { AppService } from '../service/app.service';
 import { AccountModule } from './account.module';
+import { CategoryModule } from './category.module';
 import { SettingModule } from './setting.module';
 import { UserModule } from './user.module';
 
@@ -11,8 +12,11 @@ import { UserModule } from './user.module';
     AccountModule,
     UserModule,
     SettingModule,
+    CategoryModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController,
+  ],
   providers: [
     AppService,
     JwtTokenStrategy,
