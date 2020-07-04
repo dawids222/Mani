@@ -4,5 +4,6 @@ export class Category {
         public name: string,
         public logo: string,
         public color: string,
+        public subcategories: Category[] = [],
     ) { }
 }

@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { CategoryController } from "src/controller/category.controller";
+import { CategoryAdapter } from "src/data/adapter/category/category.adapter";
 import { CategoryRepository } from "src/data/repository/postgres/category.repository";
-import { CategoryValidator } from "src/validation/validator/category.validator";
-import { IdCategoryValidator } from "src/validation/validator/id.category.validator";
+import { CategoryPlainValidator } from "src/validation/validator/category.plain.validator";
 import { BaseModule } from "./base.module";
 
 @Module({
@@ -16,11 +16,11 @@ import { BaseModule } from "./base.module";
         provide: 'ICategoryRepository',
         useClass: CategoryRepository,
     }, {
-        provide: 'ICategoryValidator',
-        useClass: CategoryValidator,
+        provide: 'ICategoryPlainValidator',
+        useClass: CategoryPlainValidator,
     }, {
-        provide: 'IIdCategoryValidator',
-        useClass: IdCategoryValidator,
+        provide: 'ICategoryAdapter',
+        useClass: CategoryAdapter,
     }],
 })
 export class CategoryModule { }
