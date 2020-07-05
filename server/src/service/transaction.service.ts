@@ -26,8 +26,8 @@ export class TransactionService implements ITransactionRepository {
         return this.transactionRepository.delete(transactionId);
     }
 
-    public async get(query: TransactionQuery): Promise<Transaction[]> {
-        const transactions = await this.transactionRepository.get(query) as any[];
+    public async get(userId: number, query: TransactionQuery): Promise<Transaction[]> {
+        const transactions = await this.transactionRepository.get(userId, query) as any[];
         const accountIds = transactions.map(x => x.accountId);
         const accounts = await this.accountRepository.getByAccountIds(accountIds);
         const categoryIds = transactions

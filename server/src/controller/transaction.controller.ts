@@ -23,7 +23,7 @@ export class TransactionController {
         const validationResult = this.transactrionQueryValidator.validate(query);
         if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user: UserPayload = request.user;
-        return this.transactionRepository.get(query);
+        return this.transactionRepository.get(user.id, query);
     }
 
     @Post()

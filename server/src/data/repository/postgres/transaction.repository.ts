@@ -48,14 +48,18 @@ export class TransactionRepository implements ITransactionRepository {
             .then(x => { });
     }
 
-    public async get(query: TransactionQuery): Promise<Transaction[]> {
+    public async get(userId: number, query: TransactionQuery): Promise<Transaction[]> {
         return postgres
             .query(`
-                SELECT id, name, type, value, date, account_id AS "accountId",
-                account_target_id AS "accountTargetId", category_id AS "categoryId"
-                FROM ${this.table}
+                SELECT t.id, t.name, t.type, t.value, t.date, t.account_id AS "accountId",
+                t.account_target_id AS "accountTargetId", t.category_id AS "categoryId"
+                FROM ${this.table} t, accounts a, users u
+                WHERE 
+                t.account_id = a.id AND
+                a.user_id = u.id AND
+                u.id = $1 AND
                 ${this.createQuerySection(query)}
-            `, [])
+            `, [userId])
             .then(x => x.rows);
     }
 
@@ -74,14 +78,14 @@ export class TransactionRepository implements ITransactionRepository {
     }
 
     private createQuerySection(query: TransactionQuery): string {
-        let result = 'WHERE ';
+        let result = '';
         result += `date BETWEEN '${query.from}' AND '${query.to}' `;
         if (query.accountId) result += `AND account_id = ${query.accountId} `;
         if (query.categoryId) result += `AND category_id = ${query.categoryId} `;
         if (query.targetAccountId) result += `AND account_target_id = ${query.targetAccountId} `
         if (query.itemsPerPage && query.itemsPerPage) {
             result += `OFFSET ${(query.page - 1) * query.itemsPerPage} `
-            result += `LIMIT ${query.itemsPerPage};`;
+            result += `LIMIT ${query.itemsPerPage} `;
         }
         return result;
     }

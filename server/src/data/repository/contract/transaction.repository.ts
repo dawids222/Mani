@@ -6,6 +6,6 @@ export interface ITransactionRepository {
     create(transaction: TransactionPlain): Promise<TransactionPlain>;
     edit(transactionId: number, transaction: TransactionPlain): Promise<TransactionPlain>;
     delete(transactionId: number): Promise<void>;
-    get(query: TransactionQuery): Promise<Transaction[]>;
+    get(userId: number, query: TransactionQuery): Promise<Transaction[]>;
     haveRelation(userId: number, transactionId: number): Promise<boolean>;
 }
