@@ -5,5 +5,6 @@ export interface IAccountRepository {
     edit(account: Account): Promise<Account>;
     delete(accountId: number): Promise<void>;
     getByUserId(userId: number): Promise<Account[]>;
-    getByAccountId(accountId: number): Promise<Account>
+    getByAccountId(accountId: number): Promise<Account>;
+    getByAccountIds(accountIds: number[]): Promise<Account[]>;
 }

@@ -58,6 +58,19 @@ export class AccountRepository implements IAccountRepository {
         return rows.length === 1 ? rows[0] : null;
     }
 
+    public async getByAccountIds(accountIds: number[]): Promise<Account[]> {
+        if (!accountIds.length) { return []; }
+        return postgres
+            .query(`
+                SELECT a.id, a.name, a.description
+                FROM accounts a LEFT JOIN transactions t
+                ON (t.account_id = a.id OR t.account_target_id = a.id)
+                WHERE a.id IN (${accountIds.join(', ')})
+                GROUP BY a.id;
+            `, [])
+            .then(x => x.rows);
+    }
+
     private async getBy(property: string, value: any): Promise<Account[]> {
         const result = await postgres
             .query(`

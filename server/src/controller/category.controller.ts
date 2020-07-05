@@ -30,7 +30,11 @@ export class CategoryController {
     }
 
     @Put(':id')
-    async editCategory(@Request() request, @Param('id') categoryId: number, @Body() category: CategoryPlain) {
+    async editCategory(
+        @Request() request,
+        @Param('id') categoryId: number,
+        @Body() category: CategoryPlain,
+    ) {
         const validationResult = this.categoryValidator.validate(category);
         if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user: UserPayload = request.user;

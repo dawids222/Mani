@@ -66,6 +66,17 @@ export class CategoryRepository implements ICategoryRepository {
             .then(x => this.joinCategories(x.rows)[0]);
     }
 
+    public async getByCategoryIds(categoryIds: number[]): Promise<Category[]> {
+        if (!categoryIds.length) { return []; }
+        return postgres
+            .query(`
+                SELECT id, name, logo, color
+                FROM ${this.table}
+                WHERE id IN (${categoryIds.join(', ')});
+            `)
+            .then(x => x.rows);
+    }
+
     public async haveRelation(userId: number, categoryId: number): Promise<boolean> {
         return postgres
             .query(`

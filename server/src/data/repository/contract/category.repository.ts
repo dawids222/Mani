@@ -7,5 +7,6 @@ export interface ICategoryRepository {
     delete(categoryId: number): Promise<void>;
     getByUserId(userId: number): Promise<Category[]>;
     getByCategoryId(categoryId: number): Promise<Category>;
+    getByCategoryIds(categoryIds: number[]): Promise<Category[]>;
     haveRelation(userId: number, categoryId: number): Promise<boolean>;
 }
