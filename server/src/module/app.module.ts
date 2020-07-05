@@ -5,6 +5,7 @@ import { AppService } from '../service/app.service';
 import { AccountModule } from './account.module';
 import { CategoryModule } from './category.module';
 import { OrderModule } from './order.module';
+import { SchedulerModule } from './scheduler.module';
 import { SettingModule } from './setting.module';
 import { TransactionModule } from './transaction.module';
 import { UserModule } from './user.module';
@@ -17,6 +18,7 @@ import { UserModule } from './user.module';
     CategoryModule,
     TransactionModule,
     OrderModule,
+    SchedulerModule,
   ],
   controllers: [
     AppController,
