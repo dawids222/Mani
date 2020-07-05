@@ -1,3 +1,4 @@
+import { TransactionType } from 'src/business/enum/transaction.type';
 import * as v from 'validator';
 import { IValidator } from "../contract/iValidator";
 import { ValidationResult } from "../entity/validation.result";
@@ -23,8 +24,8 @@ export abstract class BaseValidator<T> implements IValidator<T> {
         return this.test(prop, x => this.validator.isEmail(String(x)), 'has to be a correct email address');
     }
 
-    protected exists(prop: string): boolean {
-        return this.test(prop, x => x !== undefined, 'is missing');
+    protected exists(prop: string, trigger: boolean = true): boolean {
+        return this.test(prop, x => x !== undefined, trigger ? 'is missing' : null);
     }
 
     protected notNull(prop: string, trigger: boolean = true): boolean {
@@ -99,6 +100,15 @@ export abstract class BaseValidator<T> implements IValidator<T> {
 
     protected colorHex(prop: string): boolean {
         return this.test(prop, x => /^#[0-9A-F]{6}$/i.test(String(x)), 'is not valid hex color');
+    }
+
+    protected transactionType(prop: string): boolean {
+        return this.test(prop, x => Object.values(TransactionType).includes(x), 'is not valid transaction type');
+
+    }
+
+    protected date(prop: string): boolean {
+        return this.test(prop, x => /^("{0,1}[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])"{0,1})/.test(x), 'is not a valid date YYYY-MM-DD');
     }
 
     protected test(prop: string, res: (value: string) => boolean, error: string): boolean {
