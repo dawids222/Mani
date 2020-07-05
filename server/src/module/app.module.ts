@@ -4,6 +4,7 @@ import { JwtTokenStrategy } from '../security/token/passport/jwt.token.strategy'
 import { AppService } from '../service/app.service';
 import { AccountModule } from './account.module';
 import { CategoryModule } from './category.module';
+import { OrderModule } from './order.module';
 import { SettingModule } from './setting.module';
 import { TransactionModule } from './transaction.module';
 import { UserModule } from './user.module';
@@ -15,6 +16,7 @@ import { UserModule } from './user.module';
     SettingModule,
     CategoryModule,
     TransactionModule,
+    OrderModule,
   ],
   controllers: [
     AppController,

@@ -111,6 +111,14 @@ export abstract class BaseValidator<T> implements IValidator<T> {
         return this.test(prop, x => /^("{0,1}[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])"{0,1})/.test(x), 'is not a valid date YYYY-MM-DD');
     }
 
+    protected boolean(prop: string): boolean {
+        return this.test(prop, x => typeof x === 'boolean', ' must be TRUE or FALSE');
+    }
+
+    protected array(prop: string): boolean {
+        return this.test(prop, x => Array.isArray(x), 'is not an array');
+    }
+
     protected test(prop: string, res: (value: string) => boolean, error: string): boolean {
         const value = this.data[prop];
         const isValid = res(value);

@@ -54,6 +54,6 @@ export class TransactionController {
         const user: UserPayload = request.user;
         const haveRelation = await this.transactionRepository.haveRelation(user.id, transactionId);
         if (!haveRelation) { throw new ConflictException(); }
-        this.transactionRepository.delete(transactionId);
+        return this.transactionRepository.delete(transactionId);
     }
 }
