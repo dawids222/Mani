@@ -1,3 +1,4 @@
+import store from '@/store';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import About from '../views/About.vue';
@@ -31,6 +32,17 @@ const router = new VueRouter({
   mode: 'history',
   linkActiveClass: "active",
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (
+    !store.getters['auth/isAuthenticated'] &&
+    from.name !== 'Login' &&
+    to.name !== 'Login'
+  ) {
+    router.push({ name: 'Login' });
+  }
+  next();
 })
 
 export default router

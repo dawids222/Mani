@@ -1,4 +1,3 @@
-import store from '@/store';
 import axios from 'axios';
 import { IHttpClient } from '../contract/http.client';
 import { Login } from '../entity/auth/login.entity';
@@ -11,7 +10,7 @@ export class AxiosHttpClient implements IHttpClient {
         timeout: 1000,
         headers: {
             "Content-Type": "application/json",
-            "Authorization": store.getters.auth.token,
+            "Authorization": localStorage.getItem('user-token'),
         },
     });
 

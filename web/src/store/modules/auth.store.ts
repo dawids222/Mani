@@ -19,8 +19,8 @@ const actions: ActionTree<Auth, any> = {
         httpClient
             .login(data)
             .then(
-                token => {
-                    commit('setToken', token);
+                result => {
+                    commit('setToken', result.token);
                     router.push({ name: 'Home' })
                 },
                 error => {
@@ -40,7 +40,7 @@ const mutations: MutationTree<Auth> = {
 };
 
 const state: Auth = {
-    get token() {
+    get token(): string {
         return localStorage.getItem('user-token') ?? '';
     },
     set token(value: string) {
