@@ -1,6 +1,6 @@
 <template>
-  <v-content class="mani-login-bg">
-    <v-container fluid fill-height>
+  <v-main class="mani-login-bg">
+    <v-container fluid fill-height class="mani-login-container">
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4 lg3>
           <v-card class="elevation-2 pa-3 mani-login-v-card">
@@ -15,6 +15,7 @@
                   :label="$t('emailLabel')"
                   type="text"
                   v-model="model.email"
+                  @keyup.enter="login(model)"
                 ></v-text-field>
                 <v-text-field
                   append-icon="lock"
@@ -23,6 +24,7 @@
                   id="password"
                   type="password"
                   v-model="model.password"
+                  @keyup.enter="login(model)"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -38,11 +40,12 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapActions } from "vuex";
+import { AUTH } from "../store/types/auth.types";
 export default Vue.extend({
   data: () => ({
     model: {
@@ -52,17 +55,25 @@ export default Vue.extend({
   }),
 
   computed: {
-    ...mapGetters({ loading: "auth/pending" })
+    ...mapGetters({ loading: AUTH.PENDING })
   },
 
   methods: {
-    ...mapActions({ login: "auth/login" })
+    ...mapActions({ login: AUTH.LOGIN })
   }
 });
 </script>
-<style scoped>
+<style scoped lang="scss">
 .mani-login-bg {
-  background-color: gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: var(--v-primary-base);
+}
+.mani-login-container {
+  transform: translateY(50%);
 }
 .v-text-field {
   margin-bottom: 8px;

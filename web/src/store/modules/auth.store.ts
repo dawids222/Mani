@@ -2,6 +2,7 @@ import httpClient from '@/api';
 import { Login } from '@/api/entity/auth/login.entity';
 import router from '@/router';
 import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
+import { AUTH } from '../types/auth.types';
 
 interface Auth {
     token: string;
@@ -9,18 +10,18 @@ interface Auth {
 }
 
 const getters: GetterTree<Auth, any> = {
-    pending(state) { return state.pending; },
-    isAuthenticated(state) { return state.token !== ''; },
+    [AUTH.PENDING](state) { return state.pending; },
+    [AUTH.AUTHENTICATED](state) { return state.token !== ''; },
 };
 
 const actions: ActionTree<Auth, any> = {
-    async login({ commit }, data: Login) {
-        commit('setPending', true);
+    async [AUTH.LOGIN]({ commit }, data: Login) {
+        commit(AUTH.TOKEN, true);
         httpClient
             .login(data)
             .then(
                 result => {
-                    commit('setToken', result.token);
+                    commit(AUTH.TOKEN, result.token);
                     router.push({ name: 'Home' })
                 },
                 error => {
@@ -29,14 +30,14 @@ const actions: ActionTree<Auth, any> = {
                 }
             )
             .finally(() => {
-                commit('setPending', false);
+                commit(AUTH.PENDING, false);
             });
     },
 };
 
 const mutations: MutationTree<Auth> = {
-    setToken(state, token) { state.token = token; },
-    setPending(state, pending) { state.pending = pending; }
+    [AUTH.TOKEN](state, token) { state.token = token; },
+    [AUTH.PENDING](state, pending) { state.pending = pending; }
 };
 
 const state: Auth = {
@@ -50,7 +51,6 @@ const state: Auth = {
 };
 
 export const authStore: Module<Auth, any> = {
-    namespaced: true,
     state,
     getters,
     actions,

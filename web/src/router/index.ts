@@ -1,4 +1,5 @@
 import store from '@/store';
+import { AUTH } from '@/store/types/auth.types';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import About from '../views/About.vue';
@@ -36,7 +37,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (
-    !store.getters['auth/isAuthenticated'] &&
+    !store.getters[AUTH.AUTHENTICATED] &&
     from.name !== 'Login' &&
     to.name !== 'Login'
   ) {
