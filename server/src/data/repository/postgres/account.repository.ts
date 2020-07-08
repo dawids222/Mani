@@ -18,14 +18,14 @@ export class AccountRepository implements IAccountRepository {
             });
     }
 
-    public async edit(account: Account): Promise<Account> {
+    public async edit(accountId: number, account: Account): Promise<Account> {
         await postgres.query(`
             UPDATE accounts SET 
             name = $1, 
             description = $2
             WHERE id = $3;
-        `, [account.name, account.description, account.id]);
-        return await this.getByAccountId(account.id);
+        `, [account.name, account.description, accountId]);
+        return await this.getByAccountId(accountId);
     }
 
     public async delete(accountId: number): Promise<void> {

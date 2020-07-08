@@ -1,4 +1,4 @@
-import { BadRequestException, Body, ConflictException, Controller, Get, Inject, Put, Request, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, ConflictException, Controller, Get, Inject, Param, Put, Request, UseGuards } from "@nestjs/common";
 import { Setting } from "src/business/entity/setting/setting.entity";
 import { UserPayload } from "src/business/entity/user/user.payload.entity";
 import { ISettingRepository } from "src/data/repository/contract/setting.repository";
@@ -6,7 +6,7 @@ import { JwtTokenGuard } from "src/security/token/passport/jwt.token.guard";
 import { ILogger } from "src/util/logger/contract/logger";
 import { IValidator } from "src/validation/contract/iValidator";
 
-@Controller('setting')
+@Controller('settings')
 @UseGuards(JwtTokenGuard)
 export class SettingController {
     constructor(
@@ -21,14 +21,18 @@ export class SettingController {
         return this.settingRepository.get(user.id);
     }
 
-    @Put()
-    async editSetting(@Request() request, @Body() setting: Setting) {
-        const validationResult = this.settingValidator.validate(setting);
+    @Put(':id')
+    async editSetting(
+        @Request() request,
+        @Param('id') settingId: number,
+        @Body() settings: Setting,
+    ) {
+        const validationResult = this.settingValidator.validate(settings);
         if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user: UserPayload = request.user;
-        const haveRelation = await this.haveRelation(user.id, setting.id);
+        const haveRelation = await this.haveRelation(user.id, settingId);
         if (!haveRelation) { throw new ConflictException(); }
-        return this.settingRepository.edit(setting);
+        return this.settingRepository.edit(settingId, settings);
     }
 
     private async haveRelation(userId: number, settingId: number): Promise<boolean> {

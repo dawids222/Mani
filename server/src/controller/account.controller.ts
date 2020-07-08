@@ -6,7 +6,7 @@ import { JwtTokenGuard } from "src/security/token/passport/jwt.token.guard";
 import { ILogger } from "src/util/logger/contract/logger";
 import { IValidator } from "src/validation/contract/iValidator";
 
-@Controller('account')
+@Controller('accounts')
 @UseGuards(JwtTokenGuard)
 export class AccountController {
     constructor(
@@ -30,14 +30,18 @@ export class AccountController {
         return this.accountRepository.create(account, user.id);
     }
 
-    @Put()
-    async editAccount(@Request() request, @Body() account: Account) {
-        const validationResult = this.idAccountValidator.validate(account);
+    @Put(':id')
+    async editAccount(
+        @Request() request,
+        @Param('id') accountId: number,
+        @Body() account: Account,
+    ) {
+        const validationResult = this.accountValidator.validate(account);
         if (!validationResult.isValid) { throw new BadRequestException(validationResult.errors); }
         const user: UserPayload = request.user;
-        const haveRalation = await this.haveRelation(user.id, account.id);
+        const haveRalation = await this.haveRelation(user.id, accountId);
         if (!haveRalation) { throw new ConflictException(); }
-        return this.accountRepository.edit(account);
+        return this.accountRepository.edit(accountId, account);
     }
 
     @HttpCode(204)

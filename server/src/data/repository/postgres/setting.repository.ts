@@ -16,14 +16,14 @@ export class SettingRepository implements ISettingRepository {
             .then(x => x.rows[0]);
     }
 
-    public async edit(setting: Setting): Promise<Setting> {
+    public async edit(settingId: number, setting: Setting): Promise<Setting> {
         return postgres
             .query(`
                 UPDATE ${this.table} SET 
                 currency = $1
                 WHERE id = $2
                 RETURNING id, currency;
-            `, [setting.currency, setting.id])
+            `, [setting.currency, settingId])
             .then(x => x.rows[0]);
     }
 

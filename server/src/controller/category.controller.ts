@@ -6,7 +6,7 @@ import { JwtTokenGuard } from "src/security/token/passport/jwt.token.guard";
 import { ILogger } from "src/util/logger/contract/logger";
 import { IValidator } from "src/validation/contract/iValidator";
 
-@Controller('category')
+@Controller('categories')
 @UseGuards(JwtTokenGuard)
 export class CategoryController {
     constructor(
