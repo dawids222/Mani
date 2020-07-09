@@ -6,5 +6,9 @@ export interface Language extends LocaleMessageObject {
     loginHeader: string;
     emailLabel: string;
     passwordLabel: string;
+    verifyPasswordLabel: string;
     loginButton: string;
+    dontHaveAnAccount: string;
+    signUp: string;
+    registerHeader: string;
 }

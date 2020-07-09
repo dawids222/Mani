@@ -6,5 +6,9 @@ export const english: Language = {
     loginHeader: 'Login',
     emailLabel: 'e-mail',
     passwordLabel: 'password',
+    verifyPasswordLabel: 'verify password',
     loginButton: 'SUBMIT',
+    dontHaveAnAccount: "Don't have an account?",
+    signUp: 'Sign up',
+    registerHeader: 'Register',
 }

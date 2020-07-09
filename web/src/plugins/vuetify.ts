@@ -8,5 +8,11 @@ export default new Vuetify({
         options: {
             customProperties: true,
         },
+        themes: {
+            light: {
+                primary: '#1976d2',
+                accent: '#63ccff',
+            }
+        }
     },
 });

@@ -6,12 +6,12 @@
           <v-card class="elevation-2 pa-3 mani-login-v-card">
             <v-row justify="center" class="mani-login-avatar">
               <v-avatar color="white" size="100">
-                <v-icon large>person</v-icon>
+                <v-icon large>add</v-icon>
               </v-avatar>
             </v-row>
             <v-card-text>
               <div class="layout column align-center mb-8">
-                <h1 class="flex my-4 secondary--text">{{$t('loginHeader')}}</h1>
+                <h1 class="flex my-4 secondary--text">{{$t('registerHeader')}}</h1>
               </div>
               <v-form>
                 <v-text-field
@@ -20,7 +20,7 @@
                   :label="$t('emailLabel')"
                   type="text"
                   v-model="model.email"
-                  @keyup.enter="login(model)"
+                  @keyup.enter="register(model)"
                 ></v-text-field>
                 <v-text-field
                   append-icon="lock"
@@ -29,7 +29,16 @@
                   id="password"
                   type="password"
                   v-model="model.password"
-                  @keyup.enter="login(model)"
+                  @keyup.enter="register(model)"
+                ></v-text-field>
+                <v-text-field
+                  append-icon="lock_open"
+                  name="verifyPassword"
+                  :label="$t('verifyPasswordLabel')"
+                  id="verifyPassword"
+                  type="password"
+                  v-model="model.verifyPassword"
+                  @keyup.enter="register(model)"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -37,13 +46,9 @@
               <v-btn
                 block
                 color="primary"
-                @click="login(model)"
+                @click="register(model)"
                 :loading="loading"
               >{{$t('loginButton')}}</v-btn>
-            </div>
-            <div class="mani-login-sign-up-section">
-              <div class="mani-login-sign-up-label">{{$t('dontHaveAnAccount')}}</div>&nbsp;
-              <div class="mani-login-sign-up-label" @click="signUp">{{$t('signUp')}}</div>
             </div>
           </v-card>
         </v-flex>
@@ -53,13 +58,14 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { AUTH } from "@/store/types/auth.types";
 import { mapGetters, mapActions } from "vuex";
-import { AUTH } from "../store/types/auth.types";
 export default Vue.extend({
   data: () => ({
     model: {
       email: "",
-      password: ""
+      password: "",
+      verifyPassword: ""
     }
   }),
 
@@ -68,45 +74,9 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapActions({ login: AUTH.LOGIN, signUp: AUTH.SIGN_UP })
+    ...mapActions({ register: AUTH.REGISTER })
   }
 });
 </script>
-<style>
-.mani-login-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background-color: var(--v-primary-base);
-}
-.mani-login-container {
-  transform: translateY(50%);
-}
-.mani-login-avatar {
-  transform: translateY(-50%);
-  margin-bottom: -50px;
-}
-.mani-login-sign-up-section {
-  margin-top: 8px;
-}
-.mani-login-sign-up-label {
-  display: inline;
-}
-.mani-login-sign-up-label + .mani-login-sign-up-label {
-  cursor: pointer;
-  color: var(--v-primary-base);
-}
-.mani-login-sign-up-label + .mani-login-sign-up-label:hover {
-  cursor: pointer;
-  color: var(--v-accent-base);
-}
-.v-text-field {
-  margin-bottom: 8px;
-}
-.mani-login-v-card {
-  border-radius: 10px !important;
-  padding: 0px 24px 24px 24px !important;
-}
+<style scoped>
 </style>

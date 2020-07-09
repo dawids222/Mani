@@ -1,5 +1,6 @@
 import httpClient from '@/api';
 import { Login } from '@/api/entity/auth/login.entity';
+import { Register } from '@/api/entity/auth/register.entity';
 import router from '@/router';
 import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 import { AUTH } from '../types/auth.types';
@@ -16,7 +17,7 @@ const getters: GetterTree<Auth, any> = {
 
 const actions: ActionTree<Auth, any> = {
     async [AUTH.LOGIN]({ commit }, data: Login) {
-        commit(AUTH.TOKEN, true);
+        commit(AUTH.PENDING, true);
         httpClient
             .login(data)
             .then(
@@ -33,6 +34,26 @@ const actions: ActionTree<Auth, any> = {
                 commit(AUTH.PENDING, false);
             });
     },
+    async [AUTH.REGISTER]({ commit }, data: Register) {
+        commit(AUTH.PENDING, true);
+        httpClient
+            .register(data)
+            .then(
+                result => {
+                    router.push({ name: 'Login' })
+                },
+                error => {
+                    console.log(error);
+                    return;
+                }
+            )
+            .finally(() => {
+                commit(AUTH.PENDING, false);
+            });
+    },
+    async [AUTH.SIGN_UP]() {
+        router.push({ name: 'Register' });
+    }
 };
 
 const mutations: MutationTree<Auth> = {

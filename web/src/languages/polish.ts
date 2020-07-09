@@ -6,5 +6,9 @@ export const polish: Language = {
     loginHeader: 'Logowanie',
     emailLabel: 'e-mail',
     passwordLabel: 'hasło',
+    verifyPasswordLabel: 'powtórz hasło',
     loginButton: 'ZATWIERDŹ',
+    dontHaveAnAccount: 'Nie posiadasz konta?',
+    signUp: 'Zarejestruj się',
+    registerHeader: 'Rejestracja',
 }
