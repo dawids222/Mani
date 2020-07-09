@@ -11,4 +11,11 @@ export const english: Language = {
     dontHaveAnAccount: "Don't have an account?",
     signUp: 'Sign up',
     registerHeader: 'Register',
+    accountsDrawerLabel: 'Accounts',
+    categoriesDrawerLabel: 'Categories',
+    transactionsDrawerLabel: 'Transactions',
+    ordersDrawerLabel: 'Recurring orders',
+    statisticsDrawerLabel: 'Statistics',
+    accountMenuLabel: 'Account',
+    logoutMenuLabel: 'Logout',
 }

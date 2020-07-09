@@ -11,4 +11,11 @@ export interface Language extends LocaleMessageObject {
     dontHaveAnAccount: string;
     signUp: string;
     registerHeader: string;
+    accountsDrawerLabel: string;
+    categoriesDrawerLabel: string;
+    transactionsDrawerLabel: string;
+    ordersDrawerLabel: string;
+    statisticsDrawerLabel: string;
+    accountMenuLabel: string;
+    logoutMenuLabel: string;
 }

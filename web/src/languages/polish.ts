@@ -11,4 +11,11 @@ export const polish: Language = {
     dontHaveAnAccount: 'Nie posiadasz konta?',
     signUp: 'Zarejestruj się',
     registerHeader: 'Rejestracja',
+    accountsDrawerLabel: 'Konta',
+    categoriesDrawerLabel: 'Kategorie',
+    transactionsDrawerLabel: 'Transakcje',
+    ordersDrawerLabel: 'Zlecenia stałe',
+    statisticsDrawerLabel: 'Statystyki',
+    accountMenuLabel: 'Konto',
+    logoutMenuLabel: 'Wyloguj',
 }

@@ -2,9 +2,10 @@ import store from '@/store';
 import { AUTH } from '@/store/types/auth.types';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import Accounts from '../components/Accounts.vue';
 import About from '../views/About.vue';
+import Dashboard from '../views/Dashboard.vue';
 import NotFound from '../views/errors/NotFound.vue';
-import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -12,9 +13,16 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'Home',
-    component: Home,
+    component: Dashboard,
+    children: [
+      {
+        path: 'accounts',
+        name: 'Accounts',
+        component: Accounts,
+      }
+    ],
   }, {
     path: '/about',
     name: 'About',
