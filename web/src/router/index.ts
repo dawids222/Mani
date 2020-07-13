@@ -2,6 +2,7 @@ import store from '@/store';
 import { AUTH } from '@/store/types/auth.types';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import Account from '../components/Account.vue';
 import Accounts from '../components/Accounts.vue';
 import About from '../views/About.vue';
 import Dashboard from '../views/Dashboard.vue';
@@ -22,6 +23,11 @@ const routes: Array<RouteConfig> = [
         path: 'accounts',
         name: 'Accounts',
         component: Accounts,
+      },
+      {
+        path: 'accounts/:id',
+        name: 'Account',
+        component: Account,
       }
     ],
   }, {
