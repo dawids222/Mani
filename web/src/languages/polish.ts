@@ -18,4 +18,5 @@ export const polish: Language = {
     statisticsDrawerLabel: 'Statystyki',
     accountMenuLabel: 'Konto',
     logoutMenuLabel: 'Wyloguj',
+    dashboardDrawerLabel: 'Tablica',
 }

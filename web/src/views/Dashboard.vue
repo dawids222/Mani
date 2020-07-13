@@ -7,7 +7,12 @@
         </v-toolbar-title>
       </v-toolbar>
       <v-list>
-        <v-list-item v-for="(item, index) in drawerItems" :key="index" link @click="item.click">
+        <v-list-item
+          v-for="(item, index) in drawerItems"
+          :key="index"
+          link
+          @click="goto(item.route)"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -52,6 +57,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import router from "../router";
 export default Vue.extend({
   data: () => ({
     showDrawer: false,
@@ -73,42 +79,43 @@ export default Vue.extend({
     ],
     drawerItems: [
       {
+        icon: "home",
+        title: "dashboardDrawerLabel",
+        route: "Home"
+      },
+      {
         icon: "account_balance",
         title: "accountsDrawerLabel",
-        click: () => {
-          return;
-        }
+        route: "Accounts"
       },
       {
         icon: "category",
         title: "categoriesDrawerLabel",
-        click: () => {
-          return;
-        }
+        route: "Categories"
       },
       {
         icon: "attach_money",
         title: "transactionsDrawerLabel",
-        click: () => {
-          return;
-        }
+        route: "Transactions"
       },
       {
         icon: "autorenew",
         title: "ordersDrawerLabel",
-        click: () => {
-          return;
-        }
+        route: "Orders"
       },
       {
         icon: "bar_chart",
         title: "statisticsDrawerLabel",
-        click: () => {
-          return;
-        }
+        route: "Statistics"
       }
     ]
-  })
+  }),
+
+  methods: {
+    goto(name: string) {
+      this.$router.push({ name });
+    }
+  }
 });
 </script>
 <style scoped>

@@ -13,7 +13,8 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/dashboard',
+    path: '/',
+    alias: '/dashboard',
     name: 'Home',
     component: Dashboard,
     children: [

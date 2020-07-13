@@ -18,4 +18,5 @@ export const english: Language = {
     statisticsDrawerLabel: 'Statistics',
     accountMenuLabel: 'Account',
     logoutMenuLabel: 'Logout',
+    dashboardDrawerLabel: 'Dashboard',
 }
