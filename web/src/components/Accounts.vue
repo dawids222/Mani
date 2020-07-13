@@ -11,15 +11,20 @@
           @click="onAccountClick(account)"
         />
       </v-flex>
+      <v-flex xs12 sm6 lg4>
+        <blank-entity-card @click="onAddAccountClick" />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import EntityCard from "@/components/cards/EntityCard.vue";
+import BlankEntityCard from "@/components/cards/BlankEntityCard.vue";
 export default Vue.extend({
   components: {
-    EntityCard
+    EntityCard,
+    BlankEntityCard
   },
   data: () => ({
     accounts: []
@@ -39,6 +44,9 @@ export default Vue.extend({
   methods: {
     onAccountClick(account: any) {
       this.$router.push({ name: "Account", params: { id: account.id } });
+    },
+    onAddAccountClick() {
+      return;
     }
   }
 });
