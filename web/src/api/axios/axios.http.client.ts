@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IHttpClient } from '../contract/http.client';
+import { Account } from '../entity/account/account.entity';
 import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
@@ -25,6 +26,12 @@ export class AxiosHttpClient implements IHttpClient {
     public async register(data: Register): Promise<User> {
         return this.client
             .post('/users/register', data)
+            .then(x => x.data);
+    }
+
+    public async getAllAccounts(): Promise<Account[]> {
+        return this.client
+            .get('/accounts')
             .then(x => x.data);
     }
 }

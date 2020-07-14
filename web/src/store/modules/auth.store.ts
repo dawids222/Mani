@@ -5,17 +5,17 @@ import router from '@/router';
 import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 import { AUTH } from '../types/auth.types';
 
-interface Auth {
+interface AuthState {
     token: string;
     pending: boolean;
 }
 
-const getters: GetterTree<Auth, any> = {
+const getters: GetterTree<AuthState, any> = {
     [AUTH.PENDING](state) { return state.pending; },
     [AUTH.AUTHENTICATED](state) { return state.token !== ''; },
 };
 
-const actions: ActionTree<Auth, any> = {
+const actions: ActionTree<AuthState, any> = {
     async [AUTH.LOGIN]({ commit }, data: Login) {
         commit(AUTH.PENDING, true);
         httpClient
@@ -56,12 +56,12 @@ const actions: ActionTree<Auth, any> = {
     }
 };
 
-const mutations: MutationTree<Auth> = {
+const mutations: MutationTree<AuthState> = {
     [AUTH.TOKEN](state, token) { state.token = token; },
     [AUTH.PENDING](state, pending) { state.pending = pending; }
 };
 
-const state: Auth = {
+const state: AuthState = {
     get token(): string {
         return localStorage.getItem('user-token') ?? '';
     },
@@ -71,7 +71,7 @@ const state: Auth = {
     pending: false,
 };
 
-export const authStore: Module<Auth, any> = {
+export const authStore: Module<AuthState, any> = {
     state,
     getters,
     actions,

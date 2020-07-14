@@ -16,7 +16,7 @@ export default Vue.extend({
     avatar: String,
     color: String,
     title: String,
-    subtitle: String,
+    subtitle: Number,
     text: String
   }
 });

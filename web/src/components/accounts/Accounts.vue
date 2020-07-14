@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex v-for="(account, index) in accounts" :key="index" xs12 sm6 lg4>
+      <v-flex v-for="(account, index) in accounts" :key="index" xs12 sm6 lg4 xl3>
         <entity-card
           :avatar="account.avatar"
           :color="account.color"
@@ -11,7 +11,7 @@
           @click="onAccountClick(account)"
         />
       </v-flex>
-      <v-flex xs12 sm6 lg4>
+      <v-flex xs12 sm6 lg4 xl3>
         <blank-entity-card @click="onAddAccountClick" />
       </v-flex>
     </v-layout>
@@ -21,33 +21,32 @@
 import Vue from "vue";
 import EntityCard from "@/components/cards/EntityCard.vue";
 import BlankEntityCard from "@/components/cards/BlankEntityCard.vue";
+import { ACCOUNTS } from "@/store/types/accounts.types";
+import { mapGetters, mapActions } from "vuex";
 export default Vue.extend({
   components: {
     EntityCard,
     BlankEntityCard
   },
-  data: () => ({
-    accounts: []
-  }),
-  mounted() {
-    for (let i = 0; i < 5; i++) {
-      this.accounts.push({
-        id: i,
-        avatar: "attach_money",
-        color: "primary",
-        name: "Nest konto",
-        balance: "8896 zł",
-        description: "coś tam, nie wiem..."
-      });
-    }
+  computed: {
+    ...mapGetters({
+      loading: ACCOUNTS.PENDING,
+      accounts: ACCOUNTS.ACCOUNTS
+    })
   },
   methods: {
+    ...mapActions({
+      loadAccounts: ACCOUNTS.GET_ALL
+    }),
     onAccountClick(account: any) {
       this.$router.push({ name: "Account", params: { id: account.id } });
     },
     onAddAccountClick() {
       return;
     }
+  },
+  mounted() {
+    this.loadAccounts();
   }
 });
 </script>

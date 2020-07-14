@@ -1,4 +1,5 @@
 import { IHttpClient } from '../contract/http.client';
+import { Account } from '../entity/account/account.entity';
 import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
@@ -18,6 +19,21 @@ export class MockHttpClient implements IHttpClient {
             "email": "e@wp.pl",
             "type": 0
         });
+    }
+
+    public async getAllAccounts(): Promise<Account[]> {
+        const accounts = [];
+        for (let i = 0; i < 5; i++) {
+            accounts.push({
+                id: i,
+                avatar: "attach_money",
+                color: "primary",
+                name: "Nest konto",
+                balance: 8896,
+                description: "coś tam, nie wiem..."
+            });
+        }
+        return Promise.resolve(accounts);
     }
 
     private timeout(ms: number) {
