@@ -1,21 +1,19 @@
 <template>
-  <v-container>
-    <v-layout row wrap>
-      <v-flex v-for="(account, index) in accounts" :key="index" xs12 sm6 lg4 xl3>
-        <entity-card
-          :avatar="account.avatar"
-          :color="account.color"
-          :title="account.name"
-          :subtitle="account.balance"
-          :text="account.description"
-          @click="onAccountClick(account)"
-        />
-      </v-flex>
-      <v-flex xs12 sm6 lg4 xl3>
-        <blank-entity-card @click="onAddAccountClick" />
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-layout row wrap>
+    <v-flex v-for="(account, index) in accounts" :key="index" xs12 sm6 lg4 xl3>
+      <entity-card
+        :avatar="account.avatar"
+        :color="account.color"
+        :title="account.name"
+        :subtitle="account.balance"
+        :text="account.description"
+        @click="onAccountClick(account)"
+      />
+    </v-flex>
+    <v-flex xs12 sm6 lg4 xl3>
+      <blank-entity-card @click="onAddAccountClick" />
+    </v-flex>
+  </v-layout>
 </template>
 <script lang="ts">
 import Vue from "vue";
