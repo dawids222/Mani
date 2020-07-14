@@ -2,7 +2,7 @@
   <v-card tile elevation="5" max-width="500" @click="$emit('click')">
     <div />
     <v-card-title primary-title class="justify-center">
-      <v-avatar size="60" image>
+      <v-avatar :tile="!circle" size="60" image>
         <v-icon large color="green">add</v-icon>
       </v-avatar>
     </v-card-title>
@@ -11,7 +11,11 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+export default Vue.extend({
+  props: {
+    circle: { type: Boolean, default: false }
+  }
+});
 </script>
 <style scoped>
 .v-card {

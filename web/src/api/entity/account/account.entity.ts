@@ -4,5 +4,5 @@ export interface Account {
     balance: number;
     description: string;
     color: string;
-    avatar: string;
+    logo: string;
 }

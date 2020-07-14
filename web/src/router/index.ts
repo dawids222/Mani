@@ -4,6 +4,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Account from '../components/accounts/Account.vue';
 import Accounts from '../components/accounts/Accounts.vue';
+import Categories from '../components/categories/Categories.vue';
 import About from '../views/About.vue';
 import Dashboard from '../views/Dashboard.vue';
 import NotFound from '../views/errors/NotFound.vue';
@@ -28,7 +29,11 @@ const routes: Array<RouteConfig> = [
         path: 'accounts/:id',
         name: 'Account',
         component: Account,
-      }
+      }, {
+        path: 'categories',
+        name: 'Categories',
+        component: Categories,
+      },
     ],
   }, {
     path: '/about',

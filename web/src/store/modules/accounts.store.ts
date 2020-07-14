@@ -22,7 +22,7 @@ export const accountsStore: Module<AccountsState, any> = {
         [ACCOUNTS.ACCOUNTS](state, accounts: Account[]) { state.accounts = accounts; },
     },
     actions: {
-        async [ACCOUNTS.GET_ALL]({ commit, state }) {
+        async [ACCOUNTS.GET_ALL]({ commit }) {
             commit(ACCOUNTS.PENDING, true);
             httpClient
                 .getAllAccounts()

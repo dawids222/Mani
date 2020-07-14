@@ -1,8 +1,8 @@
 <template>
   <v-card tile elevation="5" max-width="500" @click="$emit('click')">
     <div />
-    <v-avatar :color="color || 'primary'" size="60">
-      <v-icon large>{{avatar || 'person'}}</v-icon>
+    <v-avatar :tile="!circle" :color="color || 'primary'" size="60">
+      <v-icon large color="white">{{avatar || 'person'}}</v-icon>
     </v-avatar>
     <v-card-title v-if="title">{{title}}</v-card-title>
     <v-card-subtitle v-if="subtitle">{{subtitle}}</v-card-subtitle>
@@ -17,7 +17,8 @@ export default Vue.extend({
     color: String,
     title: String,
     subtitle: Number,
-    text: String
+    text: String,
+    circle: { type: Boolean, default: false }
   }
 });
 </script>

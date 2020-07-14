@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-flex v-for="(account, index) in accounts" :key="index" xs12 sm6 lg4 xl3>
       <entity-card
-        :avatar="account.avatar"
+        :avatar="account.logo"
         :color="account.color"
         :title="account.name"
         :subtitle="account.balance"

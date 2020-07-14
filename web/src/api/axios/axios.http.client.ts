@@ -4,6 +4,7 @@ import { Account } from '../entity/account/account.entity';
 import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
+import { Category } from '../entity/category/category.entity';
 import { User } from '../entity/user/user.entity';
 
 export class AxiosHttpClient implements IHttpClient {
@@ -32,6 +33,12 @@ export class AxiosHttpClient implements IHttpClient {
     public async getAllAccounts(): Promise<Account[]> {
         return this.client
             .get('/accounts')
+            .then(x => x.data);
+    }
+
+    public async getAllCategories(): Promise<Category[]> {
+        return this.client
+            .get('/categories')
             .then(x => x.data);
     }
 }
