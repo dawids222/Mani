@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex v-for="(category, index) in categories" :key="index" xs12 sm6 lg4 xl3>
+    <v-flex v-for="(category, index) in mains" :key="index" xs12 sm6 lg4 xl3>
       <entity-card
         class="card"
         :circle="true"
@@ -31,7 +31,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       loading: CATEGORIES.PENDING,
-      categories: CATEGORIES.CATEGORIES
+      mains: CATEGORIES.MAINS
     })
   },
   methods: {
@@ -55,6 +55,6 @@ export default Vue.extend({
 </script>
 <style scoped>
 .card {
-  height: 140px;
+  max-height: 140px;
 }
 </style>
