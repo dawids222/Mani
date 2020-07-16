@@ -1,11 +1,18 @@
+import { Inject } from "@nestjs/common";
 import { Order } from "src/business/entity/order/order.entity";
 import { OrderPlain } from "src/business/entity/order/order.plain";
 import { TransactionPlain } from "src/business/entity/transaction/transaction.plain.entity";
 import { OrderQuery } from "src/business/query/order.query";
+import { IEntityAdapter } from "src/data/adapter/contract/entity.adapter";
 import { postgres } from "src/data/context/postgres.context";
 import { IOrderRepository } from "../contract/order.repository";
 
 export class OrderRepository implements IOrderRepository {
+
+    constructor(
+        @Inject('IOrderPlainAdapter')
+        private readonly orderPlainAdapter: IEntityAdapter<OrderPlain>,
+    ) { }
 
     private readonly table = 'orders';
 
@@ -68,7 +75,7 @@ export class OrderRepository implements IOrderRepository {
             u.id = $1
             ${this.createQuerySection(query)}
             `, [userId])
-            .then(x => x.rows);
+            .then(x => this.orderPlainAdapter.adaptMany(x.rows) as any);
     }
 
     public async haveRelation(userId: number, orderId: number): Promise<boolean> {

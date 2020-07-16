@@ -11,7 +11,7 @@ import { IValidator } from "src/validation/contract/iValidator";
 @UseGuards(JwtTokenGuard)
 export class OrderController {
     constructor(
-        @Inject('IOrderRepository') private readonly orderRepository: IOrderRepository,
+        @Inject('IOrderService') private readonly orderRepository: IOrderRepository,
         @Inject('IOrderValidator') private readonly orderValidator: IValidator<OrderPlain>,
         @Inject('IOrderQueryValidator') private readonly orderQueryValidator: IValidator<OrderQuery>,
         @Inject('ILogger') private readonly logger: ILogger,
