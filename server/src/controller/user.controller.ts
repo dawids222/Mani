@@ -8,7 +8,7 @@ import { ITokenGenerator } from "src/security/token/contract/token.generator";
 import { ILogger } from "src/util/logger/contract/logger";
 import { IValidator } from "src/validation/contract/iValidator";
 
-@Controller('user')
+@Controller('users')
 export class UserController {
     constructor(
         @Inject('IUserRepository') private readonly userRepository: IUserRepository,
