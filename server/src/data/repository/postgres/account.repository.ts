@@ -1,8 +1,14 @@
+import { Inject } from "@nestjs/common";
 import { Account } from "src/business/entity/account/account.entity";
+import { IEntityAdapter } from "src/data/adapter/contract/entity.adapter";
 import { postgres } from "src/data/context/postgres.context";
 import { IAccountRepository } from "../contract/account.repository";
 
 export class AccountRepository implements IAccountRepository {
+
+    constructor(
+        @Inject('IAccountAdapter') private readonly accountAdapter: IEntityAdapter<Account>,
+    ) { }
 
     public async create(account: Account, userId: number): Promise<Account> {
         return postgres
@@ -68,7 +74,7 @@ export class AccountRepository implements IAccountRepository {
                 WHERE a.id IN (${accountIds.join(', ')})
                 GROUP BY a.id;
             `, [])
-            .then(x => x.rows);
+            .then(x => this.accountAdapter.adaptMany(x.rows));
     }
 
     private async getBy(property: string, value: any): Promise<Account[]> {
@@ -86,6 +92,6 @@ export class AccountRepository implements IAccountRepository {
                 WHERE a.${property} = $1
                 GROUP BY a.id;
             `, [value]);
-        return result.rows;
+        return this.accountAdapter.adaptMany(result.rows);
     }
 }

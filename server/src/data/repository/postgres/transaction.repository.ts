@@ -1,10 +1,17 @@
+import { Inject } from "@nestjs/common";
 import { Transaction } from "src/business/entity/transaction/transaction.entity";
 import { TransactionPlain } from "src/business/entity/transaction/transaction.plain.entity";
 import { TransactionQuery } from "src/business/query/transaction.query";
+import { IEntityAdapter } from "src/data/adapter/contract/entity.adapter";
 import { postgres } from "src/data/context/postgres.context";
 import { ITransactionRepository } from "../contract/transaction.repository";
 
 export class TransactionRepository implements ITransactionRepository {
+
+    constructor(
+        @Inject('ITransactionPlainAdapter')
+        private readonly transactionPlainAdapter: IEntityAdapter<TransactionPlain>,
+    ) { }
 
     private readonly table = 'transactions';
 
@@ -60,7 +67,7 @@ export class TransactionRepository implements ITransactionRepository {
                 u.id = $1 AND
                 ${this.createQuerySection(query)}
             `, [userId])
-            .then(x => x.rows);
+            .then(x => this.transactionPlainAdapter.adaptMany(x.rows) as any);
     }
 
     public async haveRelation(userId: number, transactionId: number): Promise<boolean> {

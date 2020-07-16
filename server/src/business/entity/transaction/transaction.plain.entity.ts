@@ -1,6 +1,7 @@
 import { TransactionType } from "src/business/enum/transaction.type";
 
 export interface TransactionPlain {
+    id: number;
     name: string;
     type: TransactionType;
     value: number;

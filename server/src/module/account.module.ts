@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { AccountController } from "src/controller/account.controller";
+import { AccountAdapter } from "src/data/adapter/account/account.adapter";
 import { AccountRepository } from "src/data/repository/postgres/account.repository";
 import { AccountValidator } from "src/validation/validator/account.validator";
 import { IdAccountValidator } from "src/validation/validator/id.account.validator";
@@ -17,6 +18,9 @@ import { BaseModule } from "./base.module";
     }, {
         provide: 'IIdAccountValidator',
         useClass: IdAccountValidator,
+    }, {
+        provide: 'IAccountAdapter',
+        useClass: AccountAdapter,
     }],
 })
 export class AccountModule { }

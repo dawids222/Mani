@@ -70,11 +70,11 @@ export class CategoryRepository implements ICategoryRepository {
         if (!categoryIds.length) { return []; }
         return postgres
             .query(`
-                SELECT id, name, logo, color
+                SELECT id, name, logo, color, category_id
                 FROM ${this.table}
                 WHERE id IN (${categoryIds.join(', ')});
             `)
-            .then(x => x.rows);
+            .then(x => this.joinCategories(x.rows));
     }
 
     public async haveRelation(userId: number, categoryId: number): Promise<boolean> {
@@ -95,7 +95,7 @@ export class CategoryRepository implements ICategoryRepository {
             category.subcategories = categories
                 .filter(x => x.category_id === category.id);
         });
-        const masters = categories.filter(x => !x.category_id);
-        return this.categoryAdapter.adaptMany(masters);
+        // const masters = categories.filter(x => !x.category_id);
+        return this.categoryAdapter.adaptMany(categories);
     }
 }
