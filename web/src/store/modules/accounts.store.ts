@@ -17,13 +17,16 @@ export const accountsStore: Module<AccountsState, any> = {
         [ACCOUNTS.PENDING](state) { return state.pending; },
         [ACCOUNTS.ACCOUNTS](state) { return state.accounts; },
         [ACCOUNTS.GET](state) {
-            return (id: number) =>
+            return (id: number) => {
+                if (!id) { return null; }
                 state.accounts.find(x => x.id === id)
+            }
         },
     },
     mutations: {
         [ACCOUNTS.PENDING](state, pending: boolean) { state.pending = pending; },
         [ACCOUNTS.ADD](state, account: Account) {
+            if (!account) { return; }
             const index = state.accounts.findIndex(x => x.id === account.id);
             if (index !== -1) { state.accounts[index] = account; }
             else { state.accounts.push(account); }

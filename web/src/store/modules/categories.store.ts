@@ -34,6 +34,7 @@ export const categoriesStore: Module<CategoriesState, any> = {
         },
         [CATEGORIES.GET](state, _, __, rootGetters) {
             return (id: number) => {
+                if (!id) { return null; }
                 const category = state.categories.find(x => x.id === id);
                 return resolveRelations(
                     category,
@@ -46,6 +47,7 @@ export const categoriesStore: Module<CategoriesState, any> = {
     mutations: {
         [CATEGORIES.PENDING](state, pending: boolean) { state.pending = pending; },
         [CATEGORIES.ADD](state, category: Category) {
+            if (!category) { return; }
             const normalized = normalizeRelations(category, ['subcategories']);
             const index = state.categories.findIndex(x => x.id === category.id);
             if (index !== -1) { state.categories[index] = normalized; }

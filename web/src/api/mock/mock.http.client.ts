@@ -5,6 +5,7 @@ import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
 import { Category } from '../entity/category/category.entity';
 import { User } from '../entity/user/user.entity';
+import { TransactionQuery } from '../query/transaction.query';
 
 export class MockHttpClient implements IHttpClient {
 
@@ -76,6 +77,150 @@ export class MockHttpClient implements IHttpClient {
                 "subcategories": []
             }
         ])
+    }
+
+    public async getTransactions(query: TransactionQuery): Promise<any[]> {
+        return [
+            {
+                "id": 1,
+                "name": "zakupy w żabce",
+                "type": 0,
+                "value": -400,
+                "date": "1996-12-20T23:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": null,
+                "categoryId": 6,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": {
+                    "id": 6,
+                    "name": "zdrowie",
+                    "logo": "add",
+                    "color": "#005000",
+                    "subcategories": []
+                },
+                "targetAccount": null
+            },
+            {
+                "id": 4,
+                "name": "zakupy w żabce",
+                "type": 1,
+                "value": 400,
+                "date": "1996-12-20T23:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": 21,
+                "categoryId": null,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": null,
+                "targetAccount": {
+                    "id": 21,
+                    "name": "ING konto",
+                    "description": "opis 2"
+                }
+            },
+            {
+                "id": 5,
+                "name": "zakupy w żabce",
+                "type": 2,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": null,
+                "categoryId": null,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": null,
+                "targetAccount": null
+            },
+            {
+                "id": 6,
+                "name": "zakupy w żabce",
+                "type": 3,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": null,
+                "categoryId": null,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": null,
+                "targetAccount": null
+            },
+            {
+                "id": 15,
+                "name": "za studia",
+                "type": 0,
+                "value": 550,
+                "date": "2020-07-04T22:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": null,
+                "categoryId": 3,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": {
+                    "id": 3,
+                    "name": "zdrowie",
+                    "logo": "add",
+                    "color": "#005000",
+                    subcategories: []
+                },
+                "targetAccount": null
+            },
+            {
+                "id": 16,
+                "name": "za studia",
+                "type": 0,
+                "value": 550,
+                "date": "2020-07-04T22:00:00.000Z",
+                "accountId": 4,
+                "accountTargetId": null,
+                "categoryId": 3,
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "description": "nowy opis"
+                },
+                "category": {
+                    "id": 3,
+                    "name": "zdrowie",
+                    "logo": "add",
+                    "color": "#005000",
+                    "subcategories": [
+                        {
+                            "id": 6,
+                            "name": "kosmetyki",
+                            "logo": "add",
+                            "color": "#005000",
+                            "subcategories": []
+                        },
+                        {
+                            "id": 7,
+                            "name": "leki",
+                            "logo": "add",
+                            "color": "#005000",
+                            "subcategories": []
+                        }
+                    ]
+                },
+                "targetAccount": null
+            }
+        ];
     }
 
     private timeout(ms: number) {

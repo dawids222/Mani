@@ -5,6 +5,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Account from '../components/accounts/Account.vue';
 import Accounts from '../components/accounts/Accounts.vue';
 import Categories from '../components/categories/Categories.vue';
+import Transactions from '../components/transactions/Transactions.vue';
 import About from '../views/About.vue';
 import Dashboard from '../views/Dashboard.vue';
 import NotFound from '../views/errors/NotFound.vue';
@@ -33,6 +34,11 @@ const routes: Array<RouteConfig> = [
         path: 'categories',
         name: 'Categories',
         component: Categories,
+      },
+      {
+        path: 'transactions',
+        name: 'Transactions',
+        component: Transactions,
       },
     ],
   }, {
