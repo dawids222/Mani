@@ -19,4 +19,6 @@ export interface Language extends LocaleMessageObject {
     accountMenuLabel: string;
     logoutMenuLabel: string;
     dashboardDrawerLabel: string;
+    fromLabel: string;
+    toLabel: string;
 }

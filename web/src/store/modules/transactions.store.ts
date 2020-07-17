@@ -1,6 +1,7 @@
 import httpClient from '@/api';
 import { Transaction } from '@/api/entity/transactions/transaction.entity';
 import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
+import { TransactionQuery } from '@/api/query/transaction.query';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -27,7 +28,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         [TRANSACTIONS.GET](state, _, __, rootGetters) {
             return (id: number) => {
                 const transaction = state.transactions.find(x => x.id === id);
-                return resolveRelations(
+                const result = resolveRelations(
                     transaction,
                     [
                         { prop: 'account', store: 'accounts' },
@@ -36,6 +37,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
                     ],
                     rootGetters,
                 );
+                return result;
             }
         },
     },
@@ -52,17 +54,10 @@ export const transactionsStore: Module<TransactionsState, any> = {
         }
     },
     actions: {
-        [TRANSACTIONS.GET_ALL]({ commit, state }) {
+        [TRANSACTIONS.GET_ALL]({ commit, state }, query: TransactionQuery) {
             commit(TRANSACTIONS.PENDING, true);
-            httpClient.getTransactions({
-                page: 1,
-                itemsPerPage: 10,
-                from: '2020-05-10',
-                to: '2020-10-10',
-                categoryId: undefined,
-                accountId: undefined,
-                targetAccountId: undefined,
-            })
+            httpClient
+                .getTransactions(query)
                 .then(
                     transactions => {
                         transactions.forEach(

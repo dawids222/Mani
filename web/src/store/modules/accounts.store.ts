@@ -19,7 +19,7 @@ export const accountsStore: Module<AccountsState, any> = {
         [ACCOUNTS.GET](state) {
             return (id: number) => {
                 if (!id) { return null; }
-                state.accounts.find(x => x.id === id)
+                return state.accounts.find(x => x.id === id)
             }
         },
     },

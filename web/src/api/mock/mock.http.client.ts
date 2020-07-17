@@ -87,22 +87,22 @@ export class MockHttpClient implements IHttpClient {
                 "type": 0,
                 "value": -400,
                 "date": "1996-12-20T23:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": null,
-                "categoryId": 6,
                 "account": {
                     "id": 4,
                     "name": "NEST konto",
-                    "description": "nowy opis"
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
+                "targetAccount": null,
                 "category": {
                     "id": 6,
                     "name": "zdrowie",
                     "logo": "add",
                     "color": "#005000",
                     "subcategories": []
-                },
-                "targetAccount": null
+                }
             },
             {
                 "id": 4,
@@ -110,20 +110,23 @@ export class MockHttpClient implements IHttpClient {
                 "type": 1,
                 "value": 400,
                 "date": "1996-12-20T23:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": 21,
-                "categoryId": null,
                 "account": {
                     "id": 4,
                     "name": "NEST konto",
-                    "description": "nowy opis"
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
-                "category": null,
                 "targetAccount": {
                     "id": 21,
                     "name": "ING konto",
-                    "description": "opis 2"
-                }
+                    "balance": 400,
+                    "description": "opis 2",
+                    logo: 'person',
+                    color: '#555555'
+                },
+                "category": null
             },
             {
                 "id": 5,
@@ -131,16 +134,16 @@ export class MockHttpClient implements IHttpClient {
                 "type": 2,
                 "value": 1000,
                 "date": "1996-12-20T23:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": null,
-                "categoryId": null,
                 "account": {
                     "id": 4,
                     "name": "NEST konto",
-                    "description": "nowy opis"
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
-                "category": null,
-                "targetAccount": null
+                "targetAccount": null,
+                "category": null
             },
             {
                 "id": 6,
@@ -148,16 +151,16 @@ export class MockHttpClient implements IHttpClient {
                 "type": 3,
                 "value": 1000,
                 "date": "1996-12-20T23:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": null,
-                "categoryId": null,
                 "account": {
                     "id": 4,
                     "name": "NEST konto",
-                    "description": "nowy opis"
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
-                "category": null,
-                "targetAccount": null
+                "targetAccount": null,
+                "category": null
             },
             {
                 "id": 15,
@@ -165,37 +168,15 @@ export class MockHttpClient implements IHttpClient {
                 "type": 0,
                 "value": 550,
                 "date": "2020-07-04T22:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": null,
-                "categoryId": 3,
                 "account": {
                     "id": 4,
                     "name": "NEST konto",
-                    "description": "nowy opis"
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
-                "category": {
-                    "id": 3,
-                    "name": "zdrowie",
-                    "logo": "add",
-                    "color": "#005000",
-                    subcategories: []
-                },
-                "targetAccount": null
-            },
-            {
-                "id": 16,
-                "name": "za studia",
-                "type": 0,
-                "value": 550,
-                "date": "2020-07-04T22:00:00.000Z",
-                "accountId": 4,
-                "accountTargetId": null,
-                "categoryId": 3,
-                "account": {
-                    "id": 4,
-                    "name": "NEST konto",
-                    "description": "nowy opis"
-                },
+                "targetAccount": null,
                 "category": {
                     "id": 3,
                     "name": "zdrowie",
@@ -204,21 +185,58 @@ export class MockHttpClient implements IHttpClient {
                     "subcategories": [
                         {
                             "id": 6,
-                            "name": "kosmetyki",
+                            "name": "zdrowie",
                             "logo": "add",
                             "color": "#005000",
                             "subcategories": []
                         },
                         {
-                            "id": 7,
-                            "name": "leki",
+                            "id": 10,
+                            "name": "zdrowie",
                             "logo": "add",
-                            "color": "#005000",
+                            "color": "#ffffff",
                             "subcategories": []
                         }
                     ]
+                }
+            },
+            {
+                "id": 16,
+                "name": "za studia",
+                "type": 0,
+                "value": 550,
+                "date": "2020-07-04T22:00:00.000Z",
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
                 },
-                "targetAccount": null
+                "targetAccount": null,
+                "category": {
+                    "id": 3,
+                    "name": "zdrowie",
+                    "logo": "add",
+                    "color": "#005000",
+                    "subcategories": [
+                        {
+                            "id": 6,
+                            "name": "zdrowie",
+                            "logo": "add",
+                            "color": "#005000",
+                            "subcategories": []
+                        },
+                        {
+                            "id": 10,
+                            "name": "zdrowie",
+                            "logo": "add",
+                            "color": "#ffffff",
+                            "subcategories": []
+                        }
+                    ]
+                }
             }
         ];
     }

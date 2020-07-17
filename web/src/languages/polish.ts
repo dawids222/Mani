@@ -19,4 +19,6 @@ export const polish: Language = {
     accountMenuLabel: 'Konto',
     logoutMenuLabel: 'Wyloguj',
     dashboardDrawerLabel: 'Tablica',
+    fromLabel: 'Od dnia',
+    toLabel: 'Do dnia',
 }
