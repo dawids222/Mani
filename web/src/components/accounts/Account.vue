@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex d-flex xs12>
             <panel class="panel">
-              <account-info :value="account" />
+              <account-info :account="account" />
             </panel>
           </v-flex>
           <v-flex d-flex xs12>

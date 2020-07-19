@@ -28,4 +28,8 @@ export const english: Language = {
     accountIncomeLabel: 'income',
     accountTransferLabel: 'transfer',
     save: 'save',
+    avatarPickerColorLabel: 'color',
+    avatarPickerLogoLabel: 'logo',
+    cancel: 'cancel',
+    search: 'Search',
 }

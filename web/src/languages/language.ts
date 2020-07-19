@@ -28,4 +28,8 @@ export interface Language extends LocaleMessageObject {
     accountExpenseLabel: string;
     accountIncomeLabel: string;
     save: string;
+    avatarPickerLogoLabel: string;
+    avatarPickerColorLabel: string;
+    search: string;
+    cancel: string;
 }

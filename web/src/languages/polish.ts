@@ -28,4 +28,8 @@ export const polish: Language = {
     accountIncomeLabel: 'przychód',
     accountTransferLabel: 'przelew',
     save: 'zapisz',
+    avatarPickerColorLabel: 'kolor',
+    avatarPickerLogoLabel: 'logo',
+    cancel: 'wróć',
+    search: 'Szukaj',
 }
