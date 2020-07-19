@@ -237,7 +237,75 @@ export class MockHttpClient implements IHttpClient {
                         }
                     ]
                 }
-            }
+            },
+            {
+                "id": 100,
+                "name": "zakupy w żabce",
+                "type": 3,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
+                },
+                "targetAccount": null,
+                "category": null
+            },
+            {
+                "id": 101,
+                "name": "zakupy w żabce",
+                "type": 3,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
+                },
+                "targetAccount": null,
+                "category": null
+            },
+            {
+                "id": 102,
+                "name": "zakupy w żabce",
+                "type": 3,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
+                },
+                "targetAccount": null,
+                "category": null
+            },
+            {
+                "id": 103,
+                "name": "zakupy w żabce",
+                "type": 3,
+                "value": 1000,
+                "date": "1996-12-20T23:00:00.000Z",
+                "account": {
+                    "id": 4,
+                    "name": "NEST konto",
+                    "balance": 2300,
+                    "description": "nowy opis",
+                    logo: 'person',
+                    color: '#555555'
+                },
+                "targetAccount": null,
+                "category": null
+            },
         ];
     }
 

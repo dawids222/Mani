@@ -21,4 +21,11 @@ export const english: Language = {
     dashboardDrawerLabel: 'Dashboard',
     fromLabel: 'From',
     toLabel: 'To',
+    accountNameLabel: 'Name',
+    accountBalanceLabel: 'Balance',
+    accountDescriptionLabel: 'Description',
+    accountExpenseLabel: 'expense',
+    accountIncomeLabel: 'income',
+    accountTransferLabel: 'transfer',
+    save: 'save',
 }

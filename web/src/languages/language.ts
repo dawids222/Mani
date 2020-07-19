@@ -21,4 +21,11 @@ export interface Language extends LocaleMessageObject {
     dashboardDrawerLabel: string;
     fromLabel: string;
     toLabel: string;
+    accountNameLabel: string;
+    accountBalanceLabel: string;
+    accountDescriptionLabel: string;
+    accountTransferLabel: string;
+    accountExpenseLabel: string;
+    accountIncomeLabel: string;
+    save: string;
 }

@@ -21,4 +21,11 @@ export const polish: Language = {
     dashboardDrawerLabel: 'Tablica',
     fromLabel: 'Od dnia',
     toLabel: 'Do dnia',
+    accountNameLabel: 'Nazwa',
+    accountBalanceLabel: 'Balans',
+    accountDescriptionLabel: 'Opis',
+    accountExpenseLabel: 'wydatek',
+    accountIncomeLabel: 'przychód',
+    accountTransferLabel: 'przelew',
+    save: 'zapisz',
 }
