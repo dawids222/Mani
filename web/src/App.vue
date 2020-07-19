@@ -6,6 +6,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
+import { SETTINGS } from "@/store/types/settings.types";
 
 export default Vue.extend({
   name: "App",
@@ -14,7 +16,13 @@ export default Vue.extend({
 
   data: () => ({
     //
-  })
+  }),
+  methods: {
+    ...mapActions({ loadSettings: SETTINGS.GET })
+  },
+  mounted() {
+    this.loadSettings();
+  }
 });
 </script>
 <style>

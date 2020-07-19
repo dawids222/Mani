@@ -3,6 +3,7 @@ import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
 import { Category } from '../entity/category/category.entity';
+import { Settings } from '../entity/setting/settings.entity';
 import { Transaction } from '../entity/transactions/transaction.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
@@ -13,4 +14,5 @@ export interface IHttpClient {
     getAllAccounts(): Promise<Account[]>;
     getAllCategories(): Promise<Category[]>;
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
+    getSettings(): Promise<Settings>;
 }

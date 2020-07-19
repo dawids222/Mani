@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { accountsStore } from './modules/accounts.store';
 import { authStore } from './modules/auth.store';
 import { categoriesStore } from './modules/categories.store';
+import { settingsStore } from './modules/settings.store';
 import { transactionsStore } from './modules/transactions.store';
 
 Vue.use(Vuex)
@@ -19,5 +20,6 @@ export default new Vuex.Store({
     accounts: accountsStore,
     categories: categoriesStore,
     transactions: transactionsStore,
+    settings: settingsStore,
   },
 })

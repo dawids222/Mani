@@ -5,7 +5,7 @@
         :avatar="account.logo"
         :color="account.color"
         :title="account.name"
-        :subtitle="account.balance"
+        :subtitle="`${account.balance} ${currency}`"
         :text="account.description"
         @click="onAccountClick(account)"
       />
@@ -21,6 +21,7 @@ import EntityCard from "@/components/cards/EntityCard.vue";
 import BlankEntityCard from "@/components/cards/BlankEntityCard.vue";
 import { ACCOUNTS } from "@/store/types/accounts.types";
 import { mapGetters, mapActions } from "vuex";
+import { SETTINGS } from "../../store/types/settings.types";
 export default Vue.extend({
   components: {
     EntityCard,
@@ -29,7 +30,8 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       loading: ACCOUNTS.PENDING,
-      accounts: ACCOUNTS.ACCOUNTS
+      accounts: ACCOUNTS.ACCOUNTS,
+      currency: SETTINGS.CURRENCY
     })
   },
   methods: {

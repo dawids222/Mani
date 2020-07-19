@@ -22,7 +22,7 @@ export default Vue.extend({
     avatar: String,
     color: String,
     title: String,
-    subtitle: Number,
+    subtitle: String,
     text: String,
     circle: { type: Boolean, default: false }
   }

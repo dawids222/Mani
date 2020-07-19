@@ -4,6 +4,7 @@ import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
 import { Category } from '../entity/category/category.entity';
+import { Settings } from '../entity/setting/settings.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
 
@@ -307,6 +308,13 @@ export class MockHttpClient implements IHttpClient {
                 "category": null
             },
         ];
+    }
+
+    public async getSettings(): Promise<Settings> {
+        return Promise.resolve({
+            "id": "2",
+            "currency": "zł"
+        })
     }
 
     private timeout(ms: number) {

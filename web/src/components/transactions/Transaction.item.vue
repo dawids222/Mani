@@ -17,18 +17,21 @@
         'mani-color-success': transaction.value > 0,
         'mani-color-error': transaction.value < 0,
       }"
-    >{{transaction.value}}</v-card-text>
+    >{{transaction.value}} {{currency}}</v-card-text>
   </v-card>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import { Account } from "@/api/entity/account/account.entity";
 import { Category } from "@/api/entity/category/category.entity";
+import { mapGetters } from "vuex";
+import { SETTINGS } from "../../store/types/settings.types";
 export default Vue.extend({
   props: {
     transaction: { type: Object }
   },
   computed: {
+    ...mapGetters({ currency: SETTINGS.CURRENCY }),
     avatar(): any {
       const account: Account = this.transaction.account;
       const category: Category = this.transaction.category;
