@@ -24,9 +24,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         [TRANSACTIONS.TRANSACTIONS](state, getters) {
             return (query?: TransactionQuery) => {
                 let transactions = state.transactions;
-                console.log(transactions)
                 if (query) {
-                    console.log(query)
                     transactions = transactions.filter(x =>
                         Date.parse(x.date) >= Date.parse(query.from) &&
                         Date.parse(x.date) <= Date.parse(query.to) &&
@@ -35,7 +33,6 @@ export const transactionsStore: Module<TransactionsState, any> = {
                         (query.targetAccountId ? x.targetAccount === query.targetAccountId : true)
                     );
                 }
-                console.log(transactions)
                 return transactions
                     .map(x => getters[TRANSACTIONS.GET](x.id))
             }

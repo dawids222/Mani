@@ -65,7 +65,21 @@ export const accountsStore: Module<AccountsState, any> = {
             httpClient
                 .createAccount(account)
                 .then(
-                    account => { router.push({ name: "Accounts" }) },
+                    _ => { router.push({ name: "Accounts" }) },
+                    error => { console.log(error) }
+                )
+                .finally(() => commit(ACCOUNTS.PENDING, false));
+        },
+        async [ACCOUNTS.DELETE]({ commit, state }, accountId: number) {
+            commit(ACCOUNTS.PENDING, true);
+            httpClient
+                .deleteAccount(accountId)
+                .then(
+                    _ => {
+                        const index = state.accounts.findIndex(x => x.id === accountId);
+                        state.accounts.splice(index, 1);
+                        router.push({ name: "Accounts" })
+                    },
                     error => { console.log(error) }
                 )
                 .finally(() => commit(ACCOUNTS.PENDING, false));

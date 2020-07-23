@@ -32,4 +32,8 @@ export const polish: Language = {
     avatarPickerLogoLabel: 'logo',
     cancel: 'wróć',
     search: 'Szukaj',
+    yes: 'tak',
+    no: 'nie',
+    deleteDialogTitle: 'Uwaga!',
+    deleteAccountDialogMessage: 'Czy na pewno chcesz usunąć to konto?',
 }

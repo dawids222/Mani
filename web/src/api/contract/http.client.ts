@@ -14,6 +14,7 @@ export interface IHttpClient {
     getAllAccounts(): Promise<Account[]>;
     getAccount(accountId: number): Promise<Account>;
     createAccount(account: Account): Promise<void>;
+    deleteAccount(accountId: number): Promise<void>;
     getAllCategories(): Promise<Category[]>;
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
     getSettings(): Promise<Settings>;

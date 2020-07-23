@@ -54,6 +54,10 @@ export class MockHttpClient implements IHttpClient {
         Promise.resolve({});
     }
 
+    public async deleteAccount(accountId: number): Promise<void> {
+        Promise.resolve({});
+    }
+
     public async getAllCategories(): Promise<Category[]> {
         return Promise.resolve([
             {

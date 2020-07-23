@@ -1,0 +1,1 @@
+import './array.extention';

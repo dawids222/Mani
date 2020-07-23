@@ -15,6 +15,15 @@
     <v-text-field v-model="account.description" :label="$t('accountDescriptionLabel')" outlined></v-text-field>
     <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
     <v-btn bottom depressed large color="primary" @click="onSaveClick">{{ $t('save') }}</v-btn>
+    <v-btn
+      v-if="showDeleteButton"
+      class="mt-5"
+      bottom
+      depressed
+      large
+      color="error"
+      @click="$emit('onDeleteClick')"
+    >{{ $t('delete') }}</v-btn>
   </v-container>
 </template>
 <script lang="ts">
@@ -27,6 +36,7 @@ export default Vue.extend({
   },
   props: {
     account: { type: Object },
+    showDeleteButton: { type: Boolean, default: false },
   },
   data: () => ({
     dialog: false,

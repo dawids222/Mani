@@ -50,6 +50,11 @@ export class AxiosHttpClient implements IHttpClient {
             .post('/accounts', account);
     }
 
+    public async deleteAccount(accountId: number): Promise<void> {
+        return this.client
+            .delete(`/accounts/${accountId}`);
+    }
+
     public async getAllCategories(): Promise<Category[]> {
         return this.client
             .get('/categories')

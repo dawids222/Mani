@@ -32,4 +32,8 @@ export const english: Language = {
     avatarPickerLogoLabel: 'logo',
     cancel: 'cancel',
     search: 'Search',
+    yes: 'yes',
+    no: 'no',
+    deleteDialogTitle: 'Warning!',
+    deleteAccountDialogMessage: 'Are you sure you want to delete this account?',
 }

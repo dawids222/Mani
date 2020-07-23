@@ -32,4 +32,8 @@ export interface Language extends LocaleMessageObject {
     avatarPickerColorLabel: string;
     search: string;
     cancel: string;
+    yes: string;
+    no: string;
+    deleteDialogTitle: string;
+    deleteAccountDialogMessage: string;
 }

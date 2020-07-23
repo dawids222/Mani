@@ -1,11 +1,21 @@
 <template>
   <v-main>
+    <simple-yes-no-dialog
+      v-model="dialog"
+      :title="$t('deleteDialogTitle')"
+      :message="$t('deleteAccountDialogMessage')"
+      @onYesClick="deleteAccount"
+    />
     <v-layout row wrap>
       <v-flex d-flex xs12 sm6 md3>
         <v-layout row wrap>
           <v-flex d-flex xs12>
             <panel class="panel">
-              <account-info :account="get(accountId)" />
+              <account-info
+                :account="get(accountId)"
+                :showDeleteButton="true"
+                @onDeleteClick="onDeleteClick"
+              />
             </panel>
           </v-flex>
           <v-flex d-flex xs12>
@@ -29,6 +39,7 @@ import Panel from "@/components/cards/Panel.vue";
 import Transactions from "@/components/transactions/Transactions.vue";
 import AccountInfo from "@/components/accounts/Account.info.vue";
 import AccountOperations from "@/components/accounts/Account.operations.vue";
+import SimpleYesNoDialog from "../dialogs/SimpleYesNoDialog.vue";
 import { mapGetters, mapActions } from "vuex";
 import { ACCOUNTS } from "../../store/types/accounts.types";
 export default Vue.extend({
@@ -37,8 +48,11 @@ export default Vue.extend({
     Transactions,
     AccountInfo,
     AccountOperations,
+    SimpleYesNoDialog,
   },
-  data: () => ({}),
+  data: () => ({
+    dialog: false,
+  }),
   computed: {
     ...mapGetters({ get: ACCOUNTS.GET }),
     accountId(): number {
@@ -46,7 +60,16 @@ export default Vue.extend({
     },
   },
   methods: {
-    ...mapActions({ load: ACCOUNTS.LOAD }),
+    ...mapActions({
+      load: ACCOUNTS.LOAD,
+      delete: ACCOUNTS.DELETE,
+    }),
+    onDeleteClick() {
+      this.dialog = true;
+    },
+    deleteAccount() {
+      this.delete(this.accountId);
+    },
   },
   mounted() {
     if (!this.get(this.accountId)) {

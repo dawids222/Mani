@@ -1,6 +1,7 @@
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import Vue from 'vue';
 import App from './App.vue';
+import './extentions/index';
 import { i18n, vuetify } from './plugins/index';
 import router from './router';
 import store from './store';
