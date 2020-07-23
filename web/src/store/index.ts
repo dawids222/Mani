@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 import { accountsStore } from './modules/accounts.store';
 import { authStore } from './modules/auth.store';
 import { categoriesStore } from './modules/categories.store';
@@ -22,4 +23,7 @@ export default new Vuex.Store({
     transactions: transactionsStore,
     settings: settingsStore,
   },
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })],
 })

@@ -12,7 +12,7 @@
       <v-col></v-col>
     </v-row>
     <v-layout row wrap>
-      <v-flex v-for="(transaction, index) in transactions" :key="index" xs12 sm6 lg4>
+      <v-flex v-for="(transaction, index) in transactions" :key="index" xs12 sm6 lg4 xl3>
         <transaction-item :transaction="transaction" />
       </v-flex>
     </v-layout>

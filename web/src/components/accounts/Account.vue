@@ -17,7 +17,7 @@
       </v-flex>
       <v-flex xs12 sm6 md7 fill-height>
         <panel class="panel">
-          <transactions :accountId="account ? account.id : 0" />
+          <transactions :accountId="accountId" />
         </panel>
       </v-flex>
     </v-layout>
@@ -36,18 +36,20 @@ export default Vue.extend({
     Panel,
     Transactions,
     AccountInfo,
-    AccountOperations
+    AccountOperations,
   },
   data: () => ({
-    account: null
+    account: null,
   }),
   computed: {
-    ...mapGetters({ get: ACCOUNTS.GET })
+    ...mapGetters({ get: ACCOUNTS.GET }),
+    accountId(): number {
+      return Number(this.$router.currentRoute.params["id"]);
+    },
   },
   mounted() {
-    const accountId = Number(this.$router.currentRoute.params["id"]);
-    this.account = this.get(accountId);
-  }
+    this.account = this.get(this.accountId);
+  },
 });
 </script>
 <style scoped>
