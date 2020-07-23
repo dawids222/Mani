@@ -1,11 +1,11 @@
 <template>
   <v-main>
     <v-layout row wrap>
-      <v-flex d-flex xs12 sm6 md5>
+      <v-flex d-flex xs12 sm6 md3>
         <v-layout row wrap>
           <v-flex d-flex xs12>
             <panel class="panel">
-              <account-info :account="account" />
+              <account-info :account="get(accountId)" />
             </panel>
           </v-flex>
           <v-flex d-flex xs12>
@@ -15,7 +15,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex xs12 sm6 md7 fill-height>
+      <v-flex xs12 sm6 md9 fill-height>
         <panel class="panel">
           <transactions :accountId="accountId" />
         </panel>
@@ -29,7 +29,7 @@ import Panel from "@/components/cards/Panel.vue";
 import Transactions from "@/components/transactions/Transactions.vue";
 import AccountInfo from "@/components/accounts/Account.info.vue";
 import AccountOperations from "@/components/accounts/Account.operations.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { ACCOUNTS } from "../../store/types/accounts.types";
 export default Vue.extend({
   components: {
@@ -38,17 +38,20 @@ export default Vue.extend({
     AccountInfo,
     AccountOperations,
   },
-  data: () => ({
-    account: null,
-  }),
+  data: () => ({}),
   computed: {
     ...mapGetters({ get: ACCOUNTS.GET }),
     accountId(): number {
       return Number(this.$router.currentRoute.params["id"]);
     },
   },
+  methods: {
+    ...mapActions({ load: ACCOUNTS.LOAD }),
+  },
   mounted() {
-    this.account = this.get(this.accountId);
+    if (!this.get(this.accountId)) {
+      this.load(this.accountId);
+    }
   },
 });
 </script>

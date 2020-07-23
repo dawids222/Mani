@@ -39,6 +39,17 @@ export class MockHttpClient implements IHttpClient {
         return Promise.resolve(accounts);
     }
 
+    public async getAccount(accountId: number): Promise<Account> {
+        return Promise.resolve({
+            id: 4,
+            logo: "attach_money",
+            color: "primary",
+            name: "Nest konto",
+            balance: 8896,
+            description: "coś tam, nie wiem...",
+        })
+    }
+
     public async getAllCategories(): Promise<Category[]> {
         return Promise.resolve([
             {

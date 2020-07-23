@@ -33,7 +33,7 @@ export const accountsStore: Module<AccountsState, any> = {
         },
     },
     actions: {
-        async [ACCOUNTS.GET_ALL]({ commit }) {
+        async [ACCOUNTS.LOAD_ALL]({ commit }) {
             commit(ACCOUNTS.PENDING, true);
             httpClient
                 .getAllAccounts()
@@ -42,6 +42,18 @@ export const accountsStore: Module<AccountsState, any> = {
                         accounts.forEach(account =>
                             commit(ACCOUNTS.ADD, account)
                         )
+                    },
+                    error => { console.log(error) }
+                )
+                .finally(() => commit(ACCOUNTS.PENDING, false));
+        },
+        async [ACCOUNTS.LOAD]({ commit }, accountId: number) {
+            commit(ACCOUNTS.PENDING, true);
+            httpClient
+                .getAccount(accountId)
+                .then(
+                    account => {
+                        commit(ACCOUNTS.ADD, account)
                     },
                     error => { console.log(error) }
                 )

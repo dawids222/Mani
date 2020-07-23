@@ -25,29 +25,29 @@ import { SETTINGS } from "../../store/types/settings.types";
 export default Vue.extend({
   components: {
     EntityCard,
-    BlankEntityCard
+    BlankEntityCard,
   },
   computed: {
     ...mapGetters({
       loading: ACCOUNTS.PENDING,
       accounts: ACCOUNTS.ACCOUNTS,
-      currency: SETTINGS.CURRENCY
-    })
+      currency: SETTINGS.CURRENCY,
+    }),
   },
   methods: {
     ...mapActions({
-      loadAccounts: ACCOUNTS.GET_ALL
+      loadAccounts: ACCOUNTS.LOAD_ALL,
     }),
     onAccountClick(account: any) {
       this.$router.push({ name: "Account", params: { id: account.id } });
     },
     onAddAccountClick() {
       return;
-    }
+    },
   },
   mounted() {
     this.loadAccounts();
-  }
+  },
 });
 </script>
 <style scoped>
