@@ -22,6 +22,14 @@ export class AccountController {
         return this.accountRepository.getByUserId(user.id);
     }
 
+    @Get(':id')
+    async getAccount(@Request() request, @Param('id') accountId: number) {
+        const user: UserPayload = request.user;
+        const haveRalation = await this.haveRelation(user.id, accountId);
+        if (!haveRalation) { throw new ConflictException(); }
+        return this.accountRepository.getByAccountId(accountId);
+    }
+
     @Post()
     async createAccount(@Request() request, @Body() account: Account) {
         const validationResult = this.accountValidator.validate(account);
