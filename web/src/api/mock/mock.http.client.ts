@@ -50,6 +50,10 @@ export class MockHttpClient implements IHttpClient {
         })
     }
 
+    public async createAccount(account: Account): Promise<void> {
+        Promise.resolve({});
+    }
+
     public async getAllCategories(): Promise<Category[]> {
         return Promise.resolve([
             {

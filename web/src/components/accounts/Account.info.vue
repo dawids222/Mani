@@ -12,9 +12,9 @@
       <v-icon color="white">{{account.logo}}</v-icon>
     </v-avatar>
     <v-text-field v-model="account.name" :label="$t('accountNameLabel')" outlined></v-text-field>
-    <v-text-field v-model="account.balance" :label="$t('accountBalanceLabel')" outlined></v-text-field>
     <v-text-field v-model="account.description" :label="$t('accountDescriptionLabel')" outlined></v-text-field>
-    <v-btn bottom depressed large color="primary">{{ $t('save') }}</v-btn>
+    <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
+    <v-btn bottom depressed large color="primary" @click="onSaveClick">{{ $t('save') }}</v-btn>
   </v-container>
 </template>
 <script lang="ts">
@@ -23,13 +23,13 @@ import AvatarPicker from "@/components/input/Avatar.picker.vue";
 import store from "../../store";
 export default Vue.extend({
   components: {
-    AvatarPicker
+    AvatarPicker,
   },
   props: {
-    account: { type: Object }
+    account: { type: Object },
   },
   data: () => ({
-    dialog: false
+    dialog: false,
   }),
   methods: {
     onCancel() {
@@ -38,11 +38,14 @@ export default Vue.extend({
     onAvatarSelected(avatar: any) {
       this.dialog = false;
       // todo: http request
-      // this.account.logo = avatar.logo;
-      // this.account.color = avatar.color;
+      this.account.logo = avatar.logo;
+      this.account.color = avatar.color;
       // store.commit("accounts/add", this.account);
-    }
-  }
+    },
+    onSaveClick() {
+      this.$emit("onSaveClick", this.account);
+    },
+  },
 });
 </script>
 <style scoped>

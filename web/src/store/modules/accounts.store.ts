@@ -1,5 +1,6 @@
 import httpClient from '@/api';
 import { Account } from '@/api/entity/account/account.entity';
+import router from '@/router';
 import { Module } from 'vuex';
 import { ACCOUNTS } from '../types/accounts.types';
 
@@ -55,6 +56,16 @@ export const accountsStore: Module<AccountsState, any> = {
                     account => {
                         commit(ACCOUNTS.ADD, account)
                     },
+                    error => { console.log(error) }
+                )
+                .finally(() => commit(ACCOUNTS.PENDING, false));
+        },
+        async [ACCOUNTS.CREATE]({ commit }, account: Account) {
+            commit(ACCOUNTS.PENDING, true);
+            httpClient
+                .createAccount(account)
+                .then(
+                    account => { router.push({ name: "Accounts" }) },
                     error => { console.log(error) }
                 )
                 .finally(() => commit(ACCOUNTS.PENDING, false));

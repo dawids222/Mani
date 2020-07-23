@@ -2,6 +2,7 @@ import store from '@/store';
 import { AUTH } from '@/store/types/auth.types';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import AccountCreate from '../components/accounts/Account.create.vue';
 import Account from '../components/accounts/Account.vue';
 import Accounts from '../components/accounts/Accounts.vue';
 import Categories from '../components/categories/Categories.vue';
@@ -30,6 +31,10 @@ const routes: Array<RouteConfig> = [
         path: 'accounts/:id',
         name: 'Account',
         component: Account,
+      }, {
+        path: 'accounts-create',
+        name: 'CreateAccount',
+        component: AccountCreate,
       }, {
         path: 'categories',
         name: 'Categories',

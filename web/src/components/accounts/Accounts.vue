@@ -42,6 +42,7 @@ export default Vue.extend({
       this.$router.push({ name: "Account", params: { id: account.id } });
     },
     onAddAccountClick() {
+      this.$router.push({ name: "CreateAccount" });
       return;
     },
   },

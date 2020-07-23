@@ -13,6 +13,7 @@ export interface IHttpClient {
     register(data: Register): Promise<User>;
     getAllAccounts(): Promise<Account[]>;
     getAccount(accountId: number): Promise<Account>;
+    createAccount(account: Account): Promise<void>;
     getAllCategories(): Promise<Category[]>;
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
     getSettings(): Promise<Settings>;

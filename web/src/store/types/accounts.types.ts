@@ -5,4 +5,5 @@ export const ACCOUNTS = {
     LOAD: 'accounts/load',
     GET: 'accounts/get',
     ADD: 'accounts/add',
+    CREATE: 'accounts/create',
 }
