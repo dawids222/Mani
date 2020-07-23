@@ -39,7 +39,7 @@ export class AxiosHttpClient implements IHttpClient {
             .then(x => x.data);
     }
 
-    private async getAccount(accountId: number): Promise<Account> {
+    public async getAccount(accountId: number): Promise<Account> {
         return this.client
             .get(`/accounts/${accountId}`,)
             .then(x => x.data);

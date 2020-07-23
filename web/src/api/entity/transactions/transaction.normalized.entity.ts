@@ -6,7 +6,7 @@ export interface TransactionNormalized {
     type: TransactionType;
     value: number;
     date: string;
-    accountId: number;
-    accountTargetId: number | null;
-    categoryId: number | null;
+    account: number;
+    targetAccount: number | null;
+    category: number | null;
 }

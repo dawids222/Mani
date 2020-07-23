@@ -22,8 +22,23 @@ export const transactionsStore: Module<TransactionsState, any> = {
     getters: {
         [TRANSACTIONS.PENDING](state) { return state.pending; },
         [TRANSACTIONS.TRANSACTIONS](state, getters) {
-            return state.transactions
-                .map(x => getters[TRANSACTIONS.GET](x.id))
+            return (query?: TransactionQuery) => {
+                let transactions = state.transactions;
+                console.log(transactions)
+                if (query) {
+                    console.log(query)
+                    transactions = transactions.filter(x =>
+                        Date.parse(x.date) >= Date.parse(query.from) &&
+                        Date.parse(x.date) <= Date.parse(query.to) &&
+                        (query.accountId ? x.account === query.accountId : true) &&
+                        (query.categoryId ? x.category === query.categoryId : true) &&
+                        (query.targetAccountId ? x.targetAccount === query.targetAccountId : true)
+                    );
+                }
+                console.log(transactions)
+                return transactions
+                    .map(x => getters[TRANSACTIONS.GET](x.id))
+            }
         },
         [TRANSACTIONS.GET](state, _, __, rootGetters) {
             return (id: number) => {
