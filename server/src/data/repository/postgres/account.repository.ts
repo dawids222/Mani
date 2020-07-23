@@ -14,9 +14,9 @@ export class AccountRepository implements IAccountRepository {
         return postgres
             .query(`
                 INSERT INTO accounts
-                VALUES (default, $1, $2, $3)
+                VALUES (default, $1, $2, $3, $4, $5)
                 RETURNING id, name, description;
-            `, [account.name, account.description, userId])
+            `, [account.name, account.description, userId, account.logo, account.color])
             .then(x => {
                 const result = x.rows[0];
                 result.balance = 0;
@@ -28,9 +28,11 @@ export class AccountRepository implements IAccountRepository {
         await postgres.query(`
             UPDATE accounts SET 
             name = $1, 
-            description = $2
-            WHERE id = $3;
-        `, [account.name, account.description, accountId]);
+            description = $2,
+            logo = $3,
+            color = $4
+            WHERE id = $5;
+        `, [account.name, account.description, account.logo, account.color, accountId]);
         return await this.getByAccountId(accountId);
     }
 
@@ -68,7 +70,7 @@ export class AccountRepository implements IAccountRepository {
         if (!accountIds.length) { return []; }
         return postgres
             .query(`
-                SELECT a.id, a.name, a.description
+                SELECT a.id, a.name, a.description, a.logo, a.color
                 FROM accounts a LEFT JOIN transactions t
                 ON (t.account_id = a.id OR t.account_target_id = a.id)
                 WHERE a.id IN (${accountIds.join(', ')})
@@ -86,7 +88,7 @@ export class AccountRepository implements IAccountRepository {
                     THEN -t.value
                     ELSE t.value
                 END), 0) AS balance,
-                a.description
+                a.description, a.logo, a.color
                 FROM accounts a LEFT JOIN transactions t
                 ON (t.account_id = a.id OR t.account_target_id = a.id)
                 WHERE a.${property} = $1

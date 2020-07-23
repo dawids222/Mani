@@ -8,11 +8,15 @@ export class AccountAdapter extends BaseEntityAdapter<Account> {
         const name = String(value.name);
         const balance = Number(value.balance);
         const description = String(value.description);
+        const logo = String(value.logo);
+        const color = String(value.color);
         return {
             id,
             name,
             balance,
             description,
+            logo,
+            color,
         };
     }
 }

@@ -4,5 +4,7 @@ export class Account {
         public name: string,
         public balance: number,
         public description: string,
+        public logo: string,
+        public color: string,
     ) { }
 }
