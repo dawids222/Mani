@@ -18,11 +18,11 @@ export default Vue.extend({
     //
   }),
   methods: {
-    ...mapActions({ loadSettings: SETTINGS.GET })
+    ...mapActions({ loadSettings: SETTINGS.GET }),
   },
   mounted() {
     this.loadSettings();
-  }
+  },
 });
 </script>
 <style>
@@ -54,5 +54,17 @@ export default Vue.extend({
   margin-bottom: -30px;
   transition: 0.3s;
   z-index: 2;
+}
+.mani-info-panel-button {
+  width: 100%;
+}
+.mani-info-panel-container {
+  height: 100%;
+}
+.mani-info-panel-avatar {
+  margin-bottom: 20px;
+}
+.mani-info-panel-avatar:hover {
+  cursor: pointer;
 }
 </style>

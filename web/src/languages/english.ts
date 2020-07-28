@@ -28,6 +28,7 @@ export const english: Language = {
     accountIncomeLabel: 'income',
     accountTransferLabel: 'transfer',
     save: 'save',
+    delete: 'delete',
     avatarPickerColorLabel: 'color',
     avatarPickerLogoLabel: 'logo',
     cancel: 'cancel',
@@ -36,4 +37,5 @@ export const english: Language = {
     no: 'no',
     deleteDialogTitle: 'Warning!',
     deleteAccountDialogMessage: 'Are you sure you want to delete this account?',
+    deleteCategoryDialogMessage: 'Are you sure you want to delete this category?'
 }

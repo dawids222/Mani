@@ -28,6 +28,7 @@ export const polish: Language = {
     accountIncomeLabel: 'przychód',
     accountTransferLabel: 'przelew',
     save: 'zapisz',
+    delete: 'usuń',
     avatarPickerColorLabel: 'kolor',
     avatarPickerLogoLabel: 'logo',
     cancel: 'wróć',
@@ -36,4 +37,5 @@ export const polish: Language = {
     no: 'nie',
     deleteDialogTitle: 'Uwaga!',
     deleteAccountDialogMessage: 'Czy na pewno chcesz usunąć to konto?',
+    deleteCategoryDialogMessage: 'Czy na pewno cchesz usunąć tą kategorię?'
 }

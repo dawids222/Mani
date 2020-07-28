@@ -6,6 +6,7 @@ import AccountCreate from '../components/accounts/Account.create.vue';
 import Account from '../components/accounts/Account.vue';
 import Accounts from '../components/accounts/Accounts.vue';
 import Categories from '../components/categories/Categories.vue';
+import Category from '../components/categories/Category.vue';
 import Transactions from '../components/transactions/Transactions.vue';
 import About from '../views/About.vue';
 import Dashboard from '../views/Dashboard.vue';
@@ -39,6 +40,10 @@ const routes: Array<RouteConfig> = [
         path: 'categories',
         name: 'Categories',
         component: Categories,
+      }, {
+        path: 'category/:id',
+        name: 'Category',
+        component: Category,
       },
       {
         path: 'transactions',

@@ -1,19 +1,17 @@
 <template>
-  <v-container v-if="account" class="mani-info-panel-container">
+  <v-container v-if="category" class="mani-info-panel-container">
     <v-dialog v-model="dialog" max-width="500" max-height="700">
       <avatar-picker
-        :color="account.color"
-        :logo="account.logo"
+        :color="category.color"
+        :logo="category.logo"
         @onAvatarSelected="onAvatarSelected"
         @onCancel="onCancel"
       />
     </v-dialog>
-    <v-avatar tile :color="account.color" class="mani-info-panel-avatar" @click="dialog=true">
-      <v-icon color="white">{{account.logo}}</v-icon>
+    <v-avatar tile :color="category.color" class="mani-info-panel-avatar" @click="dialog=true">
+      <v-icon color="white">{{category.logo}}</v-icon>
     </v-avatar>
-    <v-text-field v-model="account.name" :label="$t('accountNameLabel')" outlined></v-text-field>
-    <v-text-field v-model="account.description" :label="$t('accountDescriptionLabel')" outlined></v-text-field>
-    <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
+    <v-text-field v-model="category.name" :label="$t('accountNameLabel')" outlined></v-text-field>
     <v-btn
       bottom
       depressed
@@ -24,11 +22,11 @@
     >{{ $t('save') }}</v-btn>
     <v-btn
       v-if="showDeleteButton"
+      class="mt-5 mani-info-panel-button"
       bottom
       depressed
       large
       color="error"
-      class="mt-5 mani-info-panel-button"
       @click="$emit('onDeleteClick')"
     >{{ $t('delete') }}</v-btn>
   </v-container>
@@ -42,7 +40,7 @@ export default Vue.extend({
     AvatarPicker,
   },
   props: {
-    account: { type: Object },
+    category: { type: Object },
     showDeleteButton: { type: Boolean, default: false },
   },
   data: () => ({
@@ -55,12 +53,12 @@ export default Vue.extend({
     onAvatarSelected(avatar: any) {
       this.dialog = false;
       // todo: http request
-      this.account.logo = avatar.logo;
-      this.account.color = avatar.color;
+      this.category.logo = avatar.logo;
+      this.category.color = avatar.color;
       // store.commit("accounts/add", this.account);
     },
     onSaveClick() {
-      this.$emit("onSaveClick", this.account);
+      this.$emit("onSaveClick", this.category);
     },
   },
 });

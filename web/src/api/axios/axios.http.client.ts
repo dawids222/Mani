@@ -4,6 +4,7 @@ import { Account } from '../entity/account/account.entity';
 import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
+import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
 import { Transaction } from '../entity/transactions/transaction.entity';
@@ -55,9 +56,33 @@ export class AxiosHttpClient implements IHttpClient {
             .delete(`/accounts/${accountId}`);
     }
 
+    public async createCategory(category: CategoryCreate): Promise<CategoryCreate> {
+        return this.client
+            .post('/categories', category)
+            .then(x => x.data);
+    }
+
     public async getAllCategories(): Promise<Category[]> {
         return this.client
             .get('/categories')
+            .then(x => x.data);
+    }
+
+    public async getCategory(categoryId: number) {
+        return this.client
+            .get(`/categories/${categoryId}`)
+            .then(x => x.data);
+    }
+
+    public async editCategory(category: CategoryCreate) {
+        return this.client
+            .put(`/categories/${category.id}`, category)
+            .then(x => x.data);
+    }
+
+    public async deleteCategory(categoryId: number) {
+        return this.client
+            .delete(`/categories/${categoryId}`)
             .then(x => x.data);
     }
 

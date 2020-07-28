@@ -28,6 +28,7 @@ export interface Language extends LocaleMessageObject {
     accountExpenseLabel: string;
     accountIncomeLabel: string;
     save: string;
+    delete: string;
     avatarPickerLogoLabel: string;
     avatarPickerColorLabel: string;
     search: string;
@@ -36,4 +37,5 @@ export interface Language extends LocaleMessageObject {
     no: string;
     deleteDialogTitle: string;
     deleteAccountDialogMessage: string;
+    deleteCategoryDialogMessage: string;
 }

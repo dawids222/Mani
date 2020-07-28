@@ -3,12 +3,16 @@ import { Account } from '../entity/account/account.entity';
 import { Login } from '../entity/auth/login.entity';
 import { Register } from '../entity/auth/register.entity';
 import { Token } from '../entity/auth/token.entity';
+import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
 
 export class MockHttpClient implements IHttpClient {
+    createCategory(category: CategoryCreate): Promise<import("../entity/category/category.create.entity").CategoryCreate> {
+        throw new Error("Method not implemented.");
+    }
 
     public async login(data: Login): Promise<Token> {
         await this.timeout(1000);
@@ -97,6 +101,29 @@ export class MockHttpClient implements IHttpClient {
                 "subcategories": []
             }
         ])
+    }
+    public async getCategory() {
+        return Promise.resolve({
+            id: 0,
+            name: '',
+            logo: '',
+            color: '',
+            subcategories: [],
+        })
+    }
+
+    public async editCategory() {
+        return Promise.resolve({
+            id: 0,
+            name: '',
+            logo: '',
+            color: '',
+            categoryId: null,
+        })
+    }
+
+    public async deleteCategory() {
+        return Promise.resolve()
     }
 
     public async getTransactions(query: TransactionQuery): Promise<any[]> {
