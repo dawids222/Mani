@@ -21,6 +21,14 @@ export class CategoryController {
         return this.categoryRepository.getByUserId(user.id);
     }
 
+    @Get(':id')
+    async getCategory(@Request() request, @Param('id') categoryId: number) {
+        const user: UserPayload = request.user;
+        const haveRalation = await this.categoryRepository.haveRelation(user.id, categoryId);
+        if (!haveRalation) { throw new ConflictException(); }
+        return this.categoryRepository.getByCategoryId(categoryId);
+    }
+
     @Post()
     async createCategory(@Request() request, @Body() category: CategoryPlain) {
         const validationResult = this.categoryValidator.validate(category);
