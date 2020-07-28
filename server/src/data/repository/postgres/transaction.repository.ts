@@ -70,6 +70,20 @@ export class TransactionRepository implements ITransactionRepository {
             .then(x => this.transactionPlainAdapter.adaptMany(x.rows) as any);
     }
 
+    public async getByTransactionId(transactionId: number): Promise<Transaction> {
+        return postgres
+            .query(`
+                SELECT t.id, t.name, t.type, t.value, t.date, t.account_id AS "accountId",
+                t.account_target_id AS "accountTargetId", t.category_id AS "categoryId"
+                FROM ${this.table} t, accounts a, users u
+                WHERE 
+                t.account_id = a.id AND
+                a.user_id = u.id AND
+                t.id = $1
+            `, [transactionId])
+            .then(x => this.transactionPlainAdapter.adapt(x.rows[0]) as any);
+    }
+
     public async haveRelation(userId: number, transactionId: number): Promise<boolean> {
         return postgres
             .query(`

@@ -44,6 +44,17 @@ export class TransactionService implements ITransactionRepository {
         return this.transactionAdapter.adaptMany(transactions);
     }
 
+    public async getByTransactionId(transactionId): Promise<Transaction> {
+        const transaction = await this.transactionRepository.getByTransactionId(transactionId) as any;
+        const account = await this.accountRepository.getByAccountId(transaction.accountId);
+        const targetAccount = await this.accountRepository.getByAccountId(transaction.accountTargetId);
+        const category = await this.categoryRepository.getByCategoryId(transaction.categoryId);
+        transaction.account = account;
+        transaction.category = category;
+        transaction.targetAccount = targetAccount;
+        return this.transactionAdapter.adapt(transaction);
+    }
+
     public async haveRelation(userId: number, transactionId: number): Promise<boolean> {
         return this.transactionRepository.haveRelation(userId, transactionId);
     }

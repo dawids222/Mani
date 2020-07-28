@@ -26,6 +26,14 @@ export class TransactionController {
         return this.transactionRepository.get(user.id, query);
     }
 
+    @Get(':id')
+    async getTransaction(@Request() request, @Param('id') transactionId: number) {
+        const user: UserPayload = request.user;
+        const haveRalation = await this.transactionRepository.haveRelation(user.id, transactionId);
+        if (!haveRalation) { throw new ConflictException(); }
+        return this.transactionRepository.getByTransactionId(transactionId);
+    }
+
     @Post()
     async createTransaction(@Request() request, @Body() transaction: TransactionPlain) {
         const validationResult = this.transactionValidator.validate(transaction);

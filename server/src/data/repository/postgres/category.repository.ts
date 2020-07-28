@@ -57,13 +57,21 @@ export class CategoryRepository implements ICategoryRepository {
     }
 
     public async getByCategoryId(categoryId: number): Promise<Category> {
-        return postgres
+        const category = await postgres
             .query(`
                 SELECT id, name, logo, color, category_id
                 FROM ${this.table}
                 WHERE id = $1;
             `, [categoryId])
-            .then(x => this.joinCategories(x.rows)[0]);
+            .then(x => x.rows[0]);
+        const subcategories = await postgres
+            .query(`
+                SELECT id, name, logo, color, category_id
+                FROM ${this.table}
+                WHERE category_id = $1;
+            `, [category.id])
+            .then(x => x.rows)
+        return this.joinCategories([category, ...subcategories])[0];
     }
 
     public async getByCategoryIds(categoryIds: number[]): Promise<Category[]> {
