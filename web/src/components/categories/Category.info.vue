@@ -8,7 +8,7 @@
         @onCancel="onCancel"
       />
     </v-dialog>
-    <v-avatar tile :color="category.color" class="mani-info-panel-avatar" @click="dialog=true">
+    <v-avatar :color="category.color" class="mani-info-panel-avatar" @click="dialog=true">
       <v-icon color="white">{{category.logo}}</v-icon>
     </v-avatar>
     <v-text-field v-model="category.name" :label="$t('accountNameLabel')" outlined></v-text-field>

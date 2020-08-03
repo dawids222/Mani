@@ -58,12 +58,21 @@ export default Vue.extend({
     },
   },
   methods: {
+    ...mapActions({
+      load: CATEGORIES.LOAD,
+      delete: CATEGORIES.DELETE,
+    }),
     onDeleteClick() {
       this.dialog = true;
     },
     deleteCategory() {
-      return;
+      this.delete(this.categoryId);
     },
+  },
+  mounted() {
+    if (!this.get(this.categoryId)) {
+      this.load(this.categoryId);
+    }
   },
 });
 </script>

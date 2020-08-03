@@ -26,31 +26,31 @@ import { Category } from "../../api/entity/category/category.entity";
 export default Vue.extend({
   components: {
     EntityCard,
-    BlankEntityCard
+    BlankEntityCard,
   },
   computed: {
     ...mapGetters({
       loading: CATEGORIES.PENDING,
-      mains: CATEGORIES.MAINS
-    })
+      mains: CATEGORIES.MAINS,
+    }),
   },
   methods: {
     ...mapActions({
-      loadCategories: CATEGORIES.GET_ALL
+      loadCategories: CATEGORIES.LOAD_ALL,
     }),
     onCategoryClick(category: any) {
       this.$router.push({ name: "Category", params: { id: category.id } });
     },
     onAddCategoryClick() {
-      return;
+      this.$router.push({ name: "CreateCategory" });
     },
     subCategoriesNames(category: Category): string {
-      return category.subcategories.map(x => x.name).join(", ");
-    }
+      return category.subcategories.map((x) => x.name).join(", ");
+    },
   },
   mounted() {
     this.loadCategories();
-  }
+  },
 });
 </script>
 <style scoped>

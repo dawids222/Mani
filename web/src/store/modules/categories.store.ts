@@ -1,6 +1,8 @@
 import httpClient from '@/api';
+import { CategoryCreate } from '@/api/entity/category/category.create.entity';
 import { Category } from '@/api/entity/category/category.entity';
 import { CategoryNormalized } from '@/api/entity/category/category.normalized.entity';
+import router from '@/router';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -36,6 +38,7 @@ export const categoriesStore: Module<CategoriesState, any> = {
             return (id: number) => {
                 if (!id) { return null; }
                 const category = state.categories.find(x => x.id === id);
+                if (!category) { return null; }
                 return resolveRelations(
                     category,
                     [{ prop: 'subcategories', store: 'categories' }],
@@ -58,7 +61,7 @@ export const categoriesStore: Module<CategoriesState, any> = {
         }
     },
     actions: {
-        [CATEGORIES.GET_ALL]({ commit }) {
+        async [CATEGORIES.LOAD_ALL]({ commit }) {
             commit(CATEGORIES.PENDING, true);
             httpClient
                 .getAllCategories()
@@ -71,6 +74,42 @@ export const categoriesStore: Module<CategoriesState, any> = {
                     error => { return; },
                 )
                 .finally(() => { commit(CATEGORIES.PENDING, false) });
+        },
+        async [CATEGORIES.LOAD]({ commit }, categoryId: number) {
+            commit(CATEGORIES.PENDING, true);
+            httpClient
+                .getCategory(categoryId)
+                .then(
+                    category => {
+                        commit(CATEGORIES.ADD, category);
+                    },
+                    error => { return; },
+                )
+                .finally(() => { commit(CATEGORIES.PENDING, false) });
+        },
+        async [CATEGORIES.CREATE]({ commit }, category: CategoryCreate) {
+            commit(CATEGORIES.PENDING, true);
+            httpClient
+                .createCategory(category)
+                .then(
+                    _ => { router.push({ name: 'Categories' }); },
+                    error => { return; }
+                )
+                .finally(() => commit(CATEGORIES.PENDING, false));
+        },
+        async [CATEGORIES.DELETE]({ commit, state }, categoryId: number) {
+            commit(CATEGORIES.PENDING, true);
+            httpClient
+                .deleteCategory(categoryId)
+                .then(
+                    success => {
+                        const index = state.categories.findIndex(x => x.id === categoryId);
+                        state.categories.splice(index, 1);
+                        router.push({ name: 'Categories' });
+                    },
+                    error => { return; }
+                )
+                .finally(() => commit(CATEGORIES.PENDING, false));
         }
     },
 }
