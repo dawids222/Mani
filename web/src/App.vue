@@ -50,7 +50,7 @@ export default Vue.extend({
   transform: translateY(-60%) translateX(100%);
 }
 .mani-entity-card-avatar {
-  transform: translateY(-40%) translateX(100%);
+  transform: translateY(-40%) translateX(100%) skewX(5deg);
   margin-bottom: -30px;
   transition: 0.3s;
   z-index: 2;

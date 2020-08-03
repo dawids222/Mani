@@ -1,5 +1,6 @@
 <template>
   <v-layout row wrap>
+    <transaction-create-dialog v-model="dialog" />
     <v-flex v-for="(category, index) in mains" :key="index" xs12 sm6 lg4 xl3>
       <entity-card
         class="card"
@@ -23,11 +24,14 @@ import BlankEntityCard from "@/components/cards/BlankEntityCard.vue";
 import { mapGetters, mapActions } from "vuex";
 import { CATEGORIES } from "@/store/types/categories.types";
 import { Category } from "../../api/entity/category/category.entity";
+import TransactionCreateDialog from "@/components/dialogs/Transaction.create.dialog.vue";
 export default Vue.extend({
   components: {
     EntityCard,
     BlankEntityCard,
+    TransactionCreateDialog,
   },
+  data: () => ({ dialog: false }),
   computed: {
     ...mapGetters({
       loading: CATEGORIES.PENDING,
@@ -42,7 +46,8 @@ export default Vue.extend({
       this.$router.push({ name: "Category", params: { id: category.id } });
     },
     onAddCategoryClick() {
-      this.$router.push({ name: "CreateCategory" });
+      this.dialog = true;
+      // this.$router.push({ name: "CreateCategory" });
     },
     subCategoriesNames(category: Category): string {
       return category.subcategories.map((x) => x.name).join(", ");
