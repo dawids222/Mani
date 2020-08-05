@@ -37,5 +37,7 @@ export const polish: Language = {
     no: 'nie',
     deleteDialogTitle: 'Uwaga!',
     deleteAccountDialogMessage: 'Czy na pewno chcesz usunąć to konto?',
-    deleteCategoryDialogMessage: 'Czy na pewno cchesz usunąć tą kategorię?'
+    deleteCategoryDialogMessage: 'Czy na pewno cchesz usunąć tą kategorię?',
+    date: 'Data',
+    transactionNameLabel: 'Nazwa',
 }

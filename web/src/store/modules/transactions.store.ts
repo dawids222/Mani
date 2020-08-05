@@ -1,7 +1,9 @@
 import httpClient from '@/api';
+import { TransactionCreate } from '@/api/entity/transactions/transaction.create.entity';
 import { Transaction } from '@/api/entity/transactions/transaction.entity';
 import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
 import { TransactionQuery } from '@/api/query/transaction.query';
+import router from '@/router';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -66,7 +68,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         }
     },
     actions: {
-        [TRANSACTIONS.GET_ALL]({ commit, state }, query: TransactionQuery) {
+        async [TRANSACTIONS.GET_ALL]({ commit, state }, query: TransactionQuery) {
             commit(TRANSACTIONS.PENDING, true);
             httpClient
                 .getTransactions(query)
@@ -83,6 +85,17 @@ export const transactionsStore: Module<TransactionsState, any> = {
                     }
                 )
                 .finally(() => commit(TRANSACTIONS.PENDING, false))
+        },
+        async [TRANSACTIONS.CREATE]({ commit, state }, transaction: TransactionCreate) {
+            commit(TRANSACTIONS.PENDING, true);
+            httpClient
+                .createTransaction(transaction)
+                .then(
+                    // todo: route to new transaction?
+                    _ => { router.push({ name: "Transactions" }) },
+                    error => { console.log(error) }
+                )
+                .finally(() => { commit(TRANSACTIONS.PENDING, false) })
         }
     },
 }

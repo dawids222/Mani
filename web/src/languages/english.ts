@@ -37,5 +37,7 @@ export const english: Language = {
     no: 'no',
     deleteDialogTitle: 'Warning!',
     deleteAccountDialogMessage: 'Are you sure you want to delete this account?',
-    deleteCategoryDialogMessage: 'Are you sure you want to delete this category?'
+    deleteCategoryDialogMessage: 'Are you sure you want to delete this category?',
+    date: 'Date',
+    transactionNameLabel: 'Name',
 }

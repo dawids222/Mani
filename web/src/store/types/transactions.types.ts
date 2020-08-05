@@ -4,4 +4,5 @@ export const TRANSACTIONS = {
     TRANSACTIONS: 'transactions/transactions',
     PENDING: 'transactions/pending',
     ADD: 'transactions/add',
+    CREATE: 'transactions/create',
 }

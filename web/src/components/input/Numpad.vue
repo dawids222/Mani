@@ -1,6 +1,8 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12>{{val}}</v-flex>
+    <v-flex xs12 class="mani-numpad-display-container">
+      <div class="mani-numpad-display-content">{{val}}</div>
+    </v-flex>
     <v-flex xs3>
       <v-btn @click="add(7)">7</v-btn>
     </v-flex>
@@ -66,6 +68,9 @@ export default Vue.extend({
   },
   methods: {
     add(val: number) {
+      if (this.val.length === 22) {
+        return;
+      }
       if (this.val === "0") {
         this.val = val.toString();
       } else {
@@ -126,5 +131,20 @@ export default Vue.extend({
 .v-btn {
   height: 50px !important;
   width: 100%;
+}
+.mani-numpad-display-container {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 50px;
+  margin-bottom: 10px;
+  color: black;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.mani-numpad-display-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 10px;
 }
 </style>

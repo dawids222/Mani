@@ -6,6 +6,7 @@ import { Token } from '../entity/auth/token.entity';
 import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
+import { TransactionCreate } from '../entity/transactions/transaction.create.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
 
@@ -354,6 +355,10 @@ export class MockHttpClient implements IHttpClient {
                 "category": null
             },
         ];
+    }
+
+    public async createTransaction(transaction: TransactionCreate): Promise<void> {
+        Promise.resolve({});
     }
 
     public async getSettings(): Promise<Settings> {

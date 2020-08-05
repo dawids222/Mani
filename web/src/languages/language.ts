@@ -38,4 +38,6 @@ export interface Language extends LocaleMessageObject {
     deleteDialogTitle: string;
     deleteAccountDialogMessage: string;
     deleteCategoryDialogMessage: string;
+    date: string;
+    transactionNameLabel: string;
 }

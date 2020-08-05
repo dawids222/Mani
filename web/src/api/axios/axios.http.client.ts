@@ -7,6 +7,7 @@ import { Token } from '../entity/auth/token.entity';
 import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
+import { TransactionCreate } from '../entity/transactions/transaction.create.entity';
 import { Transaction } from '../entity/transactions/transaction.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
@@ -98,5 +99,11 @@ export class AxiosHttpClient implements IHttpClient {
                 params: query,
             })
             .then(x => x.data)
+    }
+
+    public async createTransaction(transaction: TransactionCreate): Promise<void> {
+        return this.client
+            .post('/transactions', transaction)
+            .then((x) => x.data);
     }
 }

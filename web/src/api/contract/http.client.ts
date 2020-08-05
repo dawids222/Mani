@@ -5,6 +5,7 @@ import { Token } from '../entity/auth/token.entity';
 import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
+import { TransactionCreate } from '../entity/transactions/transaction.create.entity';
 import { Transaction } from '../entity/transactions/transaction.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
@@ -22,5 +23,6 @@ export interface IHttpClient {
     editCategory(category: CategoryCreate): Promise<CategoryCreate>;
     deleteCategory(categoryId: number): Promise<void>;
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
+    createTransaction(transaction: TransactionCreate): Promise<void>;
     getSettings(): Promise<Settings>;
 }
