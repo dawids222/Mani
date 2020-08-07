@@ -8,6 +8,8 @@
 import Vue from "vue";
 import { mapActions } from "vuex";
 import { SETTINGS } from "@/store/types/settings.types";
+import { ACCOUNTS } from "./store/types/accounts.types";
+import { CATEGORIES } from "./store/types/categories.types";
 
 export default Vue.extend({
   name: "App",
@@ -18,10 +20,16 @@ export default Vue.extend({
     //
   }),
   methods: {
-    ...mapActions({ loadSettings: SETTINGS.GET }),
+    ...mapActions({
+      loadSettings: SETTINGS.GET,
+      loadAccounts: ACCOUNTS.LOAD_ALL,
+      loadCategories: CATEGORIES.LOAD_ALL,
+    }),
   },
   mounted() {
     this.loadSettings();
+    this.loadAccounts();
+    this.loadCategories();
   },
 });
 </script>
@@ -66,5 +74,14 @@ export default Vue.extend({
 }
 .mani-info-panel-avatar:hover {
   cursor: pointer;
+}
+.mani-clickable {
+  cursor: pointer;
+}
+.mani-scale-on-hover {
+  transition: 0.3s !important;
+}
+.mani-scale-on-hover:hover {
+  transform: scale(1.1);
 }
 </style>

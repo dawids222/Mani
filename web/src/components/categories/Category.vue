@@ -20,7 +20,7 @@
           </v-flex>
           <v-flex d-flex xs12>
             <panel class="panel">
-              <!-- <account-operations /> -->
+              <category-operations :id="categoryId" />
             </panel>
           </v-flex>
         </v-layout>
@@ -41,12 +41,14 @@ import SimpleYesNoDialog from "../dialogs/SimpleYesNoDialog.vue";
 import { mapGetters, mapActions } from "vuex";
 import CategoryInfo from "./Category.info.vue";
 import { CATEGORIES } from "../../store/types/categories.types";
+import CategoryOperations from "@/components/categories/Category.operations.vue";
 export default Vue.extend({
   components: {
     Panel,
     Transactions,
     SimpleYesNoDialog,
     CategoryInfo,
+    CategoryOperations,
   },
   data: () => ({
     dialog: false,

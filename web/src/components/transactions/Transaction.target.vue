@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="click">
+  <v-card class=".mani-clickable mani-scale-on-hover" @click="click">
     <div />
     <v-avatar :color="value.color" :tile="!circle" size="32">
       <v-icon color="#fff">{{value.logo}}</v-icon>
@@ -18,7 +18,7 @@ export default Vue.extend({
   data: () => ({}),
   methods: {
     click() {
-      return;
+      this.$emit("click");
     },
   },
 });
@@ -32,10 +32,6 @@ export default Vue.extend({
   z-index: 2;
 }
 .v-card {
-  margin: 6px 6px 0px 6px;
-}
-.v-card:hover {
-  transform: scale(1.05);
-  cursor: pointer;
+  margin: 6px 12px 0px 12px;
 }
 </style>

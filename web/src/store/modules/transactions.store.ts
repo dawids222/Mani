@@ -3,7 +3,6 @@ import { TransactionCreate } from '@/api/entity/transactions/transaction.create.
 import { Transaction } from '@/api/entity/transactions/transaction.entity';
 import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
 import { TransactionQuery } from '@/api/query/transaction.query';
-import router from '@/router';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -92,7 +91,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
                 .createTransaction(transaction)
                 .then(
                     // todo: route to new transaction?
-                    _ => { router.push({ name: "Transactions" }) },
+                    _ => { return; },
                     error => { console.log(error) }
                 )
                 .finally(() => { commit(TRANSACTIONS.PENDING, false) })

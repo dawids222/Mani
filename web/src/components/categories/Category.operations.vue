@@ -5,23 +5,11 @@
       v-model="dialog"
       :type="type"
       :accountId="accountId"
-      :accountTargetId="id"
+      :categoryId="id"
     />
     <v-layout row wrap>
       <v-flex xs12>
-        <v-btn
-          bottom
-          depressed
-          large
-          color="primary"
-          @click="transfer"
-        >{{ $t('accountTransferLabel') }}</v-btn>
-      </v-flex>
-      <v-flex xs12>
-        <!-- <v-btn bottom depressed large color="error" @click="expense">{{ $t('accountExpenseLabel') }}</v-btn> -->
-      </v-flex>
-      <v-flex xs12>
-        <v-btn bottom depressed large color="success" @click="income">{{ $t('accountIncomeLabel') }}</v-btn>
+        <v-btn bottom depressed large color="error" @click="expense">{{ $t('accountExpenseLabel') }}</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -43,21 +31,9 @@ export default Vue.extend({
     accountId: null,
   }),
   methods: {
-    transfer() {
-      this.reset();
-      this.type = TransactionType.TRANSFER;
-      this.dialog = true;
-    },
     expense() {
       this.reset();
       this.type = TransactionType.EXPENSE;
-      this.accountId = this.id;
-      this.dialog = true;
-    },
-    income() {
-      this.reset();
-      this.type = TransactionType.INCOME;
-      this.accountId = this.id;
       this.dialog = true;
     },
     reset() {

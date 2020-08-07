@@ -20,7 +20,7 @@
           </v-flex>
           <v-flex d-flex xs12>
             <panel class="panel">
-              <account-operations />
+              <account-operations :id="accountId" />
             </panel>
           </v-flex>
         </v-layout>
