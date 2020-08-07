@@ -14,8 +14,9 @@
     <v-card-text
       :class="{
         'mani-transaction-item-value': true,
-        'mani-color-success': transaction.value > 0,
-        'mani-color-error': transaction.value < 0,
+        'mani-color-transfer': isTransfer,
+        'mani-color-success': !isTransfer && transaction.value > 0,
+        'mani-color-error': !isTransfer && transaction.value < 0,
       }"
     >{{transaction.value}} {{currency}}</v-card-text>
   </v-card>
@@ -26,12 +27,16 @@ import { Account } from "@/api/entity/account/account.entity";
 import { Category } from "@/api/entity/category/category.entity";
 import { mapGetters } from "vuex";
 import { SETTINGS } from "../../store/types/settings.types";
+import { TransactionType } from "@/api/entity/enum/transaction.type";
 export default Vue.extend({
   props: {
-    transaction: { type: Object }
+    transaction: { type: Object },
   },
   computed: {
     ...mapGetters({ currency: SETTINGS.CURRENCY }),
+    isTransfer(): boolean {
+      return this.transaction.type === TransactionType.TRANSFER;
+    },
     avatar(): any {
       const account: Account = this.transaction.account;
       const category: Category = this.transaction.category;
@@ -39,19 +44,22 @@ export default Vue.extend({
         ? {
             logo: category.logo,
             color: category.color,
-            circle: true
+            circle: true,
           }
         : {
             logo: account.logo,
             color: account.color,
-            circle: false
+            circle: false,
           };
-    }
-  }
+    },
+  },
 });
 </script>
 <style scoped>
 .mani-entity-card-container .mani-transaction-item-value {
   font-size: 125%;
+}
+.mani-color-transfer {
+  color: gray;
 }
 </style>
