@@ -40,4 +40,5 @@ export const english: Language = {
     deleteCategoryDialogMessage: 'Are you sure you want to delete this category?',
     date: 'Date',
     transactionNameLabel: 'Name',
+    transactionBalanceLabel: 'Balance',
 }

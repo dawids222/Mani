@@ -87,6 +87,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         },
         async [TRANSACTIONS.CREATE]({ commit, state }, transaction: TransactionCreate) {
             commit(TRANSACTIONS.PENDING, true);
+            console.log(transaction)
             httpClient
                 .createTransaction(transaction)
                 .then(

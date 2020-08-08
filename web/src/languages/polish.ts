@@ -40,4 +40,5 @@ export const polish: Language = {
     deleteCategoryDialogMessage: 'Czy na pewno cchesz usunąć tą kategorię?',
     date: 'Data',
     transactionNameLabel: 'Nazwa',
+    transactionBalanceLabel: 'Bilans',
 }

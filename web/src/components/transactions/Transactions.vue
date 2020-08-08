@@ -9,6 +9,7 @@
       <v-col>
         <datepicker v-model="model.to" :label="$t('toLabel')" />
       </v-col>
+      <v-col>{{$t('transactionBalanceLabel')}}: {{balance}} {{currency}}</v-col>
       <v-col></v-col>
     </v-row>
     <v-layout row wrap>
@@ -24,6 +25,7 @@ import Datepicker from "@/components/input/Datepicker.vue";
 import { mapGetters, mapActions } from "vuex";
 import { TRANSACTIONS } from "../../store/types/transactions.types";
 import TransactionItem from "@/components/transactions/Transaction.item.vue";
+import { SETTINGS } from "@/store/types/settings.types";
 export default Vue.extend({
   components: {
     Datepicker,
@@ -43,12 +45,20 @@ export default Vue.extend({
     },
   }),
   computed: {
-    ...mapGetters({ transactions: TRANSACTIONS.TRANSACTIONS }),
+    ...mapGetters({
+      transactions: TRANSACTIONS.TRANSACTIONS,
+      currency: SETTINGS.CURRENCY,
+    }),
     query(): any {
       return {
         ...this.model,
         ...this.$props,
       };
+    },
+    balance(): number {
+      let sum = 0;
+      this.transactions(this.query).forEach((x: any) => (sum += x.value));
+      return sum;
     },
   },
   methods: {

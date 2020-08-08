@@ -40,4 +40,5 @@ export interface Language extends LocaleMessageObject {
     deleteCategoryDialogMessage: string;
     date: string;
     transactionNameLabel: string;
+    transactionBalanceLabel: string;
 }

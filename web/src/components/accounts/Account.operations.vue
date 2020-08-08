@@ -5,7 +5,7 @@
       v-model="dialog"
       :type="type"
       :accountId="accountId"
-      :accountTargetId="id"
+      :accountTargetId="accountTargetId"
     />
     <v-layout row wrap>
       <v-flex xs12>
@@ -41,11 +41,13 @@ export default Vue.extend({
     dialog: false,
     type: 0,
     accountId: null,
+    accountTargetId: null,
   }),
   methods: {
     transfer() {
       this.reset();
       this.type = TransactionType.TRANSFER;
+      this.accountTargetId = this.id;
       this.dialog = true;
     },
     expense() {
@@ -64,6 +66,7 @@ export default Vue.extend({
       this.dialog = false;
       this.type = 0;
       this.accountId = null;
+      this.accountTargetId = null;
     },
   },
 });
