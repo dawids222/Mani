@@ -29,7 +29,7 @@ export const accountsStore: Module<AccountsState, any> = {
         [ACCOUNTS.ADD](state, account: Account) {
             if (!account) { return; }
             const index = state.accounts.findIndex(x => x.id === account.id);
-            if (index !== -1) { state.accounts[index] = account; }
+            if (index !== -1) { Object.assign(state.accounts[index], account); }
             else { state.accounts.push(account); }
         },
     },

@@ -53,7 +53,7 @@ export const categoriesStore: Module<CategoriesState, any> = {
             if (!category) { return; }
             const normalized = normalizeRelations(category, ['subcategories']);
             const index = state.categories.findIndex(x => x.id === category.id);
-            if (index !== -1) { state.categories[index] = normalized; }
+            if (index !== -1) { Object.assign(state.categories[index], normalized) }
             else { state.categories.push(normalized); }
             category.subcategories.forEach(subcategory => {
                 store.commit(CATEGORIES.ADD, subcategory);

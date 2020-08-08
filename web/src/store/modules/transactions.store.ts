@@ -59,7 +59,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         [TRANSACTIONS.ADD](state, transaction: Transaction) {
             const normalized = normalizeRelations(transaction, ['account', 'targetAccount', 'category']);
             const index = state.transactions.findIndex(x => x.id === transaction.id);
-            if (index !== -1) { state.transactions[index] = normalized }
+            if (index !== -1) { Object.assign(state.transactions[index], normalized) }
             else state.transactions.push(normalized);
             store.commit(ACCOUNTS.ADD, transaction.account);
             store.commit(ACCOUNTS.ADD, transaction.targetAccount);
@@ -90,8 +90,9 @@ export const transactionsStore: Module<TransactionsState, any> = {
             httpClient
                 .createTransaction(transaction)
                 .then(
-                    // todo: route to new transaction?
-                    _ => { return; },
+                    result => {
+                        commit(TRANSACTIONS.ADD, result)
+                    },
                     error => { console.log(error) }
                 )
                 .finally(() => { commit(TRANSACTIONS.PENDING, false) })
