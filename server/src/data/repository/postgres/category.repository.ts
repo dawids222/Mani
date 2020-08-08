@@ -13,18 +13,18 @@ export class CategoryRepository implements ICategoryRepository {
         @Inject("ICategoryAdapter") private readonly categoryAdapter: IEntityAdapter<Category>,
     ) { }
 
-    public async create(category: CategoryPlain, userId: number): Promise<CategoryPlain> {
-        return postgres
+    public async create(category: CategoryPlain, userId: number): Promise<Category> {
+        const createResult = await postgres
             .query(`
                 INSERT INTO ${this.table} 
                 VALUES (default, $1, $2, $3, $4, $5)
                 RETURNING id, name, logo, color, category_id AS categoryId;
             `, [category.name, category.logo, category.color, userId, category.categoryId])
-            .then(x => x.rows[0]);
+        return await this.getByCategoryId(createResult.rows[0].id);
     }
 
-    public async edit(categoryId: number, category: CategoryPlain): Promise<CategoryPlain> {
-        return postgres
+    public async edit(categoryId: number, category: CategoryPlain): Promise<Category> {
+        const editResult = await postgres
             .query(`
                 UPDATE ${this.table} SET
                 name = $1,
@@ -34,7 +34,7 @@ export class CategoryRepository implements ICategoryRepository {
                 WHERE id = $5
                 RETURNING id, name, logo, color, category_id AS categoryId;
             `, [category.name, category.logo, category.color, category.categoryId, categoryId])
-            .then(x => x.rows[0]);
+        return await this.getByCategoryId(editResult.rows[0].id);
     }
 
     public async delete(categoryId: number): Promise<void> {
@@ -64,6 +64,7 @@ export class CategoryRepository implements ICategoryRepository {
                 WHERE id = $1;
             `, [categoryId])
             .then(x => x.rows[0]);
+        if (!category) { return null; }
         const subcategories = await postgres
             .query(`
                 SELECT id, name, logo, color, category_id

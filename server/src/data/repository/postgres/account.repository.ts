@@ -15,7 +15,7 @@ export class AccountRepository implements IAccountRepository {
             .query(`
                 INSERT INTO accounts
                 VALUES (default, $1, $2, $3, $4, $5)
-                RETURNING id, name, description;
+                RETURNING id, name, description, logo, color;
             `, [account.name, account.description, userId, account.logo, account.color])
             .then(x => {
                 const result = x.rows[0];

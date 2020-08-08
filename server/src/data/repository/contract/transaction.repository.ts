@@ -3,8 +3,8 @@ import { TransactionPlain } from "src/business/entity/transaction/transaction.pl
 import { TransactionQuery } from "src/business/query/transaction.query";
 
 export interface ITransactionRepository {
-    create(transaction: TransactionPlain): Promise<TransactionPlain>;
-    edit(transactionId: number, transaction: TransactionPlain): Promise<TransactionPlain>;
+    create(transaction: TransactionPlain): Promise<Transaction>;
+    edit(transactionId: number, transaction: TransactionPlain): Promise<Transaction>;
     delete(transactionId: number): Promise<void>;
     get(userId: number, query: TransactionQuery): Promise<Transaction[]>;
     getByTransactionId(transactionId: number): Promise<Transaction>;

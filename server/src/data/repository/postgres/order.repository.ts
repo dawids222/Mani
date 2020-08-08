@@ -16,7 +16,7 @@ export class OrderRepository implements IOrderRepository {
 
     private readonly table = 'orders';
 
-    public async create(order: OrderPlain): Promise<OrderPlain> {
+    public async create(order: OrderPlain): Promise<Order> {
         const o = order;
         return postgres
             .query(`
@@ -30,7 +30,7 @@ export class OrderRepository implements IOrderRepository {
             .then(x => x.rows[0]);
     }
 
-    public async edit(orderId: number, order: OrderPlain): Promise<OrderPlain> {
+    public async edit(orderId: number, order: OrderPlain): Promise<Order> {
         const o = order;
         return postgres
             .query(`
@@ -65,24 +65,39 @@ export class OrderRepository implements IOrderRepository {
     public async get(userId: number, query: OrderQuery): Promise<Order[]> {
         return postgres
             .query(`
-            SELECT o.id, o.name, o.type, o.value, o.active as "isActive", o.trigger_days as "triggerDays",
-            o.trigger_months as "triggerMonths", o.account_id as "accountId", o.account_target_id as "accountTargetId",
-            o.category_id as "categoryId"
-            FROM orders o, accounts a, users u 
-            WHERE 
-            o.account_id = a.id AND
-            a.user_id = u.id AND
-            u.id = $1
-            ${this.createQuerySection(query)}
+                SELECT o.id, o.name, o.type, o.value, o.active as "isActive", o.trigger_days as "triggerDays",
+                o.trigger_months as "triggerMonths", o.account_id as "accountId", o.account_target_id as "accountTargetId",
+                o.category_id as "categoryId"
+                FROM ${this.table} o, accounts a, users u 
+                WHERE 
+                o.account_id = a.id AND
+                a.user_id = u.id AND
+                u.id = $1
+                ${this.createQuerySection(query)}
             `, [userId])
             .then(x => this.orderPlainAdapter.adaptMany(x.rows) as any);
+    }
+
+    public async getByOrderId(orderId: number): Promise<Order> {
+        return postgres
+            .query(`
+                SELECT o.id, o.name, o.type, o.value, o.active as "isActive", o.trigger_days as "triggerDays",
+                o.trigger_months as "triggerMonths", o.account_id as "accountId", o.account_target_id as "accountTargetId",
+                o.category_id as "categoryId"
+                FROM ${this.table} o, accounts a, users u 
+                WHERE 
+                o.account_id = a.id AND
+                a.user_id = u.id AND
+                o.id = $1
+            `, [orderId])
+            .then(x => this.orderPlainAdapter.adapt(x.rows[0]) as any);
     }
 
     public async haveRelation(userId: number, orderId: number): Promise<boolean> {
         return postgres
             .query(`
                 SELECT * 
-                FROM users u, accounts a, orders o 
+                FROM users u, accounts a, ${this.table} o 
                 WHERE 
                 a.user_id = u.id AND 
                 o.account_id = a.id AND 

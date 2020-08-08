@@ -21,12 +21,14 @@ export class OrderService implements IOrderRepository {
         private readonly orderAdapter: IEntityAdapter<Order>,
     ) { }
 
-    public async create(order: OrderPlain): Promise<OrderPlain> {
-        return this.orderRepository.create(order);
+    public async create(order: OrderPlain): Promise<Order> {
+        const createResult = await this.orderRepository.create(order);
+        return this.getByOrderId(createResult.id);
     }
 
-    public async edit(orderId: number, order: OrderPlain): Promise<OrderPlain> {
-        return this.orderRepository.edit(orderId, order);
+    public async edit(orderId: number, order: OrderPlain): Promise<Order> {
+        const editResult = await this.orderRepository.edit(orderId, order);
+        return this.getByOrderId(editResult.id);
     }
 
     public async delete(orderId: number): Promise<void> {
@@ -43,6 +45,17 @@ export class OrderService implements IOrderRepository {
             t.targetAccount = accounts.find(at => at.id === t.accountTargetId) ?? null;
         });
         return this.orderAdapter.adaptMany(orders);
+    }
+
+    public async getByOrderId(orderId: Number): Promise<Order> {
+        const order = await this.orderRepository.getByOrderId(orderId) as any;
+        const account = await this.accountRepository.getByAccountId(order.accountId);
+        const targetAccount = await this.accountRepository.getByAccountId(order.accountTargetId);
+        const category = await this.categoryRepository.getByCategoryId(order.categoryId);
+        order.account = account;
+        order.category = category;
+        order.targetAccount = targetAccount;
+        return this.orderAdapter.adapt(order);
     }
 
     public async haveRelation(userId: number, orderId: number): Promise<boolean> {

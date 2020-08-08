@@ -20,12 +20,14 @@ export class TransactionService implements ITransactionRepository {
         private readonly transactionAdapter: IEntityAdapter<Transaction>,
     ) { }
 
-    public async create(transaction: TransactionPlain): Promise<TransactionPlain> {
-        return this.transactionRepository.create(transaction);
+    public async create(transaction: TransactionPlain): Promise<Transaction> {
+        const createResult = await this.transactionRepository.create(transaction);
+        return this.getByTransactionId(createResult.id);
     }
 
-    public async edit(transactionId: number, transaction: TransactionPlain): Promise<TransactionPlain> {
-        return this.transactionRepository.edit(transactionId, transaction);
+    public async edit(transactionId: number, transaction: TransactionPlain): Promise<Transaction> {
+        const editResult = await this.transactionRepository.edit(transactionId, transaction);
+        return this.getByTransactionId(editResult.id);
     }
 
     public async delete(transactionId: number): Promise<void> {
