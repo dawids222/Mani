@@ -12,9 +12,6 @@ export class TransactionRepository implements ITransactionRepository {
         @Inject('ITransactionPlainAdapter')
         private readonly transactionPlainAdapter: IEntityAdapter<TransactionPlain>,
     ) { }
-    getByTransactionId(transactionId: number): Promise<Transaction> {
-        throw new Error("Method not implemented.");
-    }
 
     private readonly table = 'transactions';
 
@@ -73,7 +70,7 @@ export class TransactionRepository implements ITransactionRepository {
             .then(x => this.transactionPlainAdapter.adaptMany(x.rows) as any);
     }
 
-    public async getByOrderId(transactionId: number): Promise<Transaction> {
+    public async getByTransactionId(transactionId: number): Promise<Transaction> {
         return postgres
             .query(`
                 SELECT t.id, t.name, t.type, t.value, t.date, t.account_id AS "accountId",
