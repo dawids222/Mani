@@ -49,7 +49,8 @@ export class AccountRepository implements IAccountRepository {
             type=2, 
             account_id=account_target_id, 
             account_target_id=null
-            WHERE account_id = $1;
+            WHERE account_id = $1 AND
+            account_target_id<>null;;
         `, [accountId]);
         await postgres.query(`
             DELETE FROM accounts 
