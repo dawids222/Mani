@@ -41,4 +41,6 @@ export const polish: Language = {
     date: 'Data',
     transactionNameLabel: 'Nazwa',
     transactionBalanceLabel: 'Bilans',
+    success: 'Sukces!',
+    error: 'Błąd!',
 }

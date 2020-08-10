@@ -1,6 +1,11 @@
 <template>
   <v-app>
     <router-view />
+    <v-snackbar
+      v-model="messager.show"
+      :color="messager.color"
+      :timeout="messager.timeout"
+    >{{ $t(messager.message) }}</v-snackbar>
   </v-app>
 </template>
 
@@ -10,6 +15,7 @@ import { mapActions } from "vuex";
 import { SETTINGS } from "@/store/types/settings.types";
 import { ACCOUNTS } from "./store/types/accounts.types";
 import { CATEGORIES } from "./store/types/categories.types";
+import messager from "./plugins/messager";
 
 export default Vue.extend({
   name: "App",
@@ -17,7 +23,7 @@ export default Vue.extend({
   components: {},
 
   data: () => ({
-    //
+    messager,
   }),
   methods: {
     ...mapActions({

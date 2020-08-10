@@ -13,16 +13,21 @@ import { TransactionQuery } from '../query/transaction.query';
 export interface IHttpClient {
     login(data: Login): Promise<Token>;
     register(data: Register): Promise<User>;
+
     getAllAccounts(): Promise<Account[]>;
     getAccount(accountId: number): Promise<Account>;
-    createAccount(account: Account): Promise<void>;
+    createAccount(account: Account): Promise<Account>;
+    editAccount(account: Account): Promise<Account>;
     deleteAccount(accountId: number): Promise<void>;
+
     getAllCategories(): Promise<Category[]>;
     getCategory(categoryId: number): Promise<Category>;
     createCategory(category: CategoryCreate): Promise<CategoryCreate>;
     editCategory(category: CategoryCreate): Promise<CategoryCreate>;
     deleteCategory(categoryId: number): Promise<void>;
+
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
     createTransaction(transaction: TransactionCreate): Promise<void>;
+
     getSettings(): Promise<Settings>;
 }

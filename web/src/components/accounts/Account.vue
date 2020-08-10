@@ -14,6 +14,7 @@
               <account-info
                 :account="get(accountId)"
                 :showDeleteButton="true"
+                @onSaveClick="onSaveClick"
                 @onDeleteClick="onDeleteClick"
               />
             </panel>
@@ -62,8 +63,12 @@ export default Vue.extend({
   methods: {
     ...mapActions({
       load: ACCOUNTS.LOAD,
+      edit: ACCOUNTS.EDIT,
       delete: ACCOUNTS.DELETE,
     }),
+    onSaveClick(account: Account) {
+      this.edit(account);
+    },
     onDeleteClick() {
       this.dialog = true;
     },

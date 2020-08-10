@@ -41,4 +41,6 @@ export const english: Language = {
     date: 'Date',
     transactionNameLabel: 'Name',
     transactionBalanceLabel: 'Balance',
+    success: 'Success!',
+    error: 'Error!',
 }

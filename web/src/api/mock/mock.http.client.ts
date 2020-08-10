@@ -55,8 +55,26 @@ export class MockHttpClient implements IHttpClient {
         })
     }
 
-    public async createAccount(account: Account): Promise<void> {
-        Promise.resolve({});
+    public async createAccount(account: Account): Promise<Account> {
+        return Promise.resolve({
+            id: 4,
+            logo: "attach_money",
+            color: "primary",
+            name: "Nest konto",
+            balance: 8896,
+            description: "coś tam, nie wiem...",
+        });
+    }
+
+    public async editAccount(account: Account): Promise<Account> {
+        return Promise.resolve({
+            id: 4,
+            logo: "attach_money",
+            color: "primary",
+            name: "Nest konto",
+            balance: 8896,
+            description: "coś tam, nie wiem...",
+        });
     }
 
     public async deleteAccount(accountId: number): Promise<void> {

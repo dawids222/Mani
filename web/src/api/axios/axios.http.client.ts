@@ -47,9 +47,16 @@ export class AxiosHttpClient implements IHttpClient {
             .then(x => x.data);
     }
 
-    public async createAccount(account: Account): Promise<void> {
+    public async createAccount(account: Account): Promise<Account> {
         return this.client
-            .post('/accounts', account);
+            .post('/accounts', account)
+            .then(x => x.data);
+    }
+
+    public async editAccount(account: Account): Promise<Account> {
+        return this.client
+            .put(`/accounts/${account.id}`, account)
+            .then(x => x.data);
     }
 
     public async deleteAccount(accountId: number): Promise<void> {

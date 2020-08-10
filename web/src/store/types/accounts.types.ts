@@ -7,4 +7,5 @@ export const ACCOUNTS = {
     ADD: 'accounts/add',
     CREATE: 'accounts/create',
     DELETE: 'accounts/delete',
+    EDIT: 'accounts/edit',
 }
