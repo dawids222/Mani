@@ -11,23 +11,19 @@
     <v-avatar tile :color="account.color" class="mani-info-panel-avatar" @click="dialog=true">
       <v-icon color="white">{{account.logo}}</v-icon>
     </v-avatar>
-    <validation-observer v-slot="{ handleSubmit }">
-      <validation-provider name="name" rules="required" v-slot="{errors}">
-        <v-text-field
-          v-model="account.name"
-          :label="$t('accountNameLabel')"
-          outlined
-          :error-messages="errors"
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider name="name" rules="required" v-slot="{errors}">
-        <v-text-field
-          v-model="account.description"
-          :label="$t('accountDescriptionLabel')"
-          outlined
-          :error-messages="errors"
-        ></v-text-field>
-      </validation-provider>
+    <validation-observer ref="form" v-slot="{ handleSubmit }">
+      <validation-text-field
+        name="name"
+        rules="required"
+        v-model="account.name"
+        label="accountNameLabel"
+      />
+      <validation-text-field
+        name="description"
+        rules="required"
+        v-model="account.description"
+        label="accountDescriptionLabel"
+      />
       <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
       <v-btn
         bottom
