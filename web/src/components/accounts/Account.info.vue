@@ -11,26 +11,42 @@
     <v-avatar tile :color="account.color" class="mani-info-panel-avatar" @click="dialog=true">
       <v-icon color="white">{{account.logo}}</v-icon>
     </v-avatar>
-    <v-text-field v-model="account.name" :label="$t('accountNameLabel')" outlined></v-text-field>
-    <v-text-field v-model="account.description" :label="$t('accountDescriptionLabel')" outlined></v-text-field>
-    <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
-    <v-btn
-      bottom
-      depressed
-      large
-      color="primary"
-      class="mani-info-panel-button"
-      @click="onSaveClick"
-    >{{ $t('save') }}</v-btn>
-    <v-btn
-      v-if="showDeleteButton"
-      bottom
-      depressed
-      large
-      color="error"
-      class="mt-5 mani-info-panel-button"
-      @click="$emit('onDeleteClick')"
-    >{{ $t('delete') }}</v-btn>
+    <validation-observer v-slot="{ handleSubmit }">
+      <validation-provider name="name" rules="required" v-slot="{errors}">
+        <v-text-field
+          v-model="account.name"
+          :label="$t('accountNameLabel')"
+          outlined
+          :error-messages="errors"
+        ></v-text-field>
+      </validation-provider>
+      <validation-provider name="name" rules="required" v-slot="{errors}">
+        <v-text-field
+          v-model="account.description"
+          :label="$t('accountDescriptionLabel')"
+          outlined
+          :error-messages="errors"
+        ></v-text-field>
+      </validation-provider>
+      <v-text-field v-model="account.balance" disabled :label="$t('accountBalanceLabel')" outlined></v-text-field>
+      <v-btn
+        bottom
+        depressed
+        large
+        color="primary"
+        class="mani-info-panel-button"
+        @click="handleSubmit(onSaveClick)"
+      >{{ $t('save') }}</v-btn>
+      <v-btn
+        v-if="showDeleteButton"
+        bottom
+        depressed
+        large
+        color="error"
+        class="mt-5 mani-info-panel-button"
+        @click="$emit('onDeleteClick')"
+      >{{ $t('delete') }}</v-btn>
+    </validation-observer>
   </v-container>
 </template>
 <script lang="ts">

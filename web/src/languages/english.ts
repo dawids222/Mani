@@ -43,4 +43,7 @@ export const english: Language = {
     transactionBalanceLabel: 'Balance',
     success: 'Success!',
     error: 'Error!',
+    validationMessages: {
+        required: 'this field is required',
+    },
 }

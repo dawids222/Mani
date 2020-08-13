@@ -43,4 +43,7 @@ export interface Language extends LocaleMessageObject {
     transactionBalanceLabel: string;
     success: string;
     error: string;
+    validationMessages: {
+        required: string;
+    };
 }

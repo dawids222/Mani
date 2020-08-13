@@ -43,4 +43,7 @@ export const polish: Language = {
     transactionBalanceLabel: 'Bilans',
     success: 'Sukces!',
     error: 'Błąd!',
+    validationMessages: {
+        required: 'to pole jest wymagane',
+    },
 }

@@ -82,7 +82,7 @@ export const accountsStore: Module<AccountsState, any> = {
                     },
                     error => {
                         console.log(error);
-                        messager.success('error');
+                        messager.error('error');
                     }
                 )
                 .finally(() => commit(ACCOUNTS.PENDING, false));
