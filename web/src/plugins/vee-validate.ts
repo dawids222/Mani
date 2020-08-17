@@ -5,6 +5,7 @@ import * as VeeValidate from "vee-validate";
 import * as rules from 'vee-validate/dist/rules';
 import Vue from 'vue';
 import i18n from './i18n';
+require('./rules');
 
 for (const [rule, validation] of Object.entries(rules)) {
     VeeValidate.extend(rule, {

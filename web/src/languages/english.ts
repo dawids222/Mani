@@ -45,5 +45,11 @@ export const english: Language = {
     error: 'Error!',
     validationMessages: {
         required: 'this field is required',
+        email: 'this field has to cantain valid e-maiol address',
+        min: (_, params: any) => `this field has to contain minimum of ${params.length} characters`,
+        max: (_, params: any) => `this field has to contain maximum of ${params.length} characters`,
+        noWhiteSpaces: `this field can not contain white spaces`,
+        restricted: `this fiels can not contain thise characters ;<>\\{}[]+=?&,:'"\`'`,
+        confirmed: `content of the field is not the same`,
     },
 }

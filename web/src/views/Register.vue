@@ -4,52 +4,54 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4 lg3>
           <v-card class="elevation-2 pa-3 mani-login-v-card">
-            <v-row justify="center" class="mani-login-avatar">
-              <v-avatar color="white" size="100">
-                <v-icon large>add</v-icon>
-              </v-avatar>
-            </v-row>
-            <v-card-text>
-              <div class="layout column align-center mb-8">
-                <h1 class="flex my-4 secondary--text">{{$t('registerHeader')}}</h1>
-              </div>
-              <v-form>
-                <v-text-field
-                  append-icon="email"
+            <validation-observer ref="form" v-slot="{ handleSubmit }">
+              <v-row justify="center" class="mani-login-avatar">
+                <v-avatar color="white" size="100">
+                  <v-icon large>add</v-icon>
+                </v-avatar>
+              </v-row>
+              <v-card-text>
+                <div class="layout column align-center mb-8">
+                  <h1 class="flex my-4 secondary--text">{{$t('registerHeader')}}</h1>
+                </div>
+                <validation-text-field
                   name="email"
-                  :label="$t('emailLabel')"
-                  type="text"
+                  rules="required|email"
                   v-model="model.email"
-                  @keyup.enter="register(model)"
-                ></v-text-field>
-                <v-text-field
-                  append-icon="lock"
+                  label="emailLabel"
+                  icon="email"
+                  :outlined="false"
+                  @keyup.enter="handleSubmit(submit)"
+                />
+                <validation-text-field
                   name="password"
-                  :label="$t('passwordLabel')"
-                  id="password"
-                  type="password"
+                  rules="required|min:4|max:20|noWhiteSpaces|restricted"
                   v-model="model.password"
-                  @keyup.enter="register(model)"
-                ></v-text-field>
-                <v-text-field
-                  append-icon="lock_open"
-                  name="verifyPassword"
-                  :label="$t('verifyPasswordLabel')"
-                  id="verifyPassword"
+                  label="passwordLabel"
+                  icon="lock"
+                  :outlined="false"
                   type="password"
+                  @keyup.enter="handleSubmit(submit)"
+                />
+                <validation-text-field
+                  name="verifyPassword"
+                  rules="required|confirmed:password"
                   v-model="model.verifyPassword"
-                  @keyup.enter="register(model)"
-                ></v-text-field>
-              </v-form>
-            </v-card-text>
-            <div class="login-btn">
-              <v-btn
-                block
-                color="primary"
-                @click="register(model)"
-                :loading="loading"
-              >{{$t('loginButton')}}</v-btn>
-            </div>
+                  label="verifyPasswordLabel"
+                  icon="lock_open"
+                  :outlined="false"
+                  @keyup.enter="handleSubmit(submit)"
+                />
+              </v-card-text>
+              <div class="login-btn">
+                <v-btn
+                  block
+                  color="primary"
+                  @click="handleSubmit(submit)"
+                  :loading="loading"
+                >{{$t('loginButton')}}</v-btn>
+              </div>
+            </validation-observer>
           </v-card>
         </v-flex>
       </v-layout>
@@ -65,17 +67,20 @@ export default Vue.extend({
     model: {
       email: "",
       password: "",
-      verifyPassword: ""
-    }
+      verifyPassword: "",
+    },
   }),
 
   computed: {
-    ...mapGetters({ loading: AUTH.PENDING })
+    ...mapGetters({ loading: AUTH.PENDING }),
   },
 
   methods: {
-    ...mapActions({ register: AUTH.REGISTER })
-  }
+    ...mapActions({ register: AUTH.REGISTER }),
+    submit() {
+      this.register(this.model);
+    },
+  },
 });
 </script>
 <style scoped>

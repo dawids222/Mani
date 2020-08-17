@@ -11,24 +11,31 @@
     <v-avatar :color="category.color" class="mani-info-panel-avatar" @click="dialog=true">
       <v-icon color="white">{{category.logo}}</v-icon>
     </v-avatar>
-    <v-text-field v-model="category.name" :label="$t('accountNameLabel')" outlined></v-text-field>
-    <v-btn
-      bottom
-      depressed
-      large
-      color="primary"
-      class="mani-info-panel-button"
-      @click="onSaveClick"
-    >{{ $t('save') }}</v-btn>
-    <v-btn
-      v-if="showDeleteButton"
-      class="mt-5 mani-info-panel-button"
-      bottom
-      depressed
-      large
-      color="error"
-      @click="$emit('onDeleteClick')"
-    >{{ $t('delete') }}</v-btn>
+    <validation-observer ref="form" v-slot="{ handleSubmit }">
+      <validation-text-field
+        name="name"
+        rules="required|min:1|max:20"
+        v-model="category.name"
+        label="accountNameLabel"
+      />
+      <v-btn
+        bottom
+        depressed
+        large
+        color="primary"
+        class="mani-info-panel-button"
+        @click="handleSubmit(onSaveClick)"
+      >{{ $t('save') }}</v-btn>
+      <v-btn
+        v-if="showDeleteButton"
+        class="mt-5 mani-info-panel-button"
+        bottom
+        depressed
+        large
+        color="error"
+        @click="$emit('onDeleteClick')"
+      >{{ $t('delete') }}</v-btn>
+    </validation-observer>
   </v-container>
 </template>
 <script lang="ts">

@@ -14,9 +14,16 @@
             <transaction-target v-model="accountTarget" :circle="false" />
           </v-flex>
         </v-layout>
-        <v-text-field v-model="name" :label="$t('transactionNameLabel')" outlined></v-text-field>
-        <datepicker v-model="date" :label="$t('date')" />
-        <numpad v-model="balance" @submit="submit" />
+        <validation-observer ref="form" v-slot="{ handleSubmit }">
+          <validation-text-field
+            name="name"
+            rules="required|min:1|max:50"
+            v-model="name"
+            label="transactionNameLabel"
+          />
+          <datepicker v-model="date" :label="$t('date')" />
+          <numpad v-model="balance" @submit="handleSubmit(submit)" />
+        </validation-observer>
       </v-card-text>
       <v-card-text v-if="tab === 1">
         <v-layout row wrap>

@@ -3,9 +3,12 @@
     <v-text-field
       :value="value"
       :label="$t(label)"
-      outlined
       :error-messages="errors"
+      :append-icon="icon"
+      :outlined="outlined"
       @input="$emit('input', $event)"
+      :type="type"
+      @keyup="$emit('keyup', $event)"
     ></v-text-field>
   </validation-provider>
 </template>
@@ -17,6 +20,9 @@ export default Vue.extend({
     name: String,
     rules: String,
     label: String,
+    icon: String,
+    outlined: { type: Boolean, default: true },
+    type: { type: String, default: "text" },
   },
 });
 </script>

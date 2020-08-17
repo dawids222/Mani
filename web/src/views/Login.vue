@@ -4,47 +4,51 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4 lg3>
           <v-card class="elevation-2 pa-3 mani-login-v-card">
-            <v-row justify="center" class="mani-login-avatar">
-              <v-avatar color="white" size="100">
-                <v-icon large>person</v-icon>
-              </v-avatar>
-            </v-row>
-            <v-card-text>
-              <div class="layout column align-center mb-8">
-                <h1 class="flex my-4 secondary--text">{{$t('loginHeader')}}</h1>
+            <validation-observer ref="form" v-slot="{ handleSubmit }">
+              <v-row justify="center" class="mani-login-avatar">
+                <v-avatar color="white" size="100">
+                  <v-icon large>person</v-icon>
+                </v-avatar>
+              </v-row>
+              <v-card-text>
+                <div class="layout column align-center mb-8">
+                  <h1 class="flex my-4 secondary--text">{{$t('loginHeader')}}</h1>
+                </div>
+                <v-form>
+                  <validation-text-field
+                    name="email"
+                    rules="required|email"
+                    :outlined="false"
+                    icon="email"
+                    label="emailLabel"
+                    v-model="model.email"
+                    @keyup.enter="handleSubmit(submit)"
+                  />
+                  <validation-text-field
+                    name="password"
+                    rules="required|min:4|max:20|noWhiteSpaces|restricted"
+                    :outlined="false"
+                    icon="lock"
+                    label="passwordLabel"
+                    v-model="model.password"
+                    type="password"
+                    @keyup.enter="handleSubmit(submit)"
+                  />
+                </v-form>
+              </v-card-text>
+              <div class="login-btn">
+                <v-btn
+                  block
+                  color="primary"
+                  @click="handleSubmit(submit)"
+                  :loading="loading"
+                >{{$t('loginButton')}}</v-btn>
               </div>
-              <v-form>
-                <v-text-field
-                  append-icon="email"
-                  name="email"
-                  :label="$t('emailLabel')"
-                  type="text"
-                  v-model="model.email"
-                  @keyup.enter="login(model)"
-                ></v-text-field>
-                <v-text-field
-                  append-icon="lock"
-                  name="password"
-                  :label="$t('passwordLabel')"
-                  id="password"
-                  type="password"
-                  v-model="model.password"
-                  @keyup.enter="login(model)"
-                ></v-text-field>
-              </v-form>
-            </v-card-text>
-            <div class="login-btn">
-              <v-btn
-                block
-                color="primary"
-                @click="login(model)"
-                :loading="loading"
-              >{{$t('loginButton')}}</v-btn>
-            </div>
-            <div class="mani-login-sign-up-section">
-              <div class="mani-login-sign-up-label">{{$t('dontHaveAnAccount')}}</div>&nbsp;
-              <div class="mani-login-sign-up-label" @click="signUp">{{$t('signUp')}}</div>
-            </div>
+              <div class="mani-login-sign-up-section">
+                <div class="mani-login-sign-up-label">{{$t('dontHaveAnAccount')}}</div>&nbsp;
+                <div class="mani-login-sign-up-label" @click="signUp">{{$t('signUp')}}</div>
+              </div>
+            </validation-observer>
           </v-card>
         </v-flex>
       </v-layout>
@@ -59,17 +63,20 @@ export default Vue.extend({
   data: () => ({
     model: {
       email: "",
-      password: ""
-    }
+      password: "",
+    },
   }),
 
   computed: {
-    ...mapGetters({ loading: AUTH.PENDING })
+    ...mapGetters({ loading: AUTH.PENDING }),
   },
 
   methods: {
-    ...mapActions({ login: AUTH.LOGIN, signUp: AUTH.SIGN_UP })
-  }
+    ...mapActions({ login: AUTH.LOGIN, signUp: AUTH.SIGN_UP }),
+    submit() {
+      this.login(this.model);
+    },
+  },
 });
 </script>
 <style>

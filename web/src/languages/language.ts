@@ -45,5 +45,11 @@ export interface Language extends LocaleMessageObject {
     error: string;
     validationMessages: {
         required: string;
+        email: string;
+        min: (name: string, params: any) => string;
+        max: (name: string, params: any) => string;
+        noWhiteSpaces: string;
+        restricted: string;
+        confirmed: string;
     };
 }

@@ -45,5 +45,11 @@ export const polish: Language = {
     error: 'Błąd!',
     validationMessages: {
         required: 'to pole jest wymagane',
+        email: 'to pole musi zawierać poprawny adres e-mail',
+        min: (_, params: any) => `to pole musi zajmować minimalnie ${params.length} znaków`,
+        max: (_, params: any) => `to pole może zajmować maksymalnie ${params.length} znaków`,
+        noWhiteSpaces: `to pole nie może zawierać białych znaków`,
+        restricted: `to pole nie może zawierać znaków ;<>\\{}[]+=?&,:'"\`'`,
+        confirmed: `zawartość pól nie jest taka sama`,
     },
 }
