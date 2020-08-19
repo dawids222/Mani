@@ -41,6 +41,9 @@ export interface Language extends LocaleMessageObject {
     date: string;
     transactionNameLabel: string;
     transactionBalanceLabel: string;
+    transactionValueLabel: string;
+    transactionDateLabel: string;
+    deleteTransactionDialogMessage: string;
     success: string;
     error: string;
     validationMessages: {

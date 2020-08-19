@@ -41,6 +41,9 @@ export const english: Language = {
     date: 'Date',
     transactionNameLabel: 'Name',
     transactionBalanceLabel: 'Balance',
+    transactionValueLabel: 'Value',
+    transactionDateLabel: 'Date',
+    deleteTransactionDialogMessage: 'Are you sure you want to delete this transaction?',
     success: 'Success!',
     error: 'Error!',
     validationMessages: {

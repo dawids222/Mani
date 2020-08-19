@@ -41,6 +41,9 @@ export const polish: Language = {
     date: 'Data',
     transactionNameLabel: 'Nazwa',
     transactionBalanceLabel: 'Bilans',
+    transactionDateLabel: 'Data',
+    transactionValueLabel: 'Wartość',
+    deleteTransactionDialogMessage: 'Czy na pewno cchesz usunąć tą transakcję?',
     success: 'Sukces!',
     error: 'Błąd!',
     validationMessages: {

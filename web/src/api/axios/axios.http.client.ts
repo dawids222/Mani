@@ -105,12 +105,30 @@ export class AxiosHttpClient implements IHttpClient {
             .get('/transactions', {
                 params: query,
             })
-            .then(x => x.data)
+            .then(x => x.data);
+    }
+
+    public async getTransaction(transactionId: number): Promise<Transaction> {
+        return this.client
+            .get(`/transaction/${transactionId}`)
+            .then(x => x.data);
     }
 
     public async createTransaction(transaction: TransactionCreate): Promise<void> {
         return this.client
             .post('/transactions', transaction)
             .then((x) => x.data);
+    }
+
+    public async editTransaction(transaction: TransactionCreate): Promise<Transaction> {
+        return this.client
+            .put(`/transactions/${transaction.id}`, transaction)
+            .then(x => x.data);
+    }
+
+    public async deleteTransaction(transactionId: number): Promise<void> {
+        return this.client
+            .delete(`/transactions/${transactionId}`)
+            .then(x => x.data);
     }
 }

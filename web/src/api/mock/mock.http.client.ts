@@ -7,6 +7,7 @@ import { CategoryCreate } from '../entity/category/category.create.entity';
 import { Category } from '../entity/category/category.entity';
 import { Settings } from '../entity/setting/settings.entity';
 import { TransactionCreate } from '../entity/transactions/transaction.create.entity';
+import { Transaction } from '../entity/transactions/transaction.entity';
 import { User } from '../entity/user/user.entity';
 import { TransactionQuery } from '../query/transaction.query';
 
@@ -143,6 +144,27 @@ export class MockHttpClient implements IHttpClient {
 
     public async deleteCategory() {
         return Promise.resolve()
+    }
+
+    public async deleteTransaction(transactionId: number): Promise<void> {
+        return Promise.resolve();
+    }
+
+    public async editTransaction(transaction: TransactionCreate): Promise<Transaction> {
+        return await this.getTransaction(0);
+    }
+
+    public async getTransaction(transactionId: number): Promise<any> {
+        const query: TransactionQuery = {
+            from: '',
+            to: '',
+            categoryId: 1,
+            accountId: 1,
+            targetAccountId: 1,
+            page: 1,
+            itemsPerPage: 1,
+        };
+        return (await this.getTransactions(query))[0];
     }
 
     public async getTransactions(query: TransactionQuery): Promise<any[]> {

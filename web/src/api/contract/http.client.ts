@@ -27,7 +27,10 @@ export interface IHttpClient {
     deleteCategory(categoryId: number): Promise<void>;
 
     getTransactions(query: TransactionQuery): Promise<Transaction[]>;
+    getTransaction(transactionId: number): Promise<Transaction>;
     createTransaction(transaction: TransactionCreate): Promise<void>;
+    editTransaction(transaction: TransactionCreate): Promise<Transaction>;
+    deleteTransaction(transactionId: number): Promise<void>;
 
     getSettings(): Promise<Settings>;
 }

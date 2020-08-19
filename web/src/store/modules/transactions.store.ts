@@ -3,6 +3,8 @@ import { TransactionCreate } from '@/api/entity/transactions/transaction.create.
 import { Transaction } from '@/api/entity/transactions/transaction.entity';
 import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
 import { TransactionQuery } from '@/api/query/transaction.query';
+import { messager } from '@/plugins';
+import router from '@/router';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -67,7 +69,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
         }
     },
     actions: {
-        async [TRANSACTIONS.GET_ALL]({ commit, state }, query: TransactionQuery) {
+        async [TRANSACTIONS.LOAD_ALL]({ commit, state }, query: TransactionQuery) {
             commit(TRANSACTIONS.PENDING, true);
             httpClient
                 .getTransactions(query)
@@ -78,6 +80,20 @@ export const transactionsStore: Module<TransactionsState, any> = {
                                 commit(TRANSACTIONS.ADD, transaction);
                             }
                         )
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
+                .finally(() => commit(TRANSACTIONS.PENDING, false))
+        },
+        async [TRANSACTIONS.LOAD]({ commit }, transactionId: number) {
+            commit(TRANSACTIONS.PENDING, true);
+            httpClient
+                .getTransaction(transactionId)
+                .then(
+                    transaction => {
+                        commit(TRANSACTIONS.ADD, transaction);
                     },
                     error => {
                         console.log(error);
@@ -97,6 +113,37 @@ export const transactionsStore: Module<TransactionsState, any> = {
                     error => { console.log(error) }
                 )
                 .finally(() => { commit(TRANSACTIONS.PENDING, false) })
-        }
+        },
+        async [TRANSACTIONS.EDIT]({ commit }, transaction: TransactionCreate) {
+            commit(TRANSACTIONS.PENDING, true);
+            httpClient
+                .editTransaction(transaction)
+                .then(
+                    result => {
+                        commit(TRANSACTIONS.ADD, result);
+                        messager.success('success');
+                    },
+                    error => {
+                        console.log(error);
+                        messager.error('error');
+                    })
+                .finally(() => commit(TRANSACTIONS.PENDING, false));
+        },
+        async [TRANSACTIONS.DELETE]({ commit, state }, transactionId: number) {
+            commit(TRANSACTIONS.PENDING, true);
+            httpClient
+                .deleteTransaction(transactionId)
+                .then(
+                    _ => {
+                        const index = state.transactions.findIndex(x => x.id === transactionId);
+                        state.transactions.splice(index, 1);
+                        router.push({ name: "Transactions" })
+                    },
+                    error => {
+                        console.log(error);
+                        messager.error('error');
+                    })
+                .finally(() => commit(TRANSACTIONS.PENDING, false));
+        },
     },
 }

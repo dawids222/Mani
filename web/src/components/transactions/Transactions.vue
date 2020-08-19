@@ -14,7 +14,7 @@
     </v-row>
     <v-layout row wrap>
       <v-flex v-for="(transaction, index) in transactions(query)" :key="index" xs12 sm6 lg4 xl3>
-        <transaction-item :transaction="transaction" />
+        <transaction-item :transaction="transaction" @click="onTransactionClick(transaction)" />
       </v-flex>
     </v-layout>
   </v-main>
@@ -26,6 +26,7 @@ import { mapGetters, mapActions } from "vuex";
 import { TRANSACTIONS } from "../../store/types/transactions.types";
 import TransactionItem from "@/components/transactions/Transaction.item.vue";
 import { SETTINGS } from "@/store/types/settings.types";
+import { Transaction } from "@/api/entity/transactions/transaction.entity";
 export default Vue.extend({
   components: {
     Datepicker,
@@ -62,7 +63,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    ...mapActions({ load: TRANSACTIONS.GET_ALL }),
+    ...mapActions({ load: TRANSACTIONS.LOAD_ALL }),
     initializeDates() {
       const date = new Date(),
         y = date.getFullYear(),
@@ -75,6 +76,12 @@ export default Vue.extend({
       const endDay = lastDay.getDate().toString().padStart(2, "0");
       this.model.from = `${year}-${month}-${startDay}`;
       this.model.to = `${year}-${month}-${endDay}`;
+    },
+    onTransactionClick(transaction: Transaction) {
+      this.$router.push({
+        name: "Transaction",
+        params: { id: transaction.id.toString() },
+      });
     },
   },
   mounted() {
