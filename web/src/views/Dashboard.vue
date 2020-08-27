@@ -11,7 +11,8 @@
           v-for="(item, index) in drawerItems"
           :key="index"
           link
-          @click="goto(item.route)"
+          @click="onDrawerItemClick(item.route)"
+          :class="{'mani-selected-drawer-item': item.route === $router.currentRoute.name }"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -69,56 +70,61 @@ export default Vue.extend({
         title: "accountMenuLabel",
         click: () => {
           return;
-        }
+        },
       },
       {
         icon: "power_off",
         title: "logoutMenuLabel",
         click: () => {
           return;
-        }
-      }
+        },
+      },
     ],
     drawerItems: [
       {
         icon: "home",
         title: "dashboardDrawerLabel",
-        route: "Home"
+        route: "Home",
       },
       {
         icon: "account_balance",
         title: "accountsDrawerLabel",
-        route: "Accounts"
+        route: "Accounts",
       },
       {
         icon: "category",
         title: "categoriesDrawerLabel",
-        route: "Categories"
+        route: "Categories",
       },
       {
         icon: "attach_money",
         title: "transactionsDrawerLabel",
-        route: "Transactions"
+        route: "Transactions",
       },
       {
         icon: "autorenew",
         title: "ordersDrawerLabel",
-        route: "Orders"
+        route: "Orders",
       },
       {
         icon: "bar_chart",
         title: "statisticsDrawerLabel",
-        route: "Statistics"
-      }
-    ]
+        route: "Statistics",
+      },
+    ],
   }),
 
   methods: {
-    goto(name: string) {
-      this.$router.push({ name });
-    }
-  }
+    onDrawerItemClick(name: string) {
+      if (name !== this.$router.currentRoute.name) {
+        this.$router.push({ name });
+      }
+    },
+  },
 });
 </script>
 <style scoped>
+.mani-selected-drawer-item {
+  background-color: rgba(100, 100, 100, 0.3);
+}
 </style>
