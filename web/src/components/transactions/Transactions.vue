@@ -1,5 +1,18 @@
 <template>
   <v-main>
+    <transaction-create-dialog
+      v-if="dialog"
+      v-model="dialog"
+      :transactionId="selected.id"
+      :name="selected.name"
+      :date="selected.date"
+      :balance="selected.balance"
+      :type="selected.type"
+      :accountId="selected.accountId"
+      :accountTargetId="selected.accountTargetId"
+      :categoryId="selected.categoryId"
+      :editMode="true"
+    />
     <v-row>
       <v-col></v-col>
       <v-col>
@@ -27,10 +40,14 @@ import { TRANSACTIONS } from "../../store/types/transactions.types";
 import TransactionItem from "@/components/transactions/Transaction.item.vue";
 import { SETTINGS } from "@/store/types/settings.types";
 import { Transaction } from "@/api/entity/transactions/transaction.entity";
+import TransactionCreateDialog from "@/components/dialogs/Transaction.create.dialog.vue";
+import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
+import { TransactionType } from "@/api/entity/enum/transaction.type";
 export default Vue.extend({
   components: {
     Datepicker,
     TransactionItem,
+    TransactionCreateDialog,
   },
   props: {
     categoryId: { type: Number, default: undefined },
@@ -38,11 +55,22 @@ export default Vue.extend({
     targetAccountId: { type: Number, default: undefined },
   },
   data: () => ({
+    dialog: false,
     model: {
       from: "",
       to: "",
       page: 1,
       itemsPerPage: 10,
+    },
+    selected: {
+      id: 0,
+      type: 0,
+      balance: 0,
+      accountId: 0,
+      name: "",
+      date: "",
+      accountTargetId: 0 as any,
+      categoryId: 0 as any,
     },
   }),
   computed: {
@@ -58,7 +86,11 @@ export default Vue.extend({
     },
     balance(): number {
       let sum = 0;
-      this.transactions(this.query).forEach((x: any) => (sum += x.value));
+      this.transactions(this.query).forEach((x: TransactionNormalized) => {
+        if (x.type !== TransactionType.TRANSFER) {
+          sum += x.value;
+        }
+      });
       return sum;
     },
   },
@@ -78,10 +110,19 @@ export default Vue.extend({
       this.model.to = `${year}-${month}-${endDay}`;
     },
     onTransactionClick(transaction: Transaction) {
-      this.$router.push({
-        name: "Transaction",
-        params: { id: transaction.id.toString() },
-      });
+      this.selected.id = transaction.id;
+      this.selected.name = transaction.name;
+      this.selected.date = transaction.date;
+      this.selected.balance = transaction.value;
+      this.selected.type = transaction.type;
+      this.selected.accountId = transaction.account.id;
+      this.selected.accountTargetId = transaction.targetAccount
+        ? transaction.targetAccount.id
+        : null;
+      this.selected.categoryId = transaction.category
+        ? transaction.category.id
+        : null;
+      this.dialog = true;
     },
   },
   mounted() {

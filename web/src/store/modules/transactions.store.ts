@@ -4,7 +4,6 @@ import { Transaction } from '@/api/entity/transactions/transaction.entity';
 import { TransactionNormalized } from "@/api/entity/transactions/transaction.normalized.entity";
 import { TransactionQuery } from '@/api/query/transaction.query';
 import { messager } from '@/plugins';
-import router from '@/router';
 import { Module } from 'vuex';
 import store from '..';
 import { normalizeRelations, resolveRelations } from '../helpers';
@@ -137,7 +136,7 @@ export const transactionsStore: Module<TransactionsState, any> = {
                     _ => {
                         const index = state.transactions.findIndex(x => x.id === transactionId);
                         state.transactions.splice(index, 1);
-                        router.push({ name: "Transactions" })
+                        messager.success('success');
                     },
                     error => {
                         console.log(error);
