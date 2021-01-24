@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<GetUsersQueryVm> Get(CancellationToken token)
         {
-            return await Mediator.Send(new GetUsersQuer(), token);
+            return await Mediator.Send(new GetUsersQuery(), token);
         }
     }
 }
