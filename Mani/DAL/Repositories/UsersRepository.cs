@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
@@ -15,9 +16,9 @@ namespace DAL.Repositories
             Context = context;
         }
 
-        public async Task<IEnumerable<User>> Get()
+        public async Task<IEnumerable<User>> Get(CancellationToken token)
         {
-            return await Context.Users.ToListAsync();
+            return await Context.Users.ToListAsync(token);
         }
     }
 }

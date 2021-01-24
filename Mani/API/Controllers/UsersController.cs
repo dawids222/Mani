@@ -1,7 +1,6 @@
-﻿using Application.Repositories;
-using Domain.Entities;
+﻿using Application.Business.Users.GetUsersQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,17 +10,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class UsersController
     {
-        private IUsersRepository UsersRepository { get; }
+        private IMediator Mediator { get; }
 
-        public UsersController(IUsersRepository usersRepository)
+        public UsersController(IMediator mediator)
         {
-            UsersRepository = usersRepository;
+            Mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<User>> Get(CancellationToken token)
+        public async Task<GetUsersQueryVm> Get(CancellationToken token)
         {
-            return await UsersRepository.Get();
+            return await Mediator.Send(new GetUsersQuer(), token);
         }
     }
 }
