@@ -26,7 +26,7 @@ namespace API.Filters
                 context.HttpContext.Response.StatusCode = 500;
             }
 
-            context.Result = new JsonResult(apiError.Message);
+            context.Result = new JsonResult(apiError?.Message ?? context.Exception.Message);
             base.OnException(context);
         }
     }

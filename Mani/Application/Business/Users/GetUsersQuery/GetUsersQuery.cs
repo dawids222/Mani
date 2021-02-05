@@ -21,7 +21,7 @@ namespace Application.Business.Users.GetUsersQuery
 
         public async Task<GetUsersQueryVm> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await UsersRepository.Get(cancellationToken);
+            var users = await UsersRepository.GetAsync(cancellationToken);
             var mappedUsers = users.Select(u => new GetUsersQueryVmItem
             {
                 Id = u.Id,

@@ -7,6 +7,11 @@ namespace Application.Repositories
 {
     public interface IUsersRepository
     {
-        Task<IEnumerable<User>> Get(CancellationToken token);
+        Task<IEnumerable<User>> GetAsync(CancellationToken token);
+        Task<User> GetAsync(string email, CancellationToken token);
+        Task AddAsync(User user, CancellationToken token);
+        Task<bool> IsEmailAvailableAsync(string email, CancellationToken token);
+        Task<bool> IsEmailTakenAsync(string email, CancellationToken token);
+        Task SaveAsync(CancellationToken token);
     }
 }
