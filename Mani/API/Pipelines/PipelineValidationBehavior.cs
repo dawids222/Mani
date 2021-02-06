@@ -1,4 +1,4 @@
-﻿using API.Exceptions;
+﻿using Application.Exceptions;
 using FluentValidation;
 using MediatR;
 using System.Collections.Generic;

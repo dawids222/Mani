@@ -31,6 +31,11 @@ namespace DAL.Repositories
             await Context.Users.AddAsync(user, token);
         }
 
+        public async Task<bool> ExistsAsync(long id, CancellationToken token)
+        {
+            return await Context.Users.AnyAsync(u => u.Id == id, token);
+        }
+
         public async Task<bool> IsEmailAvailableAsync(string email, CancellationToken token)
         {
             return !await Context.Users.AnyAsync(u => u.Email == email, token);

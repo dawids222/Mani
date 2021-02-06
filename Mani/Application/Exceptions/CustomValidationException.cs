@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace API.Exceptions
+namespace Application.Exceptions
 {
-    [Serializable]
-    internal class CustomValidationException : Exception
+    public class CustomValidationException : Exception
     {
         public CustomValidationException()
         {

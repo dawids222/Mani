@@ -1,8 +1,10 @@
 using API.Common;
+using API.Extensions;
 using API.Filters;
 using API.Pipelines;
 using API.Services;
 using Application.Business.Users.GetUsersQuery;
+using Application.Common.Data;
 using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
@@ -13,9 +15,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -64,13 +68,18 @@ namespace API
                 };
             });
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-            AssemblyScanner.FindValidatorsInAssembly(typeof(GetUsersQuery).Assembly)
-                .ForEach(item => services.AddScoped(item.InterfaceType, item.ValidatorType));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(typeof(GetUsersQuery).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
+            services.AddAuthorizersFromAssembly(typeof(GetUsersQuery).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineAuthorizationBehavior<,>));
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
             services.AddTransient<IUsersRepository, UsersRepository>();
+
+            services.AddTransient<ICurrentUserService, CurrentUserService>();
 
             services.AddTransient<IEncryptor, PBKDF2Encyptor>();
             services.AddTransient<IJwtService, JwtService>();

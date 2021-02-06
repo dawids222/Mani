@@ -20,14 +20,12 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        [AllowAnonymous]
         public async Task<RegisterCommandVm> Register(RegisterCommand request, CancellationToken token)
         {
             return await Mediator.Send(request, token);
         }
 
         [HttpPost("login")]
-        [AllowAnonymous]
         public async Task<LoginCommandVm> Login(LoginCommand request, CancellationToken token)
         {
             return await Mediator.Send(request, token);

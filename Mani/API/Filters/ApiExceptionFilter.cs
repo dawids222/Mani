@@ -1,4 +1,4 @@
-﻿using API.Exceptions;
+﻿using Application.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -19,6 +19,11 @@ namespace API.Filters
             else if (context.Exception is UnauthorizedAccessException)
             {
                 apiError = context.Exception as UnauthorizedAccessException;
+                context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            }
+            else if (context.Exception is CustomUnauthorizedException)
+            {
+                apiError = context.Exception as CustomUnauthorizedException;
                 context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
             }
             else
