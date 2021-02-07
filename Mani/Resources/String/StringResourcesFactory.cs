@@ -5,6 +5,7 @@ namespace Resources.String
 {
     public class StringResourcesFactory : IStringResourcesFactory
     {
+        private IStringResources Instance { get; set; }
         private string Locale { get; }
 
         public StringResourcesFactory(string locale)
@@ -13,6 +14,13 @@ namespace Resources.String
         }
 
         public IStringResources GetStringResources()
+        {
+            if (Instance == null)
+                Instance = CreateStringResources();
+            return Instance;
+        }
+
+        private IStringResources CreateStringResources()
         {
             return Locale switch
             {
