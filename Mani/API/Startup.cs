@@ -5,6 +5,7 @@ using API.Pipelines;
 using API.Services;
 using Application.Business.Users.GetUsersQuery;
 using Application.Common.Data;
+using Application.Common.Resources.String;
 using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
@@ -23,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Resources.String;
 using System;
 using System.Text;
 
@@ -83,6 +85,14 @@ namespace API
 
             services.AddTransient<IEncryptor, PBKDF2Encyptor>();
             services.AddTransient<IJwtService, JwtService>();
+
+            services.AddTransient<IStringResources>(provider =>
+            {
+                var httpContext = provider.GetRequiredService<IHttpContextAccessor>().HttpContext;
+                var locale = httpContext.Request.Headers["Accept-Language"];
+                var stringResourcesFactory = new StringResourcesFactory(locale);
+                return stringResourcesFactory.GetStringResources();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
