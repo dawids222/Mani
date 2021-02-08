@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{CB87F146-179A-43E2-B886-E08693B9A280}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{609AC6DC-F5E1-47CC-99DD-D60480CEB83C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "Resources\Resources.csproj", "{609AC6DC-F5E1-47CC-99DD-D60480CEB83C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{07104690-8455-418F-BF91-6B547BB2903F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{609AC6DC-F5E1-47CC-99DD-D60480CEB83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{609AC6DC-F5E1-47CC-99DD-D60480CEB83C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{609AC6DC-F5E1-47CC-99DD-D60480CEB83C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07104690-8455-418F-BF91-6B547BB2903F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07104690-8455-418F-BF91-6B547BB2903F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07104690-8455-418F-BF91-6B547BB2903F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07104690-8455-418F-BF91-6B547BB2903F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

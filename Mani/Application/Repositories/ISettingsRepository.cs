@@ -6,6 +6,6 @@ namespace Application.Repositories
 {
     public interface ISettingsRepository : IRepository<Setting>
     {
-        Task<Setting> GetForUserAsync(long id, CancellationToken token);
+        Task<Setting> GetForUserAsync(long userId, CancellationToken token);
     }
 }

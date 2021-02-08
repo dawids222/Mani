@@ -5,10 +5,12 @@ using API.Pipelines;
 using API.Services;
 using Application.Business.Users.GetUsersQuery;
 using Application.Common.Data;
+using Application.Common.Mapping;
 using Application.Common.Resources.String;
 using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
+using Common.Mapping;
 using DAL;
 using DAL.Repositories;
 using FluentValidation;
@@ -86,6 +88,8 @@ namespace API
 
             services.AddTransient<IEncryptor, PBKDF2Encyptor>();
             services.AddTransient<IJwtService, JwtService>();
+
+            services.AddTransient<IEntityMapper, MapsterEntityMapper>();
 
             services.AddTransient<IStringResources>(provider =>
             {
