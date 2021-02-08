@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Contract;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -9,8 +9,16 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Logo { get; set; }
         public string Color { get; set; }
-        [ForeignKey("User")]
+        public string Description { get; set; }
         public long UserId { get; set; }
         public User User { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<Order> Orders { get; set; }
+
+        public Category()
+        {
+            Transactions = new HashSet<Transaction>();
+            Orders = new HashSet<Order>();
+        }
     }
 }
