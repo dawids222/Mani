@@ -14,12 +14,12 @@ namespace Application.Business.Authentication.Register
         public string PasswordConfirmation { get; set; }
     }
 
-    public class registerCommandHandler : IRequestHandler<RegisterCommand, RegisterCommandVm>
+    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterCommandVm>
     {
         private IUsersRepository UsersRepository { get; }
         private IEncryptor Encryptor { get; }
 
-        public registerCommandHandler(
+        public RegisterCommandHandler(
             IUsersRepository usersRepository,
             IEncryptor encryptor)
         {
@@ -29,8 +29,9 @@ namespace Application.Business.Authentication.Register
 
         public async Task<RegisterCommandVm> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
+            var newSettings = new Setting();
             var passwordHash = Encryptor.Encrypt(request.Password);
-            var newUser = new User(request.Email, passwordHash);
+            var newUser = new User(request.Email, passwordHash, newSettings);
             await UsersRepository.AddAsync(newUser, cancellationToken);
             await UsersRepository.SaveAsync(cancellationToken);
             return new RegisterCommandVm(newUser.Id);
