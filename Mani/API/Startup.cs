@@ -5,11 +5,13 @@ using API.Pipelines;
 using API.Services;
 using Application.Business.Users.GetUsersQuery;
 using Application.Common.Data;
+using Application.Common.Logging;
 using Application.Common.Mapping;
 using Application.Common.Resources.String;
 using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
+using Common.Logging;
 using Common.Mapping;
 using DAL;
 using DAL.Repositories;
@@ -46,7 +48,7 @@ namespace API
 
             services.AddControllers(options =>
             {
-                options.Filters.Add(new ApiExceptionFilter());
+                options.Filters.Add<ApiExceptionFilter>();
             });
             services.AddSwaggerGen(c =>
             {
@@ -73,6 +75,7 @@ namespace API
             });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ILogger, LogLiteLogger>();
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             services.AddValidatorsFromAssembly(typeof(GetUsersQuery).Assembly);
