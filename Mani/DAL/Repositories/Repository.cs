@@ -19,7 +19,8 @@ namespace DAL.Repositories
 
         public async Task AddAsync(T entity, CancellationToken token)
         {
-            await Context.Set<T>().AddAsync(entity, token);
+            await Task.Delay(0, token);
+            Context.Set<T>().Add(entity);
         }
 
         public async Task<bool> ExistsAsync(long id, CancellationToken token)
@@ -46,6 +47,7 @@ namespace DAL.Repositories
 
         public async Task RemoveAsync(T entity, CancellationToken token)
         {
+            await Task.Delay(0, token);
             Context.Set<T>().Remove(entity);
         }
 

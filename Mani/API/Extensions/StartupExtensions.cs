@@ -42,7 +42,7 @@ namespace API.Extensions
             });
         }
 
-        private static List<TypeInfo?> GetTypesAssignableTo(this Assembly assembly, Type compareType)
+        private static List<TypeInfo> GetTypesAssignableTo(this Assembly assembly, Type compareType)
         {
             var typeInfoList = assembly.DefinedTypes
                 .Where(x =>
