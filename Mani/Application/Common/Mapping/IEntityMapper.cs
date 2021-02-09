@@ -2,6 +2,6 @@
 {
     public interface IEntityMapper
     {
-        T Map<T>(object sourceObject);
+        T MapTo<T>(object sourceObject);
     }
 }

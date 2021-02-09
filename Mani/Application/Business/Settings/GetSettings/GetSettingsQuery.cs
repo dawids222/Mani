@@ -29,7 +29,7 @@ namespace Application.Business.Settings.GetSettings
         {
             var userId = CurrentUserService.UserId.Value;
             var settings = await SettingsRepository.GetForUserAsync(userId, cancellationToken);
-            return EntityMapper.Map<GetSettingsQueryVm>(settings);
+            return EntityMapper.MapTo<GetSettingsQueryVm>(settings);
         }
     }
 }

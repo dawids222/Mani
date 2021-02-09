@@ -5,7 +5,7 @@ namespace Common.Mapping
 {
     public class MapsterEntityMapper : IEntityMapper
     {
-        public T Map<T>(object sourceObject)
+        public T MapTo<T>(object sourceObject)
         {
             return sourceObject.Adapt<T>();
         }
