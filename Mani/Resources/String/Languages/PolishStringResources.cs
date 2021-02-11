@@ -16,5 +16,9 @@ namespace Resources.String.Languages
 
         public string AuthenticationError => "Brak dostępu dla niezalogowanego użytkownika";
         public string AuthenticationUserDeletedError => "Wykonana żądanie jako użytkownik, który już nie istnieje. Proszę zaloguj się na inne konto";
+
+        public string ItemsPerPageMinError => "Liczba elementów na stronie musi być większa bądź równa {0}";
+        public string ItemsPerPageMaxError => "Liczba elementów na stronie musi być mniejsza bądź równa {0}";
+        public string PageMinError => "Strona musi być większa bądź równa {0}";
     }
 }

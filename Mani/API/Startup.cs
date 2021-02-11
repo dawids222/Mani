@@ -11,9 +11,11 @@ using Application.Common.Resources.String;
 using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
+using Application.Requests.Handlers;
 using Common.Logging;
 using Common.Mapping;
 using DAL;
+using DAL.Handlers;
 using DAL.Repositories;
 using FluentValidation;
 using MediatR;
@@ -93,6 +95,12 @@ namespace API
             services.AddTransient<IJwtService, JwtService>();
 
             services.AddTransient<IEntityMapper, MapsterEntityMapper>();
+
+            services.AddTransient(typeof(IOrderByQueryHandler<>), typeof(OrderByQueryHandler<>));
+            services.AddTransient(typeof(ISearchQueryHandler<>), typeof(SearchQueryHandler<>));
+            services.AddTransient(typeof(IFilterQueryHandler<>), typeof(FilterQueryHandler<>));
+            services.AddTransient(typeof(IPaginationQueryHandler<>), typeof(PaginationQueryHandler<>));
+            services.AddTransient(typeof(IAdvancedQueryHandler<>), typeof(AdvancedQueryHandler<>));
 
             services.AddTransient<IStringResources>(provider =>
             {

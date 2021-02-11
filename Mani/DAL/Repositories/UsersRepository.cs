@@ -1,4 +1,5 @@
 ﻿using Application.Repositories;
+using Application.Requests.Handlers;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -6,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UsersRepository : Repository<User>, IUsersRepository
+    public class UsersRepository : AdvancedQueryRepository<User>, IUsersRepository
     {
-        public UsersRepository(ApplicationDbContext context) : base(context) { }
+        public UsersRepository(
+            ApplicationDbContext context,
+            IAdvancedQueryHandler<User> processor)
+            : base(context, processor) { }
 
         public async Task<User> GetAsync(string email, CancellationToken token)
         {

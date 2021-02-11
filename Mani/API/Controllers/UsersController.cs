@@ -1,4 +1,5 @@
 ﻿using Application.Business.Users.GetUsersQuery;
+using Application.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
@@ -18,9 +19,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<GetUsersQueryVm> Get(CancellationToken token)
+        public async Task<GetUsersQueryVm> Get([FromQuery] AdvancedQuery query, CancellationToken token)
         {
-            return await Mediator.Send(new GetUsersQuery(), token);
+            return await Mediator.Send(new GetUsersQuery(query), token);
         }
     }
 }

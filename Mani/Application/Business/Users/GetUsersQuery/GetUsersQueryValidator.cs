@@ -1,4 +1,5 @@
 ﻿using Application.Common.Resources.String;
+using Application.Common.Validators;
 using FluentValidation;
 
 namespace Application.Business.Users.GetUsersQuery
@@ -10,6 +11,9 @@ namespace Application.Business.Users.GetUsersQuery
         public GetUsersQueryValidator(IStringResources resources)
         {
             Resources = resources;
+
+            RuleFor(r => r.Query)
+                .SetValidator(new AdvancedQueryValidator(resources));
         }
     }
 }

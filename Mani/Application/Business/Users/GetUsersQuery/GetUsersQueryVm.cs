@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Application.Requests.Responses;
+using System.Collections.Generic;
 
 namespace Application.Business.Users.GetUsersQuery
 {
-    public class GetUsersQueryVm
+    public class GetUsersQueryVm : PaginationVm<GetUsersQueryVmItem>
     {
-        public IEnumerable<GetUsersQueryVmItem> Items { get; set; }
-
-        public GetUsersQueryVm(IEnumerable<GetUsersQueryVmItem> items)
-        {
-            Items = items;
-        }
+        public GetUsersQueryVm(
+            IEnumerable<GetUsersQueryVmItem> items,
+            int allItemsCount) : base(items, allItemsCount) { }
     }
 
     public class GetUsersQueryVmItem

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Repositories.Contract;
+using Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 

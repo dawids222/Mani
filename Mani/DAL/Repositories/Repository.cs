@@ -1,4 +1,4 @@
-﻿using Application.Repositories;
+﻿using Application.Repositories.Contract;
 using Domain.Entities.Contract;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
