@@ -22,5 +22,13 @@ namespace Resources.String.Languages
         public string PageMinError => "The page must be greater than or equal to {0}";
 
         public string SettingsCurrencyMaxLengthError => "Currency may contain maximum of {0} characters";
+
+        public string AccountNameMaxLengthError => "Name may contain maximum of {0} characters";
+        public string AccountNameEmptyError => "Name is required";
+        public string AccountLogoMaxLengthError => "Logo may contain maximum of {0} characters";
+        public string AccountLogoEmptyError => "Logo is required";
+        public string AccountColorMaxLengthError => "Color may contain maximum of {0} characters";
+        public string AccountColorEmptyError => "Color is required";
+        public string AccountDescriptionMaxLengthError => "Description may contain maximum of {0} characters";
     }
 }

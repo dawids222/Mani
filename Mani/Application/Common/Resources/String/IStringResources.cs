@@ -20,5 +20,13 @@
         public string PageMinError { get; }
 
         public string SettingsCurrencyMaxLengthError { get; }
+
+        public string AccountNameMaxLengthError { get; }
+        public string AccountNameEmptyError { get; }
+        public string AccountLogoMaxLengthError { get; }
+        public string AccountLogoEmptyError { get; }
+        public string AccountColorMaxLengthError { get; }
+        public string AccountColorEmptyError { get; }
+        public string AccountDescriptionMaxLengthError { get; }
     }
 }

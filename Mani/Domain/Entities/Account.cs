@@ -23,5 +23,10 @@ namespace Domain.Entities
             InboundTransactions = new HashSet<Transaction>();
             Orders = new HashSet<Order>();
         }
+
+        public const int NAME_MAX_LENGTH = 255;
+        public const int LOGO_MAX_LENGTH = 255;
+        public const int DESCRIPTION_MAX_LENGTH = 255;
+        public const int COLOR_MAX_LENGTH = 7;
     }
 }

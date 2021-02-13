@@ -9,10 +9,10 @@ namespace DAL.Configuration
         public void Configure(EntityTypeBuilder<Account> builder)
         {
             builder.HasKey(a => a.Id);
-            builder.Property(a => a.Name).IsRequired().HasMaxLength(255);
-            builder.Property(a => a.Logo).IsRequired().HasMaxLength(255);
-            builder.Property(a => a.Color).IsRequired().HasMaxLength(7);
-            builder.Property(a => a.Description).HasMaxLength(255);
+            builder.Property(a => a.Name).IsRequired().HasMaxLength(Account.NAME_MAX_LENGTH);
+            builder.Property(a => a.Logo).IsRequired().HasMaxLength(Account.LOGO_MAX_LENGTH);
+            builder.Property(a => a.Color).IsRequired().HasMaxLength(Account.COLOR_MAX_LENGTH);
+            builder.Property(a => a.Description).HasMaxLength(Account.DESCRIPTION_MAX_LENGTH);
             builder.Ignore(a => a.Balance);
             builder
                 .HasMany(a => a.OutboundTransactions)

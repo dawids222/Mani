@@ -32,13 +32,13 @@ namespace Application.Common.Validators
             RuleFor(r => r.ItemsPerPage)
                 .Cascade(CascadeMode.Stop)
                 .Must(i => i >= PAGE_MIN_VALUE).WithMessage(PageMinError)
-                .When(i => i != null);
+                .When(r => r.ItemsPerPage is { });
 
             RuleFor(r => r.Page)
                 .Cascade(CascadeMode.Stop)
                 .Must(i => i >= ITEMS_PER_PAGE_MIN_VALUE).WithMessage(ItemsPerPageMinError)
                 .Must(i => i <= ITEMS_PER_PAGE_MAX_VALUE).WithMessage(ItemsPerPageMaxError)
-                .When(i => i != null);
+                .When(r => r.Page is { });
         }
     }
 }

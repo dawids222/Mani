@@ -1,4 +1,5 @@
-﻿using Application.Business.Accounts.GetAccounts;
+﻿using Application.Business.Accounts.AddAccount;
+using Application.Business.Accounts.GetAccounts;
 using Application.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,12 @@ namespace API.Controllers
         {
             var request = new GetAccountsQuery(query);
             return await Mediator.Send(request, token);
+        }
+
+        [HttpPost]
+        public async Task Post(AddAccountCommand request, CancellationToken token)
+        {
+            await Mediator.Send(request, token);
         }
     }
 }
