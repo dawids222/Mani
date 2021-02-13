@@ -9,7 +9,9 @@ namespace DAL.Configuration
         public void Configure(EntityTypeBuilder<Setting> builder)
         {
             builder.HasKey(s => s.Id);
-            builder.Property(s => s.Currency).IsRequired().HasMaxLength(5);
+            builder.Property(s => s.Currency)
+                .IsRequired()
+                .HasMaxLength(Setting.CURRENCY_MAX_LENGTH);
         }
     }
 }

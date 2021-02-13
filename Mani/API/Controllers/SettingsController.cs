@@ -1,4 +1,5 @@
-﻿using Application.Business.Settings.GetSettings;
+﻿using Application.Business.Settings.EditSettings;
+using Application.Business.Settings.GetSettings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
@@ -22,6 +23,12 @@ namespace API.Controllers
         {
             var request = new GetSettingsQuery();
             return await Mediator.Send(request, token);
+        }
+
+        [HttpPut]
+        public async Task Put(EditSettingsCommand request, CancellationToken token)
+        {
+            await Mediator.Send(request, token);
         }
     }
 }

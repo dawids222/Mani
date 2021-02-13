@@ -18,5 +18,7 @@ namespace Domain.Entities
         {
             Currency = "PLN";
         }
+
+        public const int CURRENCY_MAX_LENGTH = 5;
     }
 }

@@ -20,5 +20,7 @@ namespace Resources.String.Languages
         public string ItemsPerPageMinError => "Liczba elementów na stronie musi być większa bądź równa {0}";
         public string ItemsPerPageMaxError => "Liczba elementów na stronie musi być mniejsza bądź równa {0}";
         public string PageMinError => "Strona musi być większa bądź równa {0}";
+
+        public string SettingsCurrencyMaxLengthError => "Waluta może zawierać maksymalnie {0} znaków";
     }
 }

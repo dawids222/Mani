@@ -18,5 +18,7 @@
         public string ItemsPerPageMinError { get; }
         public string ItemsPerPageMaxError { get; }
         public string PageMinError { get; }
+
+        public string SettingsCurrencyMaxLengthError { get; }
     }
 }
