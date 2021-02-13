@@ -13,21 +13,21 @@ namespace DAL.Repositories
         : Repository<T>, IAdvancedQueryRepository<T>
         where T : class, IEntity
     {
-        private IAdvancedQueryHandler<T> AdvancedQueryProcessor { get; }
+        protected IAdvancedQueryHandler<T> AdvancedQueryHandler { get; }
 
         public AdvancedQueryRepository(
             ApplicationDbContext context,
             IAdvancedQueryHandler<T> advancedQueryProcessor) : base(context)
         {
-            AdvancedQueryProcessor = advancedQueryProcessor;
+            AdvancedQueryHandler = advancedQueryProcessor;
         }
 
-        public async Task<PaginationVm<T>> GetAsync(IAdvancedQuery query, CancellationToken token)
+        public virtual async Task<PaginationVm<T>> GetAsync(IAdvancedQuery query, CancellationToken token)
         {
-            var items = await AdvancedQueryProcessor
+            var items = await AdvancedQueryHandler
                 .Process(Context.Set<T>(), query)
                 .ToListAsync(token);
-            return new PaginationVm<T>(items, AdvancedQueryProcessor.AllItemsCount);
+            return new PaginationVm<T>(items, AdvancedQueryHandler.AllItemsCount);
         }
     }
 }

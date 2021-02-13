@@ -88,6 +88,7 @@ namespace API
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<ISettingsRepository, SettingsRepository>();
+            services.AddTransient<IAccountsRepository, AccountsRepository>();
 
             services.AddTransient<ICurrentUserService, CurrentUserService>();
 

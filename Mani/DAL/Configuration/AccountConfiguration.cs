@@ -13,6 +13,7 @@ namespace DAL.Configuration
             builder.Property(a => a.Logo).IsRequired().HasMaxLength(255);
             builder.Property(a => a.Color).IsRequired().HasMaxLength(7);
             builder.Property(a => a.Description).HasMaxLength(255);
+            builder.Ignore(a => a.Balance);
             builder
                 .HasMany(a => a.OutboundTransactions)
                 .WithOne(t => t.Account)

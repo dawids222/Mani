@@ -17,41 +17,41 @@ namespace DAL.Repositories
             Context = context;
         }
 
-        public async Task AddAsync(T entity, CancellationToken token)
+        public virtual async Task AddAsync(T entity, CancellationToken token)
         {
             await Task.Delay(0, token);
             Context.Set<T>().Add(entity);
         }
 
-        public async Task<bool> ExistsAsync(long id, CancellationToken token)
+        public virtual async Task<bool> ExistsAsync(long id, CancellationToken token)
         {
             return await Context.Set<T>().AnyAsync(e => e.Id == id, token);
         }
 
-        public async Task<IEnumerable<T>> GetAsync(CancellationToken token)
+        public virtual async Task<IEnumerable<T>> GetAsync(CancellationToken token)
         {
             return await Context.Set<T>().ToListAsync(token);
         }
 
-        public async Task<T> GetAsync(long id, CancellationToken token)
+        public virtual async Task<T> GetAsync(long id, CancellationToken token)
         {
             return await Context.Set<T>().FirstOrDefaultAsync(e => e.Id == id, token);
         }
 
-        public async Task RemoveAsync(long id, CancellationToken token)
+        public virtual async Task RemoveAsync(long id, CancellationToken token)
         {
             var dbSet = Context.Set<T>();
             var entity = await dbSet.FirstOrDefaultAsync(e => e.Id == id, token);
             dbSet.Remove(entity);
         }
 
-        public async Task RemoveAsync(T entity, CancellationToken token)
+        public virtual async Task RemoveAsync(T entity, CancellationToken token)
         {
             await Task.Delay(0, token);
             Context.Set<T>().Remove(entity);
         }
 
-        public async Task SaveAsync(CancellationToken token)
+        public virtual async Task SaveAsync(CancellationToken token)
         {
             await Context.SaveChangesAsync(token);
         }
