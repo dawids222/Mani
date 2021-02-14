@@ -28,5 +28,8 @@
         public string AccountColorMaxLengthError { get; }
         public string AccountColorEmptyError { get; }
         public string AccountDescriptionMaxLengthError { get; }
+
+        public string AccountIdEmptyError { get; }
+        public string AccountIdNotExistOrBelongToUserError { get; }
     }
 }

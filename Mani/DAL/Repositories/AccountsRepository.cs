@@ -60,7 +60,14 @@ namespace DAL.Repositories
 
         public override async Task<Account> GetAsync(long id, CancellationToken token)
         {
-            return await AccountItems.FirstOrDefaultAsync(a => a.Id == id, token);
+            var result = await AccountItems.FirstOrDefaultAsync(a => a.Id == id, token);
+            Context.Attach(result);
+            return result;
+        }
+
+        public async Task<bool> ExistsAndBelongsToUserAsync(long accountId, long userId, CancellationToken token)
+        {
+            return await Context.Accounts.AnyAsync(a => a.Id == accountId && a.UserId == userId, token);
         }
     }
 }

@@ -30,5 +30,8 @@ namespace Resources.String.Languages
         public string AccountColorMaxLengthError => "Color may contain maximum of {0} characters";
         public string AccountColorEmptyError => "Color is required";
         public string AccountDescriptionMaxLengthError => "Description may contain maximum of {0} characters";
+
+        public string AccountIdEmptyError => "Account id is required";
+        public string AccountIdNotExistOrBelongToUserError => "Given account does not exist";
     }
 }

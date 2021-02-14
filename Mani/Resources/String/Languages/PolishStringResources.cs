@@ -30,5 +30,8 @@ namespace Resources.String.Languages
         public string AccountColorMaxLengthError => "Kolor może zawierać maksymalnie {0} znaków";
         public string AccountColorEmptyError => "Należy wybrać kolor";
         public string AccountDescriptionMaxLengthError => "Opis może zawierać maksymalnie {0} znaków";
+
+        public string AccountIdEmptyError => "Należy podać identyfikator konta";
+        public string AccountIdNotExistOrBelongToUserError => "Podane konto nie istnieje";
     }
 }

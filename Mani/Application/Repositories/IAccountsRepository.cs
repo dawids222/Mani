@@ -10,5 +10,6 @@ namespace Application.Repositories
     public interface IAccountsRepository : IAdvancedQueryRepository<Account>
     {
         Task<PaginationVm<Account>> GetAsync(long userId, IAdvancedQuery query, CancellationToken token);
+        Task<bool> ExistsAndBelongsToUserAsync(long accountId, long userId, CancellationToken token);
     }
 }

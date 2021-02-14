@@ -1,4 +1,5 @@
 ﻿using Application.Business.Accounts.AddAccount;
+using Application.Business.Accounts.EditAccount;
 using Application.Business.Accounts.GetAccounts;
 using Application.Requests.Queries;
 using MediatR;
@@ -30,6 +31,12 @@ namespace API.Controllers
         public async Task<AddAccountCommandVm> Post(AddAccountCommand request, CancellationToken token)
         {
             return await Mediator.Send(request, token);
+        }
+
+        [HttpPut]
+        public async Task Put(EditAccountCommand request, CancellationToken token)
+        {
+            await Mediator.Send(request, token);
         }
     }
 }
