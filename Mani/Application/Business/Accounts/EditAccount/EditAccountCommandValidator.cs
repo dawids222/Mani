@@ -1,5 +1,5 @@
 ﻿using Application.Business.Accounts.AddAccount;
-using Application.Business.Accounts.DeleteAccount;
+using Application.Business.Accounts.GetAccount;
 using Application.Common.Data;
 using Application.Common.Mapping;
 using Application.Common.Resources.String;
@@ -20,8 +20,8 @@ namespace Application.Business.Accounts.EditAccount
         {
             EntityMapper = entityMapper;
 
-            RuleFor(r => EntityMapper.MapTo<DeleteAccountCommand>(r))
-                .SetValidator(new DeleteAccountCommandValidator(accountsRepository, currentUserService, resource));
+            RuleFor(r => EntityMapper.MapTo<GetAccountQuery>(r))
+                .SetValidator(new GetAccountQueryValidator(accountsRepository, currentUserService, resource));
 
             RuleFor(r => EntityMapper.MapTo<AddAccountCommand>(r))
                 .SetValidator(new AddAccountCommandValidator(resource));

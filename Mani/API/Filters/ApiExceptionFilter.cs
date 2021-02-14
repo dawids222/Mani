@@ -40,6 +40,7 @@ namespace API.Filters
             else
             {
                 context.HttpContext.Response.StatusCode = 500;
+                apiError = context.Exception;
                 Logger.Error(apiError.Message);
             }
 

@@ -1,6 +1,7 @@
 ﻿using Application.Business.Accounts.AddAccount;
 using Application.Business.Accounts.DeleteAccount;
 using Application.Business.Accounts.EditAccount;
+using Application.Business.Accounts.GetAccount;
 using Application.Business.Accounts.GetAccounts;
 using Application.Requests.Queries;
 using MediatR;
@@ -25,6 +26,13 @@ namespace API.Controllers
         public async Task<GetAccountsQueryVm> Get([FromQuery] AdvancedQuery query, CancellationToken token)
         {
             var request = new GetAccountsQuery(query);
+            return await Mediator.Send(request, token);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<GetAccountQueryVm> Get(long id, CancellationToken token)
+        {
+            var request = new GetAccountQuery(id);
             return await Mediator.Send(request, token);
         }
 
