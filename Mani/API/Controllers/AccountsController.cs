@@ -1,4 +1,5 @@
 ﻿using Application.Business.Accounts.AddAccount;
+using Application.Business.Accounts.DeleteAccount;
 using Application.Business.Accounts.EditAccount;
 using Application.Business.Accounts.GetAccounts;
 using Application.Requests.Queries;
@@ -36,6 +37,13 @@ namespace API.Controllers
         [HttpPut]
         public async Task Put(EditAccountCommand request, CancellationToken token)
         {
+            await Mediator.Send(request, token);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(long id, CancellationToken token)
+        {
+            var request = new DeleteAccountCommand(id);
             await Mediator.Send(request, token);
         }
     }
