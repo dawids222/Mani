@@ -27,9 +27,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task Post(AddAccountCommand request, CancellationToken token)
+        public async Task<AddAccountCommandVm> Post(AddAccountCommand request, CancellationToken token)
         {
-            await Mediator.Send(request, token);
+            return await Mediator.Send(request, token);
         }
     }
 }
