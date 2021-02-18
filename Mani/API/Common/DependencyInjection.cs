@@ -43,6 +43,7 @@ namespace API.Common
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<ISettingsRepository, SettingsRepository>();
             services.AddTransient<IAccountsRepository, AccountsRepository>();
+            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
 
             services.AddTransient<ICurrentUserService, CurrentUserService>();
 

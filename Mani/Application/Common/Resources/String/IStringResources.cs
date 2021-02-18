@@ -31,5 +31,8 @@
 
         public string AccountIdEmptyError { get; }
         public string AccountIdNotExistOrBelongToUserError { get; }
+
+        public string CategoryIdEmptyError { get; }
+        public string CategoryIdNotExistOrBelongToUserError { get; }
     }
 }

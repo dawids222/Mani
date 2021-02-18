@@ -33,5 +33,8 @@ namespace Resources.String.Languages
 
         public string AccountIdEmptyError => "Account id is required";
         public string AccountIdNotExistOrBelongToUserError => "Given account does not exist";
+
+        public string CategoryIdEmptyError => "Category id is required";
+        public string CategoryIdNotExistOrBelongToUserError => "Given category does not exist";
     }
 }

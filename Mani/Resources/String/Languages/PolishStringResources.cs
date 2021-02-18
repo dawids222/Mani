@@ -33,5 +33,8 @@ namespace Resources.String.Languages
 
         public string AccountIdEmptyError => "Należy podać identyfikator konta";
         public string AccountIdNotExistOrBelongToUserError => "Podane konto nie istnieje";
+
+        public string CategoryIdEmptyError => "Należy podać identyfikator kategorii";
+        public string CategoryIdNotExistOrBelongToUserError => "Podana kategoria nie istnieje";
     }
 }
