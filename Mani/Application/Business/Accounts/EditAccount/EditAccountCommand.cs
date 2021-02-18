@@ -15,19 +15,11 @@ namespace Application.Business.Accounts.EditAccount
         public string Description { get; set; }
     }
 
-    public class EditAccountCommandHandler : IRequestHandler<EditAccountCommand>
+    public record EditAccountCommandHandler(
+            IAccountsRepository AccountsRepository,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<EditAccountCommand>
     {
-        private IAccountsRepository AccountsRepository { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public EditAccountCommandHandler(
-            IAccountsRepository accountsRepository,
-            IEntityMapper entityMapper)
-        {
-            AccountsRepository = accountsRepository;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<Unit> Handle(EditAccountCommand request, CancellationToken cancellationToken)
         {
             var account = await AccountsRepository.GetAsync(request.Id, cancellationToken);

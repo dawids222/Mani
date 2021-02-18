@@ -16,22 +16,12 @@ namespace Application.Business.Accounts.AddAccount
         public string Description { get; set; }
     }
 
-    public class AddAccountCommandHandler : IRequestHandler<AddAccountCommand, AddAccountCommandVm>
+    public record AddAccountCommandHandler(
+            IAccountsRepository AccountsRepository,
+            ICurrentUserService CurrentUserService,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<AddAccountCommand, AddAccountCommandVm>
     {
-        private IAccountsRepository AccountsRepository { get; }
-        private ICurrentUserService CurrentUserService { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public AddAccountCommandHandler(
-            IAccountsRepository accountsRepository,
-            ICurrentUserService currentUserService,
-            IEntityMapper entityMapper)
-        {
-            AccountsRepository = accountsRepository;
-            CurrentUserService = currentUserService;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<AddAccountCommandVm> Handle(AddAccountCommand request, CancellationToken cancellationToken)
         {
             var newAccount = EntityMapper.MapTo<Account>(request);

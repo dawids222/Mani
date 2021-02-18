@@ -9,9 +9,9 @@ namespace Application.Business.Categories.GetCategory
     public record GetCategoryQuery(long Id) : IRequest<GetCategoryQueryVm>;
 
     public record GetCategoryQueryHandler(
-        ICategoriesRepository CategoriesRepository,
-        IEntityMapper EntityMapper)
-        : IRequestHandler<GetCategoryQuery, GetCategoryQueryVm>
+            ICategoriesRepository CategoriesRepository,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<GetCategoryQuery, GetCategoryQueryVm>
     {
         public async Task<GetCategoryQueryVm> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {

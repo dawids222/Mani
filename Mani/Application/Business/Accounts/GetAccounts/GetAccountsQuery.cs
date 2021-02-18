@@ -8,32 +8,14 @@ using System.Threading.Tasks;
 
 namespace Application.Business.Accounts.GetAccounts
 {
-    public class GetAccountsQuery : IRequest<GetAccountsQueryVm>
+    public record GetAccountsQuery(IAdvancedQuery Query) : IRequest<GetAccountsQueryVm>;
+
+    public record GetAccountsQueryHandler(
+            IAccountsRepository AccountsRepository,
+            ICurrentUserService CurrentUserService,
+            IEntityMapper EntityMapper)
+        : IRequestHandler<GetAccountsQuery, GetAccountsQueryVm>
     {
-        public IAdvancedQuery Query { get; set; }
-
-        public GetAccountsQuery(IAdvancedQuery query)
-        {
-            Query = query;
-        }
-    }
-
-    public class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, GetAccountsQueryVm>
-    {
-        private IAccountsRepository AccountsRepository { get; }
-        private ICurrentUserService CurrentUserService { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public GetAccountsQueryHandler(
-            IAccountsRepository accountsRepository,
-            ICurrentUserService currentUserService,
-            IEntityMapper entityMapper)
-        {
-            AccountsRepository = accountsRepository;
-            CurrentUserService = currentUserService;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<GetAccountsQueryVm> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
         {
             var userId = CurrentUserService.UserId.Value;

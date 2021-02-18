@@ -14,19 +14,11 @@ namespace Application.Business.Authentication.Register
         public string PasswordConfirmation { get; set; }
     }
 
-    public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterCommandVm>
+    public record RegisterCommandHandler(
+            IUsersRepository UsersRepository,
+            IEncryptor Encryptor
+        ) : IRequestHandler<RegisterCommand, RegisterCommandVm>
     {
-        private IUsersRepository UsersRepository { get; }
-        private IEncryptor Encryptor { get; }
-
-        public RegisterCommandHandler(
-            IUsersRepository usersRepository,
-            IEncryptor encryptor)
-        {
-            UsersRepository = usersRepository;
-            Encryptor = encryptor;
-        }
-
         public async Task<RegisterCommandVm> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             var newSettings = new Setting();

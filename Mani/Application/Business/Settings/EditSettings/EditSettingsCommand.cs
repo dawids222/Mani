@@ -12,29 +12,17 @@ namespace Application.Business.Settings.EditSettings
         public string Currency { get; set; }
     }
 
-    public class EditSettingsCommandHandler : IRequestHandler<EditSettingsCommand>
+    public record EditSettingsCommandHandler(
+            ISettingsRepository SettingsRepository,
+            ICurrentUserService CurrentUserService,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<EditSettingsCommand>
     {
-        private ISettingsRepository SettingsRepository { get; }
-        private ICurrentUserService CurrentUserService { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public EditSettingsCommandHandler(
-            ISettingsRepository settingsRepository,
-            ICurrentUserService currentUserService,
-            IEntityMapper entityMapper)
-        {
-            SettingsRepository = settingsRepository;
-            CurrentUserService = currentUserService;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<Unit> Handle(EditSettingsCommand request, CancellationToken cancellationToken)
         {
             var userId = CurrentUserService.UserId.Value;
             var settings = await SettingsRepository.GetForUserAsync(userId, cancellationToken);
-
             EntityMapper.Copy(settings, request);
-
             await SettingsRepository.SaveAsync(cancellationToken);
 
             return Unit.Value;

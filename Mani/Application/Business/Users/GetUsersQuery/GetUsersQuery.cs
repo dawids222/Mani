@@ -7,29 +7,13 @@ using System.Threading.Tasks;
 
 namespace Application.Business.Users.GetUsersQuery
 {
-    public class GetUsersQuery : IRequest<GetUsersQueryVm>
+    public record GetUsersQuery(IAdvancedQuery Query) : IRequest<GetUsersQueryVm>;
+
+    public record GetUsersQueryHandler(
+            IUsersRepository UsersRepository,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<GetUsersQuery, GetUsersQueryVm>
     {
-        public IAdvancedQuery Query { get; }
-
-        public GetUsersQuery(IAdvancedQuery query)
-        {
-            Query = query;
-        }
-    }
-
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, GetUsersQueryVm>
-    {
-        private IUsersRepository UsersRepository { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public GetUsersQueryHandler(
-            IUsersRepository usersRepository,
-            IEntityMapper entityMapper)
-        {
-            UsersRepository = usersRepository;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<GetUsersQueryVm> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var users = await UsersRepository.GetAsync(request.Query, cancellationToken);

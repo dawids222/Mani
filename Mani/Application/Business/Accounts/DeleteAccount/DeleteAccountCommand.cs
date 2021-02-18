@@ -5,25 +5,12 @@ using System.Threading.Tasks;
 
 namespace Application.Business.Accounts.DeleteAccount
 {
-    public class DeleteAccountCommand : IRequest
+    public record DeleteAccountCommand(long Id) : IRequest;
+
+    public record DeleteAccountCommandHandler(
+            IAccountsRepository AccountsRepository
+        ) : IRequestHandler<DeleteAccountCommand>
     {
-        public long Id { get; set; }
-
-        public DeleteAccountCommand(long id)
-        {
-            Id = id;
-        }
-    }
-
-    public class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand>
-    {
-        private IAccountsRepository AccountsRepository { get; }
-
-        public DeleteAccountCommandHandler(IAccountsRepository accountsRepository)
-        {
-            AccountsRepository = accountsRepository;
-        }
-
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
             await AccountsRepository.RemoveAsync(request.Id, cancellationToken);

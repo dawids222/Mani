@@ -9,22 +9,12 @@ namespace Application.Business.Settings.GetSettings
 {
     public class GetSettingsQuery : IRequest<GetSettingsQueryVm> { }
 
-    public class GetSettingsQueryHandler : IRequestHandler<GetSettingsQuery, GetSettingsQueryVm>
+    public record GetSettingsQueryHandler(
+            ICurrentUserService CurrentUserService,
+            ISettingsRepository SettingsRepository,
+            IEntityMapper EntityMapper
+        ) : IRequestHandler<GetSettingsQuery, GetSettingsQueryVm>
     {
-        private ICurrentUserService CurrentUserService { get; }
-        private ISettingsRepository SettingsRepository { get; }
-        private IEntityMapper EntityMapper { get; }
-
-        public GetSettingsQueryHandler(
-            ICurrentUserService currentUserService,
-            ISettingsRepository settingsRepository,
-            IEntityMapper entityMapper)
-        {
-            CurrentUserService = currentUserService;
-            SettingsRepository = settingsRepository;
-            EntityMapper = entityMapper;
-        }
-
         public async Task<GetSettingsQueryVm> Handle(GetSettingsQuery request, CancellationToken cancellationToken)
         {
             var userId = CurrentUserService.UserId.Value;

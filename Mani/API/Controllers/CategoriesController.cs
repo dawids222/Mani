@@ -19,6 +19,5 @@ namespace API.Controllers
             var request = new GetCategoryQuery(id);
             return await Mediator.Send(request, token);
         }
-
     }
 }
