@@ -1,7 +1,7 @@
-﻿using Application.Business.Authentication.Login;
+﻿using API.Controllers.Contract;
+using Application.Business.Authentication.Login;
 using Application.Business.Authentication.Register;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,14 +10,9 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthenticationController
+    public class AuthenticationController : BaseController
     {
-        private IMediator Mediator { get; }
-
-        public AuthenticationController(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        public AuthenticationController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("register")]
         public async Task<RegisterCommandVm> Register(RegisterCommand request, CancellationToken token)

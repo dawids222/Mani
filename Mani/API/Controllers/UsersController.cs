@@ -1,4 +1,5 @@
-﻿using Application.Business.Users.GetUsersQuery;
+﻿using API.Controllers.Contract;
+using Application.Business.Users.GetUsersQuery;
 using Application.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,14 +10,9 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController
+    public class UsersController : BaseController
     {
-        private IMediator Mediator { get; }
-
-        public UsersController(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        public UsersController(IMediator mediator) : base(mediator) { }
 
         [HttpGet]
         public async Task<GetUsersQueryVm> Get([FromQuery] AdvancedQuery query, CancellationToken token)

@@ -1,4 +1,5 @@
-﻿using Application.Business.Settings.EditSettings;
+﻿using API.Controllers.Contract;
+using Application.Business.Settings.EditSettings;
 using Application.Business.Settings.GetSettings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,14 +10,9 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SettingsController
+    public class SettingsController : BaseController
     {
-        private IMediator Mediator { get; }
-
-        public SettingsController(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        public SettingsController(IMediator mediator) : base(mediator) { }
 
         [HttpGet]
         public async Task<GetSettingsQueryVm> Get(CancellationToken token)

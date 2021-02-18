@@ -1,4 +1,5 @@
-﻿using Application.Business.Accounts.AddAccount;
+﻿using API.Controllers.Contract;
+using Application.Business.Accounts.AddAccount;
 using Application.Business.Accounts.DeleteAccount;
 using Application.Business.Accounts.EditAccount;
 using Application.Business.Accounts.GetAccount;
@@ -13,14 +14,9 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/accounts")]
-    public class AccountsController
+    public class AccountsController : BaseController
     {
-        private IMediator Mediator { get; }
-
-        public AccountsController(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        public AccountsController(IMediator mediator) : base(mediator) { }
 
         [HttpGet]
         public async Task<GetAccountsQueryVm> Get([FromQuery] AdvancedQuery query, CancellationToken token)
