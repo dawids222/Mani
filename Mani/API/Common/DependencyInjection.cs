@@ -34,10 +34,10 @@ namespace API.Common
             services.AddSingleton<ILogger, LogLiteLogger>();
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddValidatorsFromAssembly(typeof(GetUsersQuery).Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
             services.AddAuthorizersFromAssembly(typeof(GetUsersQuery).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineAuthorizationBehavior<,>));
+            services.AddValidatorsFromAssembly(typeof(GetUsersQuery).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DatabaseConnection")));
             services.AddTransient<IUsersRepository, UsersRepository>();
