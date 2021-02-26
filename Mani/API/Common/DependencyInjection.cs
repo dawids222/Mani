@@ -10,6 +10,7 @@ using Application.Common.Security.Encryption;
 using Application.Common.Security.JWT;
 using Application.Repositories;
 using Application.Requests.Handlers;
+using Cache.Business.Settings;
 using Common.Logging;
 using Common.Mapping;
 using DAL;
@@ -20,7 +21,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Resources.String;
 using System;
 
@@ -30,14 +30,19 @@ namespace API.Common
     {
         internal static void Configure(IServiceCollection services, IConfiguration configuration)
         {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMemoryCache(options => options.SizeLimit = 1024);
+            services.AddDistributedMemoryCache(options => options.SizeLimit = 1024);
+            services.AddHttpContextAccessor();
             services.AddSingleton<ILogger, LogLiteLogger>();
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAuthorizersFromAssembly(typeof(GetUsersQuery).Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineAuthorizationBehavior<,>));
             services.AddValidatorsFromAssembly(typeof(GetUsersQuery).Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
+            services.AddCachersFromAssembly(typeof(GetSettingsQueryCache).Assembly);
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineAuthorizationBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineValidationBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineCacheInvalidationBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PipelineCacheBehovior<,>));
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DatabaseConnection")));
             services.AddTransient<IUsersRepository, UsersRepository>();

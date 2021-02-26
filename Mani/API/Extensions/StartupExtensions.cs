@@ -1,4 +1,5 @@
 ﻿using Application.Authorization.Contract;
+using Cache.Contract;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,13 +19,34 @@ namespace API.Extensions
                 .ForEach(item => services.AddTransient(item.InterfaceType, item.ValidatorType));
         }
 
+        public static void AddCachersFromAssembly(
+            this IServiceCollection services,
+            Assembly assembly,
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        {
+            var cacheType = typeof(ICache<,>);
+            RegisterTypesAssignableTo(cacheType, services, assembly, lifetime);
+
+            var cacheInvalidatorType = typeof(ICacheInvalidator<>);
+            RegisterTypesAssignableTo(cacheInvalidatorType, services, assembly, lifetime);
+        }
+
         public static void AddAuthorizersFromAssembly(
             this IServiceCollection services,
             Assembly assembly,
-            ServiceLifetime lifetime = ServiceLifetime.Transient)
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
         {
             var authorizerType = typeof(IAuthorizer<>);
-            assembly.GetTypesAssignableTo(authorizerType).ForEach(type =>
+            RegisterTypesAssignableTo(authorizerType, services, assembly, lifetime);
+        }
+
+        private static void RegisterTypesAssignableTo(
+            Type type,
+            IServiceCollection services,
+            Assembly assembly,
+            ServiceLifetime lifetime)
+        {
+            assembly.GetTypesAssignableTo(type).ForEach(type =>
             {
                 foreach (var implementedInterface in type.ImplementedInterfaces)
                     switch (lifetime)
