@@ -15,7 +15,8 @@ namespace Resources.String.Languages
         public string DataLoginError => "Niepoprawne dane logowania";
 
         public string AuthenticationError => "Brak dostępu dla niezalogowanego użytkownika";
-        public string AuthenticationUserDeletedError => "Wykonana żądanie jako użytkownik, który już nie istnieje. Proszę zaloguj się na inne konto";
+        public string AuthenticationUserDeletedError => "Wykonano żądanie jako użytkownik, który już nie istnieje. Proszę zaloguj się na inne konto";
+        public string AuthorizationUserTypeError => "Brak dostępu dla użytkownika z niewystarczającymi uprawnieniami";
 
         public string ItemsPerPageMinError => "Liczba elementów na stronie musi być większa bądź równa {0}";
         public string ItemsPerPageMaxError => "Liczba elementów na stronie musi być mniejsza bądź równa {0}";

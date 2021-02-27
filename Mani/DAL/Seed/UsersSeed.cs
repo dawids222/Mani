@@ -31,7 +31,7 @@ namespace DAL.Seed
             {
                 Context.Users.Add(admin);
             }
-            else if (isNotAdmin(dbAdmin) || haveDifferentPasswords(dbAdmin, admin))
+            else if (IsNotAdmin(dbAdmin) || HaveDifferentPasswords(dbAdmin, admin))
             {
                 Context.Users.Remove(dbAdmin);
                 admin.Password = Encryptor.Encrypt(admin.Password);
@@ -39,8 +39,8 @@ namespace DAL.Seed
             }
         }
 
-        private bool isNotAdmin(User user) => user.Type != UserType.ADMIN;
-        private bool haveDifferentPasswords(User dbUser, User user) => !Encryptor.Match(dbUser.Password, user.Password);
+        private bool IsNotAdmin(User user) => user.Type != UserType.ADMIN;
+        private bool HaveDifferentPasswords(User dbUser, User user) => !Encryptor.Match(dbUser.Password, user.Password);
 
     }
 }

@@ -9,22 +9,12 @@ namespace Application.Authorization.Requirements
 {
     public class MustBeAuthenticatedRequirement : IAuthorizationRequirement
     {
-        private class MustBeAuthenticatedRequirementHandler : IAuthorizationHandler<MustBeAuthenticatedRequirement>
+        private record MustBeAuthenticatedRequirementHandler(
+            ICurrentUserService CurrentUserService,
+            IUsersRepository UsersRepository,
+            IStringResources Resources)
+            : IAuthorizationHandler<MustBeAuthenticatedRequirement>
         {
-            private IUsersRepository UsersRepository { get; }
-            private ICurrentUserService CurrentUserService { get; }
-            private IStringResources Resources { get; }
-
-            public MustBeAuthenticatedRequirementHandler(
-                ICurrentUserService currentUserService,
-                IUsersRepository usersRepository,
-                IStringResources resources)
-            {
-                CurrentUserService = currentUserService;
-                UsersRepository = usersRepository;
-                Resources = resources;
-            }
-
             public async Task<AuthorizationResult> Handle(
                 MustBeAuthenticatedRequirement request,
                 CancellationToken cancellationToken)

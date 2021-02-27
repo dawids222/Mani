@@ -1,4 +1,5 @@
 ﻿using Application.Requests.Responses;
+using Domain.Enums;
 using System.Collections.Generic;
 
 namespace Application.Business.Users.GetUsersQuery
@@ -14,5 +15,6 @@ namespace Application.Business.Users.GetUsersQuery
     {
         public long Id { get; set; }
         public string Email { get; set; }
+        public UserType Type { get; set; }
     }
 }

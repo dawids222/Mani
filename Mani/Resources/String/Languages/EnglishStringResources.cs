@@ -16,6 +16,7 @@ namespace Resources.String.Languages
 
         public string AuthenticationError => "Access denied for not logged in user";
         public string AuthenticationUserDeletedError => "Logged in as a deleted user. Please log in to diffent account";
+        public string AuthorizationUserTypeError => "Access denied for user with insufficient privileges";
 
         public string ItemsPerPageMinError => "The number of elements on the page must be greater than or equal to {0}";
         public string ItemsPerPageMaxError => "The number of elements on the page must be less than or equal to {0}";

@@ -55,7 +55,7 @@ namespace API.Common
             services.AddSeedsFromAssembly(typeof(ISeed).Assembly);
             services.AddScoped<Seeder>();
 
-            services.AddTransient<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddTransient<IEncryptor, PBKDF2Encyptor>();
             services.AddTransient<IJwtService, JwtService>();

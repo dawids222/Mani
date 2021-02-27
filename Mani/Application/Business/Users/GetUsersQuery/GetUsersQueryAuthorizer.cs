@@ -2,5 +2,5 @@
 
 namespace Application.Business.Users.GetUsersQuery
 {
-    public class GetUsersQueryAuthorizer : RequestAuthenticationAuthorizer<GetUsersQuery> { }
+    public class GetUsersQueryAuthorizer : RequestAdminAuthorizer<GetUsersQuery> { }
 }

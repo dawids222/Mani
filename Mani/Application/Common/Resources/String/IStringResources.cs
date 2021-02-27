@@ -14,6 +14,7 @@
 
         public string AuthenticationError { get; }
         public string AuthenticationUserDeletedError { get; }
+        public string AuthorizationUserTypeError { get; }
 
         public string ItemsPerPageMinError { get; }
         public string ItemsPerPageMaxError { get; }
