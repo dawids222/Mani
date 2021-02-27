@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,6 +12,7 @@ namespace DAL.Configuration
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Email).IsRequired().HasMaxLength(255);
             builder.Property(u => u.Password).IsRequired().HasMaxLength(255);
+            builder.Property(u => u.Type).IsRequired().HasDefaultValue(UserType.USER);
             builder
                 .HasOne(u => u.Settings)
                 .WithOne(s => s.User)

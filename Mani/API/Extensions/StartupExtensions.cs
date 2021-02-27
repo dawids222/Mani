@@ -1,5 +1,6 @@
 ﻿using Application.Authorization.Contract;
 using Cache.Contract;
+using DAL.Seed.Contract;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -40,13 +41,25 @@ namespace API.Extensions
             RegisterTypesAssignableTo(authorizerType, services, assembly, lifetime);
         }
 
+        public static void AddSeedsFromAssembly(
+            this IServiceCollection services,
+            Assembly assembly)
+        {
+            var seedType = typeof(ISeed);
+            RegisterTypesAssignableTo(seedType, services, assembly, ServiceLifetime.Scoped, false);
+        }
+
         private static void RegisterTypesAssignableTo(
             Type type,
             IServiceCollection services,
             Assembly assembly,
-            ServiceLifetime lifetime)
+            ServiceLifetime lifetime,
+            bool isGeneric = true)
         {
-            assembly.GetTypesAssignableTo(type).ForEach(type =>
+            (isGeneric
+                ? assembly.GetGenericTypesAssignableTo(type)
+                : assembly.GetTypesAssignableTo(type))
+            .ForEach(type =>
             {
                 foreach (var implementedInterface in type.ImplementedInterfaces)
                     switch (lifetime)
@@ -66,7 +79,20 @@ namespace API.Extensions
 
         private static List<TypeInfo> GetTypesAssignableTo(this Assembly assembly, Type compareType)
         {
-            var typeInfoList = assembly.DefinedTypes
+            return assembly.DefinedTypes
+                .Where(x =>
+                    x.IsClass &&
+                    !x.IsAbstract &&
+                    x != compareType &&
+                    x.GetInterfaces()
+                        .Any(i => compareType.IsAssignableFrom(i))
+                )
+                .ToList();
+        }
+
+        private static List<TypeInfo> GetGenericTypesAssignableTo(this Assembly assembly, Type compareType)
+        {
+            return assembly.DefinedTypes
                 .Where(x =>
                     x.IsClass &&
                     !x.IsAbstract &&
@@ -75,8 +101,6 @@ namespace API.Extensions
                         i.IsGenericType &&
                         i.GetGenericTypeDefinition() == compareType)
                 )?.ToList();
-
-            return typeInfoList;
         }
     }
 }

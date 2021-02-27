@@ -16,6 +16,8 @@ using Common.Mapping;
 using DAL;
 using DAL.Handlers;
 using DAL.Repositories;
+using DAL.Seed;
+using DAL.Seed.Contract;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +51,9 @@ namespace API.Common
             services.AddTransient<ISettingsRepository, SettingsRepository>();
             services.AddTransient<IAccountsRepository, AccountsRepository>();
             services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+
+            services.AddSeedsFromAssembly(typeof(ISeed).Assembly);
+            services.AddScoped<Seeder>();
 
             services.AddTransient<ICurrentUserService, CurrentUserService>();
 

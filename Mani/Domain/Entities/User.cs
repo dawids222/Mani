@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Contract;
+using Domain.Enums;
 using System.Collections.Generic;
 
 namespace Domain.Entities
@@ -6,6 +7,7 @@ namespace Domain.Entities
     public class User : IEntity
     {
         public long Id { get; set; }
+        public UserType Type { get; set; } = UserType.USER;
         public string Email { get; set; }
         public string Password { get; set; }
         public Setting Settings { get; set; }
@@ -24,9 +26,16 @@ namespace Domain.Entities
             Password = password;
         }
 
-        public User(string email, string password, Setting settings) : this(email, password)
+        public User(string email, string password, Setting settings)
+            : this(email, password)
         {
             Settings = settings;
+        }
+
+        public User(string email, string password, Setting settings, UserType type)
+            : this(email, password, settings)
+        {
+            Type = type;
         }
     }
 }

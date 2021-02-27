@@ -24,7 +24,6 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers(options =>
             {
                 options.Filters.Add<ApiExceptionFilter>();
